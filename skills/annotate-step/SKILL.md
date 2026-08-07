@@ -7,17 +7,30 @@ description: Create a multi-face annotated PDF from any STEP file. Extracts name
 
 Produces a color-annotated PDF from any STEP file showing selected faces with hole callouts.
 
-**Required tool**: `mcp__freecad__execute_code`
-**Required Python packages**: `matplotlib`, `reportlab`, `Pillow`
-
 ---
 
-## Step 0 — Install dependencies
+## How to run the code (Windows, no MCP)
 
-Run this first if packages may be missing:
-```bash
-pip3 install reportlab pillow --break-system-packages -q
+There is **no FreeCAD MCP server** on this machine. Everything — geometry extraction *and* PDF generation — runs through FreeCAD's bundled Python interpreter:
+
 ```
+%LOCALAPPDATA%\Programs\FreeCAD 1.1\bin\python.exe
+```
+
+Procedure:
+
+1. Write the script to the session scratchpad directory with the Write tool (e.g. `<scratchpad>\fc_annotate.py`).
+2. Run it from PowerShell:
+   ```
+   & "%LOCALAPPDATA%\Programs\FreeCAD 1.1\bin\python.exe" "<scratchpad>\fc_annotate.py"
+   ```
+3. `print()` output comes straight back on stdout — the `jq`/`/tmp` round-trip the MCP version needed is **obsolete**. Read the summary directly.
+
+That interpreter (Python 3.11) already provides `FreeCAD`, `Part`, `Import`, `importDXF`, `Draft`, `matplotlib`, `reportlab` and `Pillow` — **no install step is needed**. Do **not** use the Windows `python` (3.13): it has matplotlib/reportlab/Pillow but cannot import FreeCAD.
+
+Each run is a separate process, so a FreeCAD document does not survive between scripts. Steps 2–3 re-read the STEP file each time; step 5 works from the JSON written in step 3.
+
+Use the session scratchpad for intermediate files (JSON, PNG) rather than `/tmp`. Windows path rules: always use raw strings (`r"C:\..."`). Accented paths work fine with FreeCAD.
 
 ---
 
@@ -29,7 +42,8 @@ Ask the user (if not already provided):
 3. **Which threads to annotate** — per face, e.g. "left/right: M3×0.5 and M5×0.8; bottom: M3×0.5 and M4×0.7"
 4. **PDF layout** — e.g. "single page, left+right panels on top row, bottom panel spanning full bottom row"
 
-Default CAD directory: `/Users/chinnadevarapu/Documents/Antigravity/CAD/`
+Sample STEP files ship with the upstream repo at:
+`<your-projects-dir>\claude-cad-skills\examples\`
 
 ---
 
@@ -39,12 +53,12 @@ Default CAD directory: `/Users/chinnadevarapu/Documents/Antigravity/CAD/`
 
 Instead, enumerate ALL faces, group by dominant normal axis, and pick the correct one using bounding box coordinates.
 
-Run this discovery code first:
+Run this discovery script first:
 
 ```python
-import Part, json, math
+import Part
 
-step_path = "STEP_FILE_PATH_HERE"
+step_path = r"STEP_FILE_PATH_HERE"
 shape = Part.Shape()
 shape.read(step_path)
 
@@ -57,31 +71,35 @@ for i, f in enumerate(shape.Faces):
     area = f.Area
     # Print faces that are planar (dominant axis > 0.9) and large enough
     dominant = max(abs(n.x), abs(n.y), abs(n.z))
-    if dominant > 0.9 and area > 100:  # area in mm²
+    if dominant > 0.9 and area > 100:  # area in mm2
         axis = "X" if abs(n.x) > 0.9 else ("Y" if abs(n.y) > 0.9 else "Z")
-        sign = "+" if (n.x if abs(n.x)>0.9 else (n.y if abs(n.y)>0.9 else n.z)) > 0 else "-"
-        bb_val = bb.XMin if axis=="X" else (bb.YMin if axis=="Y" else bb.ZMin)
-        print(f"Face {i:3d}: normal={sign}{axis}  area={area:.0f}mm²  "
+        sign = "+" if (n.x if abs(n.x) > 0.9 else (n.y if abs(n.y) > 0.9 else n.z)) > 0 else "-"
+        bb_val = bb.XMin if axis == "X" else (bb.YMin if axis == "Y" else bb.ZMin)
+        print(f"Face {i:3d}: normal={sign}{axis}  area={area:.0f}mm2  "
               f"BB_{axis}={bb_val:.2f}  wires={len(f.Wires)}")
-
-with open("/tmp/face_discovery.txt", "w") as f_out:
-    f_out.write("done")
-print("\nSaved marker to /tmp/face_discovery.txt")
 ```
 
-Read the output:
-```bash
-jq -r '.result[].stdout // empty' <TOOL_RESULT_FILE> | head -80
-```
-
-**From the output, identify the correct face index for each panel:**
+**From the stdout, identify the correct face index for each panel:**
 - Left outer face: large X-normal face with the most negative BoundBox.XMin (or XMax)
 - Right outer face: large X-normal face with the most positive BoundBox.XMax
 - Top face: Z-normal face with most positive ZMax
 - Bottom face: Z-normal face with most negative ZMin
 - Front/Back: Y-normal faces
 
-Write down the face indices (e.g. face 52 = left outer, face 54 = right outer, face 4 = bottom).
+**These are hints, not a rule — always sanity-check the pick.** On
+`examples/frame_250108.step` the extreme-coordinate heuristic works for the
+X-normal faces (face 128 = left outer at x = −71.228, face 127 = right outer at
+x = +72.422, both 1793–2974 mm²) but **fails for the bottom**: `min(ZMin)`
+returns face 109, a thin sliver with **zero holes** whose outline
+self-intersects and renders as a bowtie in the PDF.
+
+Reject a candidate face when any of these hold, and go back to the discovery
+list (or ask the user):
+- it has **no holes** (`len(face.Wires) == 1`) while the panel is supposed to show holes;
+- its area is far smaller than the other panels';
+- the plotted outline crosses itself.
+
+Write down the confirmed face indices before moving on.
 
 ---
 
@@ -89,12 +107,12 @@ Write down the face indices (e.g. face 52 = left outer, face 54 = right outer, f
 
 **CRITICAL hole data rule**: Store **3D coordinates** (cx, cy, cz) for all holes — NOT 2D. This is required for correct projection in Step 5.
 
-Run this extraction code with the identified face indices:
-
 ```python
 import Part, json, math
 
-step_path = "STEP_FILE_PATH_HERE"
+step_path = r"STEP_FILE_PATH_HERE"
+json_path = r"<scratchpad>\PART_NAME_faces.json"
+
 shape = Part.Shape()
 shape.read(step_path)
 
@@ -117,7 +135,7 @@ def get_holes(face):
                 c = curve.Center
                 holes.append({"idx": i, "cx": c.x, "cy": c.y, "cz": c.z, "r": curve.Radius})
                 continue
-            except:
+            except Exception:
                 pass
         # Fallback: discretize and compute centroid + mean radius
         all_pts = []
@@ -127,8 +145,8 @@ def get_holes(face):
         ys = [p[1] for p in all_pts]
         zs = [p[2] for p in all_pts]
         cx = sum(xs)/len(xs); cy = sum(ys)/len(ys); cz = sum(zs)/len(zs)
-        r = sum(math.sqrt((x-cx)**2+(y-cy)**2+(z-cz)**2)
-                for x,y,z in zip(xs,ys,zs)) / len(xs)
+        r = sum(math.sqrt((x-cx)**2 + (y-cy)**2 + (z-cz)**2)
+                for x, y, z in zip(xs, ys, zs)) / len(xs)
         holes.append({"idx": i, "cx": cx, "cy": cy, "cz": cz, "r": r})
     return holes
 
@@ -140,7 +158,7 @@ out = {
     "bottom": {"outer": get_outer_pts(faces[4]),  "holes": get_holes(faces[4])},
 }
 
-with open("/tmp/PART_NAME_faces.json", "w") as f:
+with open(json_path, "w") as f:
     json.dump(out, f)
 
 # Print hole summary for verification
@@ -149,12 +167,7 @@ for name, fdata in out.items():
     for h in sorted(fdata["holes"], key=lambda h: h["r"]):
         print(f"  r={h['r']:.3f}  cx={h['cx']:.2f}  cy={h['cy']:.2f}  cz={h['cz']:.2f}")
 
-print("\nSaved to /tmp/PART_NAME_faces.json")
-```
-
-Read hole summary:
-```bash
-jq -r '.result[].stdout // empty' <TOOL_RESULT_FILE> | head -80
+print(f"\nSaved to {json_path}")
 ```
 
 **Verify the printed hole table matches the thread sizes the user specified.** If radii don't match expectations, re-examine the face discovery output and try different face indices.
@@ -209,7 +222,7 @@ ax_bottom = fig.add_subplot(gs[1, :])   # gs[1, :] spans full bottom row
 
 For 3 equal panels side by side: `fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(18, 8))`
 
-### Complete draw function
+### Complete draw script
 
 ```python
 import json, math
@@ -223,8 +236,9 @@ from reportlab.pdfgen import canvas as rl_canvas
 from reportlab.lib.units import mm
 from PIL import Image as PILImage
 
-JSON_PATH  = "/tmp/PART_NAME_faces.json"
-OUT_PDF    = "/path/to/output/PART_NAME_annotated.pdf"
+JSON_PATH  = r"<scratchpad>\PART_NAME_faces.json"
+IMG_PATH   = r"<scratchpad>\annotated_preview.png"
+OUT_PDF    = r"C:\path\to\output\PART_NAME_annotated.pdf"
 PART_LABEL = "PART_NAME"
 
 # Define thread classes per face group: label → (r_min, r_max, hex_color)
@@ -340,13 +354,12 @@ draw_panel(ax_bottom, bot_outer_pts,   bot_holes,   BOT_CLASSES,
 fig.suptitle(f"{PART_LABEL} \u2014 Annotated Hole Views",
              fontsize=13, fontweight='bold', y=0.98)
 
-img_path = "/tmp/annotated_preview.png"
-plt.savefig(img_path, dpi=150, bbox_inches='tight', facecolor='white')
+plt.savefig(IMG_PATH, dpi=150, bbox_inches='tight', facecolor='white')
 plt.close()
-print(f"PNG saved: {img_path}")
+print(f"PNG saved: {IMG_PATH}")
 
 # ── Build PDF ──────────────────────────────────────────────────────────────
-img = PILImage.open(img_path)
+img = PILImage.open(IMG_PATH)
 iw, ih = img.size
 page_w, page_h = landscape(A4)
 margin = 10 * mm
@@ -364,7 +377,7 @@ c.drawCentredString(page_w/2, page_h - 12*mm,
 c.setFont("Helvetica", 8)
 c.drawCentredString(page_w/2, page_h - 19*mm,
     "M3\u00d70.5 (blue) | M4\u00d70.7 (orange) | M5\u00d70.8 (green) | Black = other geometry")
-c.drawImage(img_path, draw_x, draw_y, width=draw_w, height=draw_h)
+c.drawImage(IMG_PATH, draw_x, draw_y, width=draw_w, height=draw_h)
 c.setFont("Helvetica", 7)
 c.setFillColorRGB(0.5, 0.5, 0.5)
 c.drawCentredString(page_w/2, 6*mm,
@@ -377,8 +390,10 @@ print(f"PDF saved: {OUT_PDF}")
 
 ## Step 6 — Open and verify
 
-```bash
-open /path/to/output/PART_NAME_annotated.pdf
+Send the PDF to the user with the SendUserFile tool, or open it locally from PowerShell:
+
+```
+Invoke-Item "C:\path\to\output\PART_NAME_annotated.pdf"
 ```
 
 Verify:
@@ -394,17 +409,19 @@ Verify:
 ### Face selection
 - **NEVER** use `max(shape.Faces, key=...)` to pick faces — it returns arbitrary results when multiple faces have the same normal. Always enumerate faces in Step 2 and use explicit indices.
 - After finding candidate face indices, check the bounding box position (XMin/XMax) to confirm which is truly the outer vs inner face.
-- A small face area with no holes is a warning sign you've selected the wrong face.
+- A small face area with no holes is a warning sign you've selected the wrong face. Confirmed on `frame_250108.step`: `min(ZMin)` picks face 109, a sliver with 0 holes that draws as a bowtie.
+- Automating the whole pick is not safe. Present the candidate list and confirm the panel faces with the user when anything looks off.
+
+### Interpreter import order
+- `import FreeCAD` **before** `import Part` — importing `Part` first raises `ModuleNotFoundError: No module named 'Part'`.
 
 ### Hole coordinate storage
 - **Always store 3D coordinates** (cx, cy, cz) from FreeCAD, not 2D. Drop the correct axis in Step 5 based on the face normal. Storing 2D directly leads to projection errors.
 
-### FreeCAD MCP output size
-- FreeCAD MCP results exceed the MCP token limit for large STEP files. **Always** save geometry to `/tmp/...json` and read the stdout summary via:
-  ```bash
-  jq -r '.result[].stdout // empty' <TOOL_RESULT_FILE> | head -80
-  ```
-- Never try to return large geometry data directly from `mcp__freecad__execute_code`.
+### Interpreter and process boundaries
+- Run every script with FreeCAD's bundled `python.exe`, never the Windows `python`.
+- Each run is a fresh process — re-read the STEP file in each script; documents do not persist.
+- stdout is returned directly, so print summaries freely. Still write bulk geometry to JSON rather than printing it, to keep the output readable.
 
 ### Single-edge arc detection
 - Prefer `edges[0].Curve.Center` and `.Radius` for single-edge wires — this gives exact geometry.
@@ -422,8 +439,8 @@ Verify:
 
 ### Hole radius classification
 - Holes modeled at tap-drill diameter sit near the lower end of the range; holes at nominal diameter sit near the upper end.
-- r=1.587mm is an M3 clearance hole (nominal r=1.5mm + clearance), classifies in the M3×0.5 range (1.40–1.65mm).
-- r=2.250mm is an M4 clearance hole (4.5mm drill), classifies in M4×0.7 range.
+- r=1.587 mm is an M3 clearance hole (nominal r=1.5 mm + clearance), classifies in the M3×0.5 range (1.40–1.65 mm).
+- r=2.250 mm is an M4 clearance hole (4.5 mm drill), classifies in M4×0.7 range.
 - If ambiguous (between two ranges), report the specific radius to the user and ask for confirmation.
 
 ### Annotation style
