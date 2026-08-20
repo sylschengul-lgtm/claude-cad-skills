@@ -1,0 +1,13 @@
+# Requirements for Elevator Simulator Frontend
+# Dépendances pour l'interface graphique
+
+# Interface graphique
+PyQt5>=5.15.0
+PyQt5-Qt5>=5.15.0
+PyQt5-sip>=12.9.0
+
+# Pour la compatibilité
+PyQt5-Tools>=5.15.0
+
+# Optionnel: pour une meilleure apparence
+QtAwesome>=1.1.1

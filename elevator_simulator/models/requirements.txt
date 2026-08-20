@@ -1,0 +1,14 @@
+# Requirements for 3D Elevator Model
+# Dépendances pour le modèle 3D de l'ascenseur
+
+# Visualisation 3D
+pyvista>=0.38.0
+numpy>=1.21.0
+
+# Pour l'export vers différents formats
+meshio>=5.3.4
+vtk>=9.2.0
+
+# Optionnel: pour une meilleure visualisation
+matplotlib>=3.5.0
+Pillow>=9.3.0

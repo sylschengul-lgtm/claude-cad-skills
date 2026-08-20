@@ -1,0 +1,29 @@
+# Elevator Simulator - Requirements
+# Dépendances pour le simulateur d'ascenseur complet
+
+# Backend (requis)
+# Aucune dépendance externe pour le backend pur
+
+# Visualisation 3D (optionnelle mais recommandée)
+pyvista>=0.38.0
+numpy>=1.21.0
+meshio>=5.3.4
+vtk>=9.2.0
+
+# Interface graphique (optionnelle)
+PyQt5>=5.15.0
+PyQt5-Qt5>=5.15.0
+PyQt5-sip>=12.9.0
+
+# Pour une meilleure apparence de l'interface
+QtAwesome>=1.1.1
+
+# Développement et test
+pytest>=7.0.0
+black>=22.0.0
+flake8>=4.0.0
+mypy>=0.900
+
+# Documentation
+Sphinx>=4.0.0
+sphinx-rtd-theme>=1.0.0
