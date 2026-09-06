@@ -1,324 +1,472 @@
-# Diagnostic — Appareil qui chauffe et se bloque
+# Diagnostic — Linkx TG-288 / eTour : l'appareil chauffe et se bloque
 
-**Date d'analyse :** 2026-09-03
-**Symptôme rapporté :** l'appareil chauffe puis se bloque (figeage / plus de réponse aux commandes).
-**Base d'analyse :** 15 photos macro de la carte + 2 relevés au thermomètre infrarouge.
-**Atout majeur :** un **exemplaire neuf de référence** est disponible → diagnostic comparatif A/B possible.
+**Dernière révision :** 2026-09-06 (révision 2 — corrige la révision 1)
+**Symptôme :** l'appareil chauffe puis se bloque.
+**Base :** 15 photos macro de la carte + 2 relevés IR + zooms traités + recherche constructeur.
+**Atout :** un exemplaire neuf de référence est disponible.
 
-> ⚠️ **Avant tout : arrêtez d'utiliser l'appareil et retirez la batterie.**
-> 65 °C en surface de coque signifie que le point chaud interne est bien plus élevé
-> (typiquement +20 à +40 °C sur le composant fautif, soit 85–105 °C).
-> Sur un appareil à batterie Li-ion, un défaut qui dissipe en continu est un risque
-> de brûlure et, en cas d'emballement, d'incendie. Ne pas laisser en charge sans surveillance.
+> ⚠️ **Sécurité — à lire avant toute manipulation**
+> Retirez les piles et ne remettez pas l'appareil en valise de charge tant que le diagnostic
+> n'est pas fait. **65 °C est déjà dans la zone de destruction d'un accu Ni-MH** : la
+> littérature situe les dommages (perte de capacité, fuite d'électrolyte, dégazage) **dès 60 °C**,
+> la plage sûre étant 30–40 °C. Un accu Ni-MH en surcharge peut **fuir de la potasse (KOH)**,
+> produit corrosif et irritant. Gants + lunettes si vous ouvrez le compartiment pile.
 
 ---
 
-## 1. Identification du matériel
+## 0. Ce qui a changé depuis la révision 1
 
-La carte correspond à un **émetteur-récepteur portatif (talkie-walkie / radio VHF-UHF)** :
+Trois corrections importantes. Je les mets en tête parce qu'elles changent où il faut chercher.
 
-- ressort d'antenne soudé en haut de carte,
-- afficheur LCD segments avec pictogrammes **CH**, **cadenas (key lock)**, **batterie**, **bargraphe volume**,
-- LCD affichant `CH 03` (photo 09).
+| Point | Révision 1 (erronée ou trop confiante) | Révision 2 (après recherche + zooms) |
+|---|---|---|
+| **Nature de l'appareil** | « talkie-walkie » | **Linkx TG-288 / eTour — audioguide UHF numérique**, alimenté par **2 × AA Ni-MH (2,4 V)** |
+| **La tache noire** | « carbonisation par arc électrique, carbon tracking » | **Ce n'est pas un cratère d'arc.** Résidu liquide qui a coulé et bruni + corrosion du cuivre. Probablement une **conséquence**, pas la cause — et peut-être électriquement inoffensive |
+| **Puissance dissipée** | « 1,5 à 3 W » | **Estimation retirée** : elle supposait une dissipation répartie sur tout le boîtier. Le chiffre réel dépend entièrement de l'endroit visé, que je ne connais pas |
 
-### Composants identifiés
+Et une hypothèse monte au premier rang : **la chaîne pile Ni-MH / charge**, qui n'était que n°5.
 
-| Repère photo | Marquage | Fonction probable | Boîtier |
+---
+
+## 1. Identification de l'appareil — confirmée
+
+Le marquage `Linkx / eTour-07 / 2003B` du QFN-32 n'est pas une référence de transceiver du
+commerce : c'est une **puce marquée au nom du produit** par le fabricant.
+
+**Linkx Electronics (Taïwan)** commercialise la gamme **TG-288 / TG-288D / eTour** :
+*Digital UHF Tour Guide System* — audioguide numérique UHF pour visites de musées, sites
+historiques, usines, interprétation simultanée, assistance auditive.
+
+Tout concorde avec les photos :
+- LCD à segments avec **CH**, **cadenas**, **batterie**, **bargraphe de volume** → l'écran
+  produit du constructeur affiche exactement « battery power, channel, volume » ;
+- 100 canaux indépendants → cohérent avec `CH 03` ;
+- ressort d'antenne UHF ;
+- micro intégré, entrée micro externe / sortie casque selon version émetteur ou récepteur.
+
+### ⚡ La donnée décisive : l'alimentation
+
+> **TG-288 : alimentation par 2 × piles AA Ni-MH rechargeables 1,2 V** (2,4 V nominal),
+> charge par **port micro-USB** ou par **valise de charge 2 / 12 / 35 emplacements**,
+> autonomie annoncée 12–14 h.
+
+Deux conséquences majeures, développées au §4 :
+
+1. **2,4 V → 3,3 V exige un convertisseur élévateur (boost).** C'est ce que montrent les
+   photos : deux inductances blindées + `19AKM` (SOT-23-5, boost) + `CDV 221 A5L2`.
+   Un boost est une **charge à puissance constante** : quand la pile faiblit, il tire *plus*
+   de courant. C'est un mécanisme à contre-réaction positive.
+2. **Ces appareils passent leur vie en valise de charge.** Le Ni-MH est la chimie la plus
+   intolérante à la surcharge : une fois plein, **100 % de l'énergie de charge part en chaleur**.
+
+---
+
+## 2. Nomenclature relevée
+
+| Photo | Marquage | Fonction | Boîtier |
 |---|---|---|---|
-| 07, 08, 09, 10 | `ti MSP430…30TM FR20xx 8CCH T B` | **MCU principal** Texas Instruments MSP430FR (FRAM) — logique, IHM, gestion clavier | TSSOP-48 |
-| 07, 08, 09 | `HOLTEK HT16C21 C029K00D2G2` | **Driver LCD** I²C/SPI (20×4 segments) | SOP-16 |
-| 05, 11, 12 | `Linkx eTour-07 2003B` | **SoC RF émetteur-récepteur** (transceiver bande radio) | QFN-32 |
-| 04, 06, 12 | `24.04 AK AD` | **TCXO 24,04 MHz** — horloge de référence RF | SMD 4 pads |
-| 04, 06, 12 | `724 2G SU` | Régulateur / driver audio (ligne RF) | SOP-8 |
-| 07, 10, 13 | `BSG· TI 8A8 A46R` | CI Texas Instruments — **régulateur ou ampli audio** | QFN-16 |
-| 06, 07, 12 | `EAMC` | **Résonateur / filtre céramique** (FI ou audio) | SMD 3 broches |
-| 01, 14 | `CDV 221 A5L2` | **Convertisseur DC-DC** (contrôleur à découpage) | SOP-8 / QFN-8 |
-| 03, 15 | `19AKM` | Convertisseur DC-DC / chargeur | SOT-23-5 |
-| 03, 13, 15 | 2 inductances blindées | **2 étages d'alimentation à découpage** (buck et/ou boost) | 4×4 mm |
-| 15 | `4R7` (4,7 µH), `18C`, `473` (47 nF) | Passifs de l'étage d'alimentation | 0603 |
-| 02, 13 | `YE`, `BR` | Diodes SOT-23 (protection / redressement) | SOT-23 |
-| 07, 10 | `3R3` ×2 | Résistances 3,3 Ω — **shunts de mesure de courant** ou filtrage d'alim | 0805 |
-| 10, 12 | Trimmer métallique | **Ajustage RF** (capa variable / accord) — ne pas y toucher | — |
+| 07–10 | `ti MSP430…30TM FR20xx 8CCH T B` | MCU principal TI MSP430FR (FRAM) | TSSOP-48 |
+| 07–09 | `HOLTEK HT16C21 C029K00D2G2` | Driver LCD I²C/SPI | SOP-16 |
+| 05, 11, 12 | `Linkx eTour-07 2003B` | **SoC RF UHF propriétaire Linkx** (marquage produit) | QFN-32 |
+| 04, 06, 12 | `24.04 AK AD` | TCXO 24,04 MHz — référence RF | SMD 4 pads |
+| 04, 06, 12 | `724 2G SU` | Régulateur / audio | SOP-8 |
+| 07, 10 | `BSG· TI 8A8 A46R` | CI TI — ampli audio ou régulateur | QFN-16 |
+| 06, 07 | `EAMC` | Résonateur / filtre céramique | SMD 3 br. |
+| 01, 14 | `CDV 221 A5L2` | Convertisseur / contrôleur d'alimentation | SOP-8 |
+| 03, 15 | `19AKM` | **Convertisseur élévateur (boost)** — voisin immédiat d'une inductance | SOT-23-5 |
+| 03, 13, 15 | 2 inductances blindées | **2 étages à découpage** | 4×4 mm |
+| 15 | `4R7` (4,7 µH), `18C`, `473` (47 nF) | Passifs de l'étage boost | 0603 |
+| 07, 10 | `3R3` ×2 | 3,3 Ω — filtrage d'alim ou shunts | 0805 |
+| 10, 12 | Trimmer métallique | Accord RF d'usine — **ne pas y toucher** | — |
 
-**Deux sous-ensembles** apparaissent : une **section logique/RF** (MSP430 + HT16C21 + Linkx + TCXO)
-et une **section alimentation/clavier** (2 inductances, 19AKM, CDV 221, boutons tactiles).
+Le marquage `19AKM` n'apparaît dans aucune base publique de codes SMD : c'est un boîtier
+SOT-23-5 générique de fabricant asiatique. Son rôle se déduit sans ambiguïté de la topologie
+(entrée pile / inductance / diode ou redressement synchrone / sortie filtrée) : **boost**.
 
 ---
 
-## 2. Relevés thermiques
+## 3. Relecture des anomalies — avec les zooms
 
-Thermomètre IR, émissivité réglée **ε = 0,96**.
+Les zooms ×3 traités sont dans `zooms/`.
 
-| | Appareil **utilisé** (photo 16) | Appareil **neuf** (photo 17) | Écart |
+### 3.1 La tache noire : ma première lecture était fausse
+
+**Ce que montre le zoom** (`zooms/burn_05_x3.jpg`, `zooms/burn_11_x3.jpg`, deux angles) :
+
+- la matière est **lisse, brillante, translucide brun sur les bords, opaque au centre** ;
+- elle a manifestement **coulé** : bord supérieur festonné, lobes arrondis, elle a mouillé la
+  surface puis s'est arrêtée ;
+- elle **contourne** deux vias, autour desquels apparaît un **halo orangé-rouge** ;
+- **il n'y a ni cratère, ni pastille arrachée, ni vernis soulevé, ni fibres de verre calcinées** ;
+- les vias concernés sont **intacts et toujours étamés** (on voit le reflet métallique).
+
+Une carbonisation par arc électrique, ce n'est pas ça : c'est **mat, croûteux, creusé**, avec
+de la matière manquante. Ici c'est un **liquide qui a coulé, séché et bruni**, avec **oxydation
+du cuivre** (le halo rouge = oxyde cuivreux Cu₂O, signature d'une attaque chimique ou thermique).
+
+**Candidats, du plus au moins probable :**
+
+1. **Électrolyte d'accu (KOH) ayant fui puis attaqué le cuivre et le vernis**, brunissant à la
+   chaleur. Cohérent avec un Ni-MH surchauffé qui a dégazé — et cohérent avec 65 °C.
+2. **Flux de brasage résiduel surchauffé** qui a coulé et bruni.
+3. **Adhésif / mousse double-face liquéfié par la chaleur** — on voit justement des bandes de
+   mousse blanche au bord de carte sur les photos 08, 11, 13.
+
+### 3.2 ⚠️ Et surtout : cette tache est peut-être électriquement sans effet
+
+Regardez le contexte (`zooms/grid_05.jpg`) : ces trous forment une **matrice régulière,
+régulièrement espacée, sur une grande surface, tous étamés, sans piste individuelle visible**.
+C'est la signature d'un **champ de vias de couture de masse** (*ground stitching*), typique
+autour d'un bloc RF pour le blindage et l'évacuation thermique.
+
+**Si tous ces vias sont sur le même net (la masse), un résidu qui les relie ne court-circuite
+rien du tout.** La tache serait alors un **témoin** d'un événement thermique — utile comme
+indice — mais **pas la cause de la panne**.
+
+C'est vérifiable en 30 secondes (§6.3). Tant que ce n'est pas vérifié, **ne grattez rien** :
+la révision 1 vous conseillait de décaper mécaniquement, c'était prématuré.
+
+### 3.3 Encrassement autour des interrupteurs (photos 01, 02, 13, 14)
+
+Dépôts sombres et fibres autour des pattes des poussoirs. **Mais je dégrade fortement cette
+piste** : sur un audioguide il n'y a **pas de PTT** — l'émetteur émet en continu par conception,
+le récepteur n'émet pas du tout. Un bouton collé ne peut donc pas provoquer une émission
+permanente. Reste un rôle mineur : un bouton collé peut empêcher la mise en veille et maintenir
+le rétroéclairage / le CPU actif.
+
+### 3.4 Résidus de flux généralisés
+
+Voile blanchâtre autour de nombreuses soudures, notamment sur l'étage boost
+(`zooms/alim3_x3.jpg` : traces vertes-sombres aux bords des pastilles du `19AKM`). Hygroscopique,
+facilite les fuites. À nettoyer, mais rarement fatal seul.
+
+### 3.5 Non-anomalies
+
+- Marques vert/jaune fluo sur le MSP430 : **feutre de contrôle qualité usine**. Normal.
+- Pastilles « QC PASS » : étiquettes de production. Normal.
+
+---
+
+## 4. Le mécanisme le plus probable : la chaîne Ni-MH → boost
+
+Trois effets physiques se combinent, et ils expliquent **précisément** l'enchaînement
+« ça chauffe **puis** ça se bloque ».
+
+### 4.1 La surcharge Ni-MH transforme toute l'énergie en chaleur
+
+Le Ni-MH est la chimie la plus intolérante à la surcharge. Une fois l'accu plein, l'énergie
+injectée ne peut plus être stockée : **elle est intégralement dissipée en chaleur**.
+
+Le problème est que **la détection de fin de charge du Ni-MH est difficile** : la méthode
+−ΔV ne produit qu'une **chute d'environ 5 mV**, très délicate à détecter de façon fiable — les
+chargeurs la ratent couramment et poursuivent la charge. Le courant d'entretien doit rester
+sous **0,05 C**. Une élévation de **1 °C/minute** signale la fin de charge.
+
+**Ordre de grandeur pour votre appareil :** une valise de charge délivrant ~300 mA sur 2 cellules
+à ~2,9 V injecte ≈ **0,9 W**. En surcharge, ces 0,9 W partent **entièrement en chaleur**, dans un
+compartiment pile confiné, sans ventilation. **C'est largement suffisant pour atteindre 60–70 °C.**
+Vos 65,9 °C sont parfaitement cohérents avec ce scénario.
+
+### 4.2 Un accu vieilli fait s'emballer le boost (charge à puissance constante)
+
+Un accu Ni-MH neuf a une résistance interne **< 50 mΩ**. En fin de vie, **elle grimpe fortement**,
+et la tension de crête chute (de ~1,47 V à ~1,42 V par élément sur des cellules vieillies).
+
+Un convertisseur boost régule sa **sortie**, donc il absorbe une **puissance d'entrée quasi
+constante**. D'où la boucle :
+
+```
+accu vieilli → résistance interne ↑
+      ↓
+tension sous charge ↓
+      ↓
+le boost compense : courant d'entrée ↑   (I = P / V)
+      ↓
+échauffement I²R dans l'accu ↑↑  (au carré du courant)  + pertes ↑ dans l'inductance et le MOSFET
+      ↓
+température ↑ → l'accu se dégrade encore → tension ↓
+      ↓
+… jusqu'au seuil de verrouillage basse tension (UVLO) du boost
+      ↓
+le rail 3,3 V s'effondre → brown-out du MSP430 → ⛔ APPAREIL BLOQUÉ
+```
+
+**C'est exactement votre symptôme : ça chauffe d'abord, ça se bloque ensuite.** Le blocage n'est
+pas un bug logiciel, c'est une **coupure d'alimentation** provoquée par l'échauffement.
+
+Certains convertisseurs placent leur UVLO **au-dessus de 1,25 V/élément** : sur un pack vieilli,
+le seuil est atteint alors qu'il reste de la capacité — l'appareil « se bloque » en paraissant
+encore chargé.
+
+### 4.3 Le piège des piles alcalines — à vérifier en priorité
+
+Le TG-288 accepte « plusieurs options de batterie », **rechargeables ou jetables**.
+
+**Si des piles alcalines jetables se retrouvent dans un appareil placé en valise de charge, elles
+sont soumises à un courant de charge qu'elles ne peuvent pas accepter.** Elles s'échauffent
+violemment, dégagent de l'hydrogène et **fuient de la potasse**.
+
+Sur un parc d'audioguides manipulé par plusieurs personnes, le mélange de chimies est une erreur
+fréquente. **Et ce scénario expliquerait d'un seul coup les 65 °C ET le liquide bruni qui a coulé
+sur la carte (§3.1).**
+
+👉 **Vérifiez immédiatement quelles piles sont dans l'appareil défectueux** : elles doivent porter
+la mention **Ni-MH / rechargeable**. Si ce sont des alcalines (Duracell, Energizer non
+rechargeables…), vous tenez très probablement la cause racine.
+
+---
+
+## 5. ⚠️ Deux failles méthodologiques dans la comparaison IR
+
+Vos deux relevés sont précieux, mais avant d'en tirer une conclusion il faut écarter deux pièges.
+Sans quoi le Δ36 °C peut être en partie une illusion.
+
+### 5.1 Émetteur ou récepteur ?
+
+Le TG-288 existe en version **émetteur** (le guide parle) et **récepteur** (les visiteurs
+écoutent). L'émetteur **émet en permanence** et consomme structurellement bien plus qu'un
+récepteur, qui ne fait que recevoir.
+
+**Comparer un émetteur usagé à un récepteur neuf n'a aucune valeur diagnostique.**
+→ Vérifiez les références sur les étiquettes des deux appareils. Elles doivent être identiques.
+
+### 5.2 Le neuf était-il seulement allumé ?
+
+23 °C, c'est **la température ambiante**. Un appareil réellement en fonctionnement est
+toujours un peu au-dessus. 23 °C suggère un appareil **éteint**, ou allumé depuis très peu de temps.
+
+→ Refaites la mesure avec les **deux appareils allumés, dans le même mode, depuis au moins
+30 minutes, côte à côte, dans la même pièce**, et visez **le même point** sur les deux boîtiers.
+
+### 5.3 Où avez-vous visé ?
+
+C'est la question qui manque pour interpréter les 65 °C. Le compartiment pile ? Le dos du
+boîtier ? La carte nue ? L'accu lui-même ? La réponse oriente tout :
+- **compartiment pile chaud** → chimie / charge (§4.1, §4.3) ;
+- **zone des inductances chaude** → convertisseur (§4.2) ;
+- **zone RF / bloc Linkx chaude** → étage radio.
+
+Et rappel de la révision 1, toujours valable : **ε = 0,96 est juste sur le plastique et l'époxy,
+faux sur les métaux brillants** (jaquette d'accu, blindages, inductances, soudures : ε réel
+0,05–0,3). Sur ces surfaces le thermomètre **sous-estime largement** — l'accu peut être bien
+plus chaud que ce que vous lisez. Collez un ruban adhésif mat noir pour mesurer juste.
+Rappelons aussi que **le cœur d'une cellule est nettement plus chaud que son enveloppe**.
+
+---
+
+## 6. Protocole — réordonné par rentabilité
+
+### 6.0 Sécurité
+Piles retirées pour toute mesure de résistance. Bracelet antistatique (MSP430 et SoC RF
+sensibles ESD). Ne jamais faire fonctionner l'émetteur sans antenne.
+
+### 6.1 ⭐ Inspection des piles et du compartiment — 2 minutes, coût nul
+
+**C'est par là qu'il faut commencer.**
+
+| À vérifier | Signification |
+|---|---|
+| Mention **Ni-MH / rechargeable** sur les deux piles | Si alcalines → **cause racine probable (§4.3)** |
+| Les deux piles sont-elles de même marque, même capacité, même âge ? | Un pack dépareillé s'inverse en décharge et chauffe |
+| Traces blanches/croûteuses, cristaux, verdissement sur les **contacts à ressort** | Fuite d'électrolyte confirmée |
+| Déformation, gonflement, jaquette percée ou brunie | Cellule dégazée |
+| Odeur ammoniacale à l'ouverture | Fuite de KOH |
+
+### 6.2 ⭐ Test croisé des piles — 20 minutes, coût nul
+
+Le test le plus rentable de toute la liste.
+
+Mettez **les piles du neuf** dans l'appareil défectueux, et **celles de l'usagé** dans le neuf.
+Laissez tourner 20–30 min dans le même mode.
+
+- La chauffe **suit les piles** → **c'est la chimie, pas la carte.** Remplacez le pack, terminé.
+- La chauffe **reste sur l'appareil défectueux** → le défaut est électronique. Continuez.
+
+*Ce seul test départage les hypothèses §4.1/§4.3 des hypothèses §4.2/§6.5.*
+
+### 6.3 ⭐ Statut électrique de la tache noire — 30 secondes
+
+**Avant de gratter quoi que ce soit.** Ohmmètre / mode continuité, piles retirées :
+
+1. Testez la continuité entre **chacun des vias recouverts par la tache** et la **masse**
+   (blindage, tresse, borne − du compartiment pile).
+2. **Tous continus avec la masse → la tache est cosmétique, oubliez-la** (c'est un témoin
+   thermique, pas la panne). Nettoyage à l'IPA pour l'esthétique, rien de plus.
+3. **Des vias sur des nets différents avec une résistance < 1 MΩ entre eux → là seulement**
+   c'est une fuite : nettoyage IPA d'abord, et décapage mécanique uniquement si le noir résiste
+   au solvant.
+
+**Test discriminant matière :** un coton-tige d'alcool isopropylique ≥ 99 %.
+- Ça part, ça teinte le coton → **résidu** (flux, adhésif, électrolyte séché) → nettoyable.
+- Ça ne bouge pas, c'est imprégné dans l'époxy → **carbonisation** → décapage nécessaire.
+
+### 6.4 ⭐ Mesure de courant comparative — le juge de paix
+
+Multimètre **en série** sur le + pile (calibre 10 A d'abord, puis mA). Toujours en A/B.
+
+| État | Neuf | Usagé | Lecture |
 |---|---|---|---|
-| Lecture instantanée | ≈ **57 °C** | ≈ **23 °C** | +34 °C |
-| MAX mémorisé | ≈ **65,9 °C** | ≈ **29,7 °C** | +36 °C |
+| Éteint | | | > 10 mA = fuite permanente |
+| Allumé, veille | | | Rapport usagé/neuf > 2 = anormal |
+| En fonctionnement (mode nominal) | | | |
+| **En charge, pile pleine** | | | **Le courant doit chuter ou passer en entretien (≤ 0,05 C). S'il reste au courant plein → surcharge = §4.1 confirmé** |
 
-### Interprétation
+### 6.5 Mesure de tension sous charge — révèle l'accu vieilli
 
-- **Δ ≈ 36 °C** dans des conditions d'usage comparables. Ce n'est pas de la dispersion de
-  fabrication : c'est un **courant de fuite ou de court-circuit permanent** quelque part.
-- Un talkie en veille consomme typiquement 20–60 mA ; en réception 80–150 mA ; en émission
-  0,5–2 A par impulsions. **Un appareil en veille ne doit pas dépasser l'ambiante de plus de
-  5–10 °C.** Le neuf à 23–30 °C est cohérent avec l'ambiante ; l'utilisé à 57–66 °C ne l'est pas.
-- Ordre de grandeur : pour un boîtier plastique de cette taille, ~36 °C d'élévation correspond
-  grossièrement à **1,5 à 3 W dissipés en continu**. Sous 3,7 V, cela représente **0,4 à 0,8 A
-  consommés en permanence** — beaucoup trop.
+Appareil allumé, en fonctionnement :
 
-### ⚠️ Limite de la mesure IR
-
-L'émissivité ε = 0,96 est correcte pour **plastique mat, résine époxy verte, composants noirs**.
-Elle est **fausse sur les surfaces métalliques brillantes** (blindages, soudures, inductances,
-capots) où ε réel ≈ 0,05–0,3 : le thermomètre y sous-estime largement la température.
-→ Pour localiser le point chaud sur la carte nue, **coller un morceau de ruban adhésif mat noir**
-sur les zones métalliques avant de viser, ou mieux : utiliser une **caméra thermique** ou le
-**test au doigt mouillé / alcool isopropylique** (l'alcool s'évapore d'abord sur le point chaud).
-
----
-
-## 3. Anomalies visibles sur les photos
-
-### 3.1 🔴 CRITIQUE — Point brûlé / carbonisé (photos 05 et 11)
-
-Sur la face LCD, dans la matrice de vias en bordure de carte (à droite du LCD, au-dessus du
-Linkx eTour-07), on voit **une zone noire irrégulière carbonisée d'environ 3–4 mm**, centrée sur
-un via dont **le cuivre est mis à nu et oxydé (rouge/cuivré)**.
-
-C'est **la découverte la plus importante de l'analyse.** Ce n'est ni du flux, ni une trace de
-marqueur, ni de la salissure : la forme, la couleur noire mate et le cuivre exposé au centre du
-trou sont la signature d'un **arc électrique ou d'un point de surchauffe localisé** (le vernis
-épargne a brûlé).
-
-**Conséquence directe :** un époxy FR-4 carbonisé devient **conducteur** (carbon tracking).
-Il crée une résistance parasite de quelques centaines d'ohms à quelques kΩ entre les pistes
-voisines. Cela produit exactement le tableau clinique décrit :
-
-- **fuite permanente → dissipation → l'appareil chauffe ;**
-- **la fuite s'aggrave avec la température (coefficient négatif du carbone) → emballement lent ;**
-- **la tension d'alimentation s'affaisse ou devient bruitée → le MSP430 part en brown-out
-  ou son bus I²C/SPI vers le HT16C21 se corrompt → l'appareil se bloque.**
-
-Le fait que le blocage arrive *après* l'échauffement, et non immédiatement, est très cohérent
-avec ce mécanisme.
-
-**Cause amont possible de cet arc :**
-- infiltration d'humidité / condensation ayant amorcé entre deux vias à potentiels différents,
-- inversion de polarité batterie ou pile ponctuelle,
-- retour d'énergie RF (antenne mal accordée, émission sans antenne, ou antenne en court-circuit)
-  — le point est situé **près du bloc RF (Linkx) et du bord de carte**, zone typique d'un retour
-  d'onde stationnaire.
-
-### 3.2 🟠 Contamination / résidus autour des interrupteurs tactiles (photos 01, 02, 13, 14)
-
-Les boutons poussoirs présentent des **dépôts sombres et des fibres** sur et autour des pattes,
-en particulier les deux switches du bas (photo 13) et celui de la photo 01. Sur l'appareil neuf
-les mêmes zones seraient propres.
-
-**Risque :** un switch encrassé ou collé — surtout **le PTT (Push-To-Talk)** — maintient
-l'appareil **en émission permanente**. C'est la cause n°1 de surchauffe sur un talkie-walkie :
-l'étage de puissance RF fonctionne en continu au lieu de quelques secondes.
-
-Un PTT collé explique aussi le blocage : la logique reste bloquée dans l'état TX, l'IHM ne répond
-plus, et l'appareil ne repasse jamais en veille.
-
-### 3.3 🟡 Résidus de flux non nettoyé (généralisé)
-
-Voile blanchâtre/collant autour de nombreuses soudures. En soi non fatal, mais **hygroscopique** :
-il absorbe l'humidité et devient légèrement conducteur — c'est un facilitateur d'amorçage
-(cf. §3.1) et de dérive.
-
-### 3.4 🟢 Non-anomalies (à ne pas confondre)
-
-- **Marques vertes/jaunes fluo sur le MSP430** (photos 07–10) : marquage **QC de production** au
-  feutre. Normal.
-- **Pastilles « QC PASS »** (photos 01, 04, 12, 14) : étiquettes de contrôle qualité usine. Normal.
-- **Trimmer métallique** (photos 10, 12) : réglage RF d'usine. **Ne pas y toucher**, un
-  déréglage nécessiterait un analyseur de spectre pour être rattrapé.
-
----
-
-## 4. Hypothèses classées
-
-| # | Hypothèse | Probabilité | Signes à l'appui | Test de confirmation |
-|---|---|---|---|---|
-| **H1** | **Carbon tracking** au point brûlé → fuite permanente | **Élevée** | Photos 05/11, échauffement continu, blocage différé | §5.3 — mesure de résistance autour du via |
-| **H2** | **PTT (ou autre switch) collé** → émission permanente | **Élevée** | Photos 01/13, encrassement, blocage en état TX | §5.4 — continuité des switches au repos |
-| **H3** | **Convertisseur DC-DC en défaut** (CDV 221 ou 19AKM) : oscillation, condensateur de sortie HS | Moyenne | 2 inductances = 2 rails ; un rail instable → brown-out MCU | §5.5 — mesure des rails + ondulation |
-| **H4** | **Étage RF en défaut** (Linkx / 724) : ROS élevé, antenne HS, PA en avalanche | Moyenne | Point brûlé côté RF et bord de carte | §5.6 — test avec antenne neuve / mesure ROS |
-| **H5** | **Batterie dégradée** (résistance interne élevée) : chauffe et s'effondre en charge | Faible-moyenne | Chauffe possible côté batterie, blocage sous appel de courant | §5.2 — test croisé de batteries |
-| **H6** | Corrosion / infiltration d'humidité sous un composant | Faible | Résidus, oxydation au via | §5.7 — inspection loupe + nettoyage IPA |
-
-**Scénario le plus probable (combinaison H2 → H1) :** un PTT encrassé ou collé a maintenu
-l'appareil en émission prolongée → surchauffe de l'étage RF → arc / point chaud au niveau du via
-en bordure de carte → carbonisation → fuite permanente qui, désormais, fait chauffer l'appareil
-**même sans émission** et le fait se bloquer par effondrement d'alimentation.
-
----
-
-## 5. Protocole de diagnostic (ordre à respecter)
-
-Tout se fait **en comparant systématiquement avec l'appareil neuf**. Notez chaque valeur dans le
-tableau du §6.
-
-### 5.0 Sécurité
-
-- Batterie retirée pour toute mesure de résistance.
-- Ne jamais émettre (PTT) **sans antenne** — c'est ce qui détruit les étages de puissance.
-- Travailler avec bracelet antistatique : le MSP430 et le Linkx sont sensibles ESD.
-
-### 5.1 Mesure de courant — LE test décisif ⭐
-
-C'est la mesure qui tranche entre toutes les hypothèses. Multimètre en **série** sur le + batterie
-(calibre 10 A d'abord, puis mA).
-
-| État | Attendu (neuf) | À mesurer (utilisé) | Verdict si écart |
+| Point | Attendu | Usagé | Diagnostic |
 |---|---|---|---|
-| Éteint | < 1 mA | | > 10 mA → fuite permanente = **H1 confirmée** |
-| Allumé, veille | 20–60 mA | | > 200 mA → **H1/H3** |
-| Réception (squelch ouvert) | 80–150 mA | | |
-| Émission (PTT, avec antenne) | 0,5–2 A | | |
+| Tension pack à vide | 2,6–2,9 V (chargé) | | |
+| Tension pack **en fonctionnement** | doit rester > 2,2 V | | **Chute > 0,4 V entre à vide et en charge = résistance interne élevée = accu HS (§4.2)** |
+| Sortie boost (rail 3,3 V) | 3,3 V ± 0,1 | | |
+| VCC MSP430 | 3,3 V stable | | |
+| Ondulation rail 3,3 V (oscillo) | < 50 mV crête-crête | | |
 
-**Si l'appareil consomme plusieurs centaines de mA en veille alors que le neuf en consomme 40 :
-la cause est trouvée, c'est une fuite — passez au §5.3.**
+**Le test qui signe le blocage :** gardez le voltmètre sur le rail 3,3 V et **attendez que
+l'appareil se bloque**. Si le rail s'effondre au moment exact du blocage → **brown-out confirmé**,
+et la cause est en amont (accu ou boost), pas dans le logiciel.
 
-### 5.2 Test croisé de batteries (5 min, sans outillage)
+### 6.6 Thermique localisée — trouver LE point chaud
 
-Mettez la batterie du neuf dans l'appareil défectueux, et inversement. Laissez 15 min.
+Appareil ouvert, en fonctionnement, sans toucher :
+- **Test alcool isopropylique** : un film mince d'IPA au pinceau sur la carte. **Il s'évapore
+  en premier sur le point chaud.** Redoutablement efficace et gratuit.
+- Ou ruban adhésif mat noir sur les zones métalliques + thermomètre IR.
+- Ou caméra thermique si vous en avez une.
 
-- La chauffe **suit la batterie** → **H5**, remplacez la batterie, terminé.
-- La chauffe **reste sur l'appareil** → le défaut est sur la carte. Continuez.
+Candidats à surveiller : les **2 inductances**, le `19AKM`, le `CDV 221`, le QFN `BSG A46R`,
+le SoC `Linkx`, et **les cellules elles-mêmes**.
 
-### 5.3 Vérification du point brûlé (photos 05/11)
+### 6.7 Nettoyage et inspection finale
+IPA ≥ 99 % sur les deux faces, brosse antistatique, séchage complet. Loupe ×10 : pattes du QFN
+Linkx, soudures des inductances, contacts pile, port micro-USB (corrosion fréquente sur du
+matériel de location).
 
-1. **Nettoyage :** alcool isopropylique ≥ 99 %, brosse antistatique souple, puis séchage complet.
-2. **Loupe / binoculaire ×10 :** la carbonisation part-elle au nettoyage ou est-elle
-   **imprégnée dans l'époxy** ?
-3. **Ohmmètre** entre le via carbonisé et chacun des vias voisins (batterie retirée) :
-   - attendu : **> 20 MΩ** (ou circuit ouvert selon le schéma),
-   - **< 1 MΩ = carbon tracking confirmé → H1.**
-   Comparez impérativement avec les mêmes points sur l'appareil neuf.
-4. Mesure en **mode diode** également : une jonction parasite se voit parfois mieux.
+---
 
-**Si H1 est confirmée :** il faut **gratter mécaniquement toute la zone carbonisée** (scalpel /
-fraise Dremel fine) jusqu'à retrouver de l'époxy vert sain, sous loupe. Le carbone ne se nettoie
-pas au solvant, il faut l'enlever. Puis remettre du vernis épargne UV. Si la carbonisation atteint
-une piste ou traverse la carte, il faut reconstituer la liaison par fil isolé (wire wrap 30 AWG).
+## 7. Fiche de relevés
 
-### 5.4 Test des interrupteurs (H2)
-
-Batterie retirée, ohmmètre sur chaque switch, **au repos** :
-
-- attendu : **circuit ouvert (> 1 MΩ)**,
-- toute valeur < 100 kΩ au repos = **switch encrassé/collé → H2**.
-
-Insistez sur le **PTT**. Un switch fautif se remplace pour quelques centimes (tact switch
-6×6 mm ou 4,5×4,5 mm selon le modèle), ou se nettoie à l'IPA injecté puis actionné 30 fois.
-
-Vérifiez aussi mécaniquement : le bouton du boîtier ne doit pas rester enfoncé par une
-déformation du caoutchouc ou un corps étranger.
-
-### 5.5 Mesure des rails d'alimentation (H3)
-
-Batterie en place, appareil allumé, multimètre en tension continue puis oscilloscope si
-disponible. Les deux inductances (photos 03, 13, 15) marquent les deux rails à découpage.
-
-| Point de mesure | Attendu | Mesuré | Ondulation max |
+| Mesure | Neuf | Usagé | Conclusion |
 |---|---|---|---|
-| V batterie | 3,6–4,2 V | | — |
-| Sortie inductance 1 | 3,3 V typ. | | < 50 mV crête-crête |
-| Sortie inductance 2 | 5 V ou 1,8 V typ. | | < 50 mV crête-crête |
-| VCC MSP430 (broche VCC) | 3,3 V stable | | < 30 mV |
-
-Un rail qui **s'effondre au moment du blocage** = cause directe du figeage (brown-out MCU).
-Cherchez alors le condensateur de sortie du convertisseur : un **condensateur céramique fissuré**
-(chute mécanique) se met en court-circuit partiel → chauffe + rail effondré. Les gros condensateurs
-bruns/marron des photos 03, 04, 15 sont les candidats.
-
-### 5.6 Test de la chaîne RF (H4)
-
-1. **Antenne :** mesurez à l'ohmmètre entre l'âme et la masse du ressort d'antenne, comparez
-   avec le neuf. Un court-circuit franc ou une antenne cassée fait exploser le ROS.
-2. **Test A/B :** montez l'antenne du neuf sur l'appareil défectueux. Si la chauffe diminue
-   nettement en émission → antenne fautive, remplacement simple.
-3. Si vous disposez d'un **ROS-mètre / wattmètre** adapté à la bande : ROS attendu < 1,5:1.
-   Au-delà de 3:1 l'étage de puissance chauffe et se dégrade.
-4. **Ne pas retoucher le trimmer** (photos 10, 12) sans analyseur de spectre.
-
-### 5.7 Nettoyage général et inspection finale
-
-- Bain / brossage IPA ≥ 99 % des deux faces, séchage 2 h ou air comprimé.
-- Loupe ×10 sur : soudures des inductances, pattes du QFN Linkx et du QFN BSG, bord de carte.
-- Recherche de **boules d'étain baladeuses** (courts-circuits mobiles), de pistes vertes-de-gris
-  (corrosion), de condensateurs fissurés.
+| Référence exacte sur l'étiquette (émetteur ? récepteur ?) | | | ⚠️ doivent être identiques |
+| Les deux appareils étaient-ils allumés, même mode, ≥ 30 min ? | | | ⚠️ prérequis |
+| Point visé au thermomètre IR | | | ⚠️ à documenter |
+| Chimie des piles (Ni-MH ou alcaline) | | | |
+| Traces de fuite au compartiment pile | | | |
+| T° surface après 30 min, même point | | | |
+| Courant éteint | | | |
+| Courant en veille | | | |
+| Courant en fonctionnement | | | |
+| Courant en charge, pile pleine | | | |
+| U pack à vide | | | |
+| U pack en fonctionnement | | | |
+| Chute de tension (à vide − en charge) | | | > 0,4 V = accu HS |
+| Rail 3,3 V | | | |
+| Rail 3,3 V **à l'instant du blocage** | | | effondrement = brown-out |
+| Vias de la tache : continus avec la masse ? | — | | oui = tache inoffensive |
+| Point chaud localisé (nom du composant) | — | | |
 
 ---
 
-## 6. Fiche de relevés à remplir
+## 8. Hypothèses classées — révision 2
 
-| Mesure | Neuf (référence) | Utilisé | Écart | Conclusion |
-|---|---|---|---|---|
-| Courant éteint | | | | |
-| Courant veille | | | | |
-| Courant réception | | | | |
-| Courant émission | | | | |
-| Température surface après 15 min veille | ~23–30 °C | 57–66 °C | +36 °C | ⚠️ anormal |
-| Point chaud localisé (nom du composant) | — | | | |
-| R via carbonisé ↔ vias voisins | | | | |
-| R PTT au repos | | | | |
-| R autres switches au repos | | | | |
-| V batterie en charge | | | | |
-| Rail 1 (inductance 1) | | | | |
-| Rail 2 (inductance 2) | | | | |
-| VCC MSP430 | | | | |
-| R antenne (âme/masse) | | | | |
+| # | Hypothèse | Probabilité | Test |
+|---|---|---|---|
+| **H1** | **Piles alcalines dans un appareil mis en charge** | **Élevée** | §6.1 — 2 minutes |
+| **H2** | **Surcharge Ni-MH** (fin de charge non détectée, valise ou circuit de charge) | **Élevée** | §6.1, §6.2, §6.4 dernière ligne |
+| **H3** | **Accu vieilli → emballement du boost → UVLO → brown-out** | **Élevée** | §6.2, §6.5 |
+| H4 | Convertisseur boost en défaut (`19AKM` / `CDV 221`, condensateur de sortie fissuré) | Moyenne | §6.5, §6.6 |
+| H5 | Fuite par résidu conducteur (la tache, **si** vias sur nets différents) | Faible-moyenne | §6.3 |
+| H6 | Étage RF en défaut (SoC Linkx, antenne, ROS) | Faible | §6.6 |
+| H7 | Bouton collé empêchant la veille | Faible | continuité des switches au repos |
+
+**H1, H2 et H3 se testent toutes les trois avec le §6.1 + §6.2, en une demi-heure et sans
+outillage.** Commencez par là.
 
 ---
 
-## 7. Actions de réparation, par ordre de coût croissant
+## 9. Réparations, par coût croissant
 
-1. **Nettoyage IPA complet + séchage** — coût nul, résout souvent les fuites par flux humide.
-2. **Décarbonisation mécanique de la zone brûlée + revernissage** — le geste clé si H1 confirmée.
-3. **Remplacement du/des tact switches** (surtout PTT) — quelques centimes.
-4. **Remplacement des condensateurs de sortie des DC-DC** si ondulation hors spec.
-5. **Remplacement du convertisseur DC-DC fautif** (CDV 221 / 19AKM) — nécessite air chaud.
-6. **Remplacement de l'antenne.**
-7. Si le Linkx eTour-07 ou le MSP430 sont en cause : **remplacement de la carte complète**.
-   Le MSP430 est programmé en usine (FRAM), il ne se remplace pas sans le firmware.
+1. **Remplacer le pack par 2 AA Ni-MH neuves, appairées, de même marque et capacité** — quelques
+   euros. Si H1/H2/H3, c'est terminé ici.
+2. **Nettoyage IPA + séchage** du compartiment pile et de la carte (obligatoire s'il y a eu fuite :
+   le KOH continue de corroder tant qu'il est présent).
+3. **Nettoyage / remplacement des contacts à ressort** corrodés du compartiment pile.
+4. **Vérifier la valise de charge elle-même** — si elle surcharge, elle détruira aussi les
+   appareils sains. **Testez les autres appareils du parc.**
+5. Remplacement des condensateurs de sortie du boost si l'ondulation est hors spec.
+6. Remplacement du convertisseur (`19AKM` / `CDV 221`) — air chaud requis.
+7. Carte complète si le SoC Linkx ou le MSP430 sont en cause (MCU programmé en usine,
+   non remplaçable sans le firmware).
 
----
-
-## 8. Ce qu'il faut retenir
-
-1. L'écart thermique de **+36 °C** face à un appareil neuf identique est la preuve objective d'un
-   défaut électrique, pas d'un usage intensif.
-2. Le **point carbonisé** des photos 05 et 11 est très probablement la cause directe ou la
-   conséquence visible du défaut. **C'est là qu'il faut regarder en premier.**
-3. La **mesure du courant en veille**, comparée à l'appareil neuf, tranche en 5 minutes entre
-   « fuite sur la carte » et « émission permanente ».
-4. Le schéma **chauffe d'abord, blocage ensuite** est la signature d'un **brown-out
-   thermique** : la fuite s'aggrave avec la température jusqu'à faire décrocher l'alimentation
-   du MSP430.
+> 💡 **Pensez « parc », pas « appareil ».** Sur un ensemble d'audioguides, une valise de charge
+> défaillante ou une procédure de charge inadaptée abîme les appareils **un par un**. Si vous
+> avez d'autres unités, mesurez-en deux ou trois autres : si plusieurs chauffent, le problème
+> est dans la **charge**, pas dans cet exemplaire.
 
 ---
 
-## Annexe — Index des photos
+## 10. À retenir
+
+1. **L'appareil est un Linkx TG-288 / eTour, audioguide UHF, sur 2 × AA Ni-MH.** Cette seule
+   information réoriente tout le diagnostic vers la **chaîne pile / charge**.
+2. **La tache noire n'est pas un arc électrique.** C'est un liquide qui a coulé et bruni.
+   Elle est probablement un **témoin** thermique, et possiblement sans effet électrique si les
+   vias qu'elle recouvre sont tous à la masse. **Ne la grattez pas avant de l'avoir vérifiée.**
+3. **Le Ni-MH transforme toute surcharge en chaleur**, et sa fin de charge est notoirement
+   difficile à détecter (−ΔV ≈ 5 mV). 65,9 °C est la signature classique.
+4. **Un boost sur un accu vieilli est une boucle à contre-réaction positive** qui finit par
+   déclencher l'UVLO — d'où « ça chauffe, **puis** ça se bloque ». Le blocage est une coupure
+   d'alimentation, pas un bug.
+5. **Avant de conclure quoi que ce soit du Δ36 °C**, assurez-vous de comparer deux appareils de
+   même type, allumés, dans le même mode, depuis le même temps, visés au même endroit.
+6. **Le test croisé des piles (§6.2) coûte 20 minutes et zéro euro**, et il départage la moitié
+   des hypothèses. Faites-le en premier.
+
+---
+
+## Sources
+
+- [Linkx Electronics — TG-288 / TG-288D, Tour Guide System](http://www.linkx.com.tw/tg-288_tg-288d.html)
+- [Linkx — eTour (linkxcorp)](http://www.linkxcorp.ru/en/products/tour-guide-system/etour.html)
+- [SoundFields — eTour, Digital UHF Tour Guide System](http://www.soundfields.co.uk/eTour.asp)
+- [GMGA — Digital UHF guide system Linkx TG-288](https://gmga.vn/en/digital-uhf-guide-system-linkx-tg-288/)
+- [Battery University — BU-408: Charging Nickel-metal-hydride](https://www.batteryuniversity.com/article/bu-408-charging-nickel-metal-hydride/)
+- [Electronics Notes — NiMH Battery Charging](https://www.electronics-notes.com/articles/electronic_components/battery-technology/nimh-nickel-metal-hydride-charging.php)
+- [Energizer — Nickel Metal Hydride (NiMH) Handbook and Application Manual](https://data.energizer.com/pdfs/nickelmetalhydride_appman.pdf)
+- [Industrial Monitor Direct — NiCd/NiMH charging current and termination methods](https://industrialmonitordirect.com/blogs/knowledgebase/nicad-vs-nimh-battery-charging-current-rate-and-termination-methods)
+- [SkyRC — Temperature rise when charging AA/AAA NiMH at high current](https://blog.skyrc.com/what-you-need-to-know-about-temperature-rise-when-charging-aa-aaa-nimh-batteries-at-very-high-current-3a/)
+
+---
+
+## Annexe A — Index des photos
 
 | Fichier | Contenu |
 |---|---|
-| `01_boutons_cdv221_qcpass.jpg` | Switches tactiles, DC-DC `CDV 221 A5L2`, étiquette QC |
-| `02_alim_diodes_ye_br_boutons.jpg` | Section alim, diodes `YE`/`BR`, switches |
-| `03_alim_19akm_2inductances_qfn.jpg` | `19AKM` SOT-23-5, 2 inductances blindées, QFN |
+| `01_boutons_cdv221_qcpass.jpg` | Poussoirs, `CDV 221 A5L2`, étiquette QC |
+| `02_alim_diodes_ye_br_boutons.jpg` | Section alim, diodes `YE`/`BR` |
+| `03_alim_19akm_2inductances_qfn.jpg` | `19AKM`, 2 inductances blindées |
 | `04_rf_724-2gsu_trimmer_tcxo.jpg` | `724 2G SU`, trimmer RF, TCXO 24,04 MHz |
-| `05_ANOMALIE_point_brule_via.jpg` | 🔴 **Zone carbonisée en bordure de carte** |
+| `05_ANOMALIE_point_brule_via.jpg` | Tache sombre en bordure de carte |
 | `06_vue_large_msp430_linkx.jpg` | Vue d'ensemble MCU + RF |
-| `07_msp430fr2_ht16c21_bsg_a46r.jpg` | MSP430FR2xx, HT16C21, QFN TI `BSG A46R` |
+| `07_msp430fr2_ht16c21_bsg_a46r.jpg` | MSP430FR, HT16C21, QFN `BSG A46R` |
 | `08_msp430_ht16c21_bord_carte.jpg` | MCU + driver LCD, bord de carte |
 | `09_lcd_ch03_ht16c21.jpg` | LCD `CH 03`, pictos cadenas/batterie/volume |
-| `10_msp430_bsg_trimmer.jpg` | MCU, QFN TI, trimmer RF, résistances `3R3` |
-| `11_ANOMALIE_point_brule_zoom_linkx.jpg` | 🔴 **Zoom zone carbonisée** + Linkx eTour-07 |
-| `12_linkx_etour07_msp430_724.jpg` | Linkx eTour-07, TCXO, `724 2G SU` |
+| `10_msp430_bsg_trimmer.jpg` | MCU, QFN TI, trimmer, `3R3` |
+| `11_ANOMALIE_point_brule_zoom_linkx.jpg` | Tache, second angle + SoC Linkx |
+| `12_linkx_etour07_msp430_724.jpg` | `Linkx eTour-07 2003B`, TCXO |
 | `13_face_alim_boutons_inductances.jpg` | Face alimentation complète |
-| `14_boutons_cdv221_vue2.jpg` | Switches, `CDV 221 A5L2` |
-| `15_alim_zoom_4r7_18c_473_19akm.jpg` | Zoom alim : `4R7`, `18C`, `473`, `19AKM` |
-| `16_IR_appareil_UTILISE_57C_max659.jpg` | 🌡️ Relevé IR appareil **utilisé** : 57 °C / max 65,9 °C |
-| `17_IR_appareil_NEUF_23C_max297.jpg` | 🌡️ Relevé IR appareil **neuf** : 23 °C / max 29,7 °C |
+| `14_boutons_cdv221_vue2.jpg` | Poussoirs, `CDV 221 A5L2` |
+| `15_alim_zoom_4r7_18c_473_19akm.jpg` | Étage boost : `4R7`, `18C`, `473`, `19AKM` |
+| `16_IR_appareil_UTILISE_57C_max659.jpg` | Relevé IR **usagé** : 57 °C / max 65,9 °C |
+| `17_IR_appareil_NEUF_23C_max297.jpg` | Relevé IR **neuf** : 23 °C / max 29,7 °C |
+
+## Annexe B — Zooms traités
+
+| Fichier | Contenu |
+|---|---|
+| `zooms/grid_05.jpg` | Photo 05 avec grille de coordonnées — montre la **matrice de vias** |
+| `zooms/burn_05_x3.jpg` | Tache ×3 — matière lisse, coulée, halos de cuivre oxydé |
+| `zooms/burn_11_x3.jpg` | Tache ×3, second angle — confirme : pas de cratère |
+| `zooms/alim3_x3.jpg` | Étage boost ×3 — `19AKM` + inductance + capas de sortie |
