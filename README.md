@@ -130,6 +130,14 @@ STEP (3D solid)
 
 ---
 
+## References
+
+| Document | Sujet |
+|---|---|
+| [`references/adhesif-support-aluminium-ecran-tactile.md`](references/adhesif-support-aluminium-ecran-tactile.md) | Choix de colle, préparation de surface et mise en œuvre seringue/dispenser pour coller un écran tactile sur un support aluminium |
+
+---
+
 ## Background
 
 These skills were developed while building an Antigravity syringe pump — specifically a carriage plate that needed to be compatible with both v4 and v3 brass nut hole patterns. The FreeCAD MCP approach (running FreeCAD Python API headlessly) turned out to be the most reliable way to automate the DXF → STEP → PDF pipeline without a GUI.
