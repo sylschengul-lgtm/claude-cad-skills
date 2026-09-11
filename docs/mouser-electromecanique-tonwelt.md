@@ -29,7 +29,10 @@ Trois niveaux, indiqués dans la colonne « Statut » :
 | 4 | **Micro-USB B**, CMS coudée | Documenté (port de charge) | [`10118193-0001LF`](https://www.mouser.com/ProductDetail/Amphenol-FCI/10118193-0001LF) · variantes [`…192`](https://www.mouser.com/ProductDetail/Amphenol-FCI/10118192-0001LF) et [`…194`](https://www.mouser.com/en/ProductDetail/Amphenol-FCI/10118194-0001LF) | Amphenol FCI |
 | 5 | **Mini-USB B** 5 contacts | À confirmer | [`54819-0519`](https://mouser.com/ProductDetail/Molex/54819-0519) · [catalogue Mini-B CMS](https://www.mouser.com/en/c/connectors/usb-connectors/?product=Mini+USB+Type+B+Connectors&termination+style=SMD%2FSMT) | Molex |
 | 6 | **USB-C** 16 contacts, traversante | À confirmer | [`USB4085-GF-A`](https://www.mouser.com/ProductDetail/GCT/USB4085-GF-A) (version tout-CMS : `USB4216`) | GCT |
-| 7 | **Prise d'alimentation DC** 2,0 × 6,5 mm, traversante | À confirmer | [`PJ-102AH`](https://www.mouser.com/ProductDetail/Same-Sky/PJ-102AH) · [`PJ-002A`](https://www.mouser.com/en/ProductDetail/Same-Sky/PJ-002A) | Same Sky (CUI Devices) |
+| 7 | **Prise d'alimentation, DIN puissance 4 contacts**, coudée, blindée | Identifié sur photo (hors dépôt) | [`KPJX-4S-S`](https://mouser.com/en/ProductDetail/Kycon/KPJX-4S-S) | Kycon |
+| 7b | idem, **non blindée** | Variante | [`KPJX-4S`](https://www.mouser.fr/ProductDetail/Kycon/KPJX-4S) | Kycon |
+| 7c | idem, **montage sur panneau** | Variante | [`KPJX-PM-4S-S`](https://www.mouser.com/ProductDetail/Kycon/KPJX-PM-4S-S) | Kycon |
+| 7d | **Fiche mâle** correspondante (réfection du cordon) | Accouplement | [`KPPX-4P`](https://www.mouser.com/ProductDetail/Kycon/KPPX-4P) | Kycon |
 | 8 | **Bouton poussoir** CMS (ceux de la carte) | Vu | [`SKRPACE010`](https://www.mouser.com/ProductDetail/Alps-Alpine/SKRPACE010) | Alps Alpine |
 | 8b | **Bouton poussoir** traversant 6 × 6 mm | À confirmer | [`B3F-1000`](https://www.mouser.com/ProductDetail/Omron-Electronics/B3F-1000) · [série B3F](https://www.mouser.com/c/electromechanical/switches/tactile-switches/?m=Omron&series=B3F) | Omron |
 | 9 | **Antenne UHF** hélicoïdale CMS | Documenté (ressort UHF) | [`ANT-868-VHETH`](https://www.mouser.com/ProductDetail/TE-Connectivity-Linx-Technologies/ANT-868-VHETH) | TE / Linx |
@@ -51,12 +54,36 @@ Une seule mesure suffit à trancher dans la plupart des cas.
 | 3 | **Diamètre, impédance (8 Ω ou 32 Ω), épaisseur** | L'impédance conditionne l'étage de sortie audio |
 | 4 | Laquelle des trois variantes Amphenol : elles diffèrent par le montage | Empreinte différente |
 | 5-6 | Nombre de contacts et type de montage | — |
-| 7 | **Diamètre de la broche centrale : 2,0 / 2,1 / 2,5 mm**, et diamètre extérieur | C'est le seul critère qui compte, et il ne se devine pas |
+| 7 | **Diamètre extérieur de la bague métallique en façade** : ~12,9 mm et corps ~15 × 17 mm = série KPJX. ~9,5 mm = mini-DIN 4 broches, famille différente (et limitée à ~1 A, donc improbable ici). Puis compter les trous côté cuivre : 4 contacts + 2 ergots + la languette de masse = version **blindée**. | Ces deux relevés tranchent entre KPJX-4S-S et KPJX-4S |
 | 8 | Hauteur de l'actionneur et force de contact | Confort d'appui à l'identique |
 | 9 | **La bande exacte** — le TG-288 est UHF, mais 863-865 MHz (Europe) et 902-928 MHz (US) ne prennent pas la même antenne. Lire l'étiquette de l'appareil. | Une antenne hors bande dégrade fortement la portée |
 | 10-11 | Valeur, tolérance, tension de service, boîtier | — |
 
 ---
+
+## Poste 7 — la prise d'alimentation
+
+Identifiée à partir de photos analysées **hors de ce dépôt** (trois clichés
+`1000011752/53/54.jpg`, non versionnés ici) : embase circulaire de puissance à
+**4 contacts femelles**, type DIN puissance, à souder, sortie coudée. Les cinq pattes
+observées = les 4 contacts de puissance en carré + **1 languette de masse / blindage**
+au bord de carte ; les deux petits trous non soudés sont les ergots de centrage.
+Série **Kycon KPJX**, 7,5 A par contact sous 48 V continu.
+
+Le bloc secteur associé est donné pour **5 V / 10 A / 50 W**, avec deux contacts au
+même potentiel par polarité pour passer les 10 A.
+
+⚠️ **Deux points que je n'ai pas vérifiés moi-même** (les photos n'ont pas été partagées
+dans cette session, et prix et stocks bougent) :
+- la référence exacte dépend des deux mesures du tableau ci-dessus ;
+- Mouser distribue bien les quatre variantes ci-dessus — les prix et disponibilités
+  sont à lire sur les pages produit, pas à reprendre d'un relevé daté.
+
+> 💡 **Un rapprochement à faire.** 5 V / 10 A, c'est une alimentation de **valise de
+> charge multi-emplacements**, pas d'un audioguide (qui se charge en micro-USB sur
+> 2 × AA Ni-MH). Or le diagnostic de surchauffe désigne précisément la valise de charge
+> comme suspect à tester (§9, point 4 : une valise qui surcharge abîme les appareils un
+> par un). Si cette prise est celle de la valise, les deux sujets n'en font qu'un.
 
 ## Réserves
 
