@@ -22,44 +22,44 @@ ws = wb.active
 ws.title = "Liste Mouser"
 
 rows = [
- ("Prise alimentation DIN puissance 4 contacts, coudée BLINDÉE","KPJX-4S-S","Kycon","Photo ext.","https://mouser.com/en/ProductDetail/Kycon/KPJX-4S-S"),
- ("Prise alimentation DIN puissance 4 contacts, non blindée","KPJX-4S","Kycon","Variante","https://www.mouser.fr/ProductDetail/Kycon/KPJX-4S"),
- ("Prise alimentation, montage sur panneau","KPJX-PM-4S-S","Kycon","Variante","https://www.mouser.com/ProductDetail/Kycon/KPJX-PM-4S-S"),
- ("Fiche mâle d'accouplement (réfection du cordon)","KPPX-4P","Kycon","Variante","https://www.mouser.com/ProductDetail/Kycon/KPPX-4P"),
- ("Prise jack 3,5 mm, traversante","SJ-43514","Same Sky (CUI Devices)","Documenté","https://www.mouser.com/ProductDetail/490-SJ-43514"),
- ("Prise jack 3,5 mm, CMS","SJ-43514-SMT-TR","Same Sky (CUI Devices)","Documenté","https://www.mouser.com/ProductDetail/CUI-Devices/SJ-43514-SMT-TR/"),
- ("Micro-USB B, CMS coudée","10118193-0001LF","Amphenol FCI","Documenté","https://www.mouser.com/ProductDetail/Amphenol-FCI/10118193-0001LF"),
- ("Micro-USB B, variante de montage","10118192-0001LF","Amphenol FCI","Variante","https://www.mouser.com/ProductDetail/Amphenol-FCI/10118192-0001LF"),
- ("Micro-USB B, variante de montage","10118194-0001LF","Amphenol FCI","Variante","https://www.mouser.com/en/ProductDetail/Amphenol-FCI/10118194-0001LF"),
- ("Mini-USB B, 5 contacts","54819-0519","Molex","À confirmer","https://mouser.com/ProductDetail/Molex/54819-0519"),
- ("USB-C, 16 contacts, traversante","USB4085-GF-A","GCT","À confirmer","https://www.mouser.com/ProductDetail/GCT/USB4085-GF-A"),
- ("Fusible réarmable PPTC, boîtier 1812","série MF-MSMF","Bourns","À confirmer","https://www.mouser.com/new/bourns/bourns-mf-msmf-series-fuses/"),
- ("Fusibles PPTC — catalogue complet","—","—","Catalogue","https://www.mouser.com/c/circuit-protection/thermistors/resettable-fuses-pptc/"),
- ("Haut-parleur Ø15 mm, 8 Ω","AS01508MR-6-R","PUI Audio","À confirmer","https://www.mouser.com/ProductDetail/PUI-Audio/AS01508MR-6-R"),
- ("Haut-parleurs — catalogue","—","—","Catalogue","https://www.mouser.com/en/c/electromechanical/audio-devices/speakers-transducers/"),
- ("Bouton poussoir CMS (ceux de la carte)","SKRPACE010","Alps Alpine","Vu","https://www.mouser.com/ProductDetail/Alps-Alpine/SKRPACE010"),
- ("Bouton poussoir traversant 6 × 6 mm","B3F-1000","Omron","À confirmer","https://www.mouser.com/ProductDetail/Omron-Electronics/B3F-1000"),
- ("Antenne UHF hélicoïdale CMS","ANT-868-VHETH","TE / Linx","Documenté","https://www.mouser.com/ProductDetail/TE-Connectivity-Linx-Technologies/ANT-868-VHETH"),
- ("Antenne UHF monopole embarqué Ø7 mm","ANT-868-JJB-ST","TE / Linx","Documenté","https://www.mouser.com/ProductDetail/TE-Connectivity-Linx-Technologies/ANT-868-JJB-ST"),
- ("Antenne UHF planaire CMS","ANT-868-SP","TE / Linx","Documenté","https://mouser.com/ProductDetail/Linx-Technologies/ANT-868-SP"),
- ("Antennes 868 MHz — catalogue","—","—","Catalogue","https://www.mouser.com/c/passive-components/antennas/?center+frequency=868+MHz"),
- ("Inductance blindée 4,7 µH, 4×4 mm (étage boost)","SRN4018-4R7M","Bourns","Vu","https://www.mouser.com/en/ProductDetail/Bourns/SRN4018-4R7M"),
- ("Condensateurs MLCC CMS — catalogue","0603 / 0805 / 1206","Murata, Yageo, KEMET","Vu","https://www.mouser.com/c/passive-components/capacitors/ceramic-capacitors/mlccs-smd-smt/"),
- ("Kits de condensateurs","—","—","Catalogue","https://www.mouser.com/Passive-Components/Capacitors/Capacitor-Kits/_/N-2iq32"),
- ("Résistances CMS — catalogue","RC0805 / CRCW0805","Yageo, Vishay","Vu","https://www.mouser.com/c/passive-components/resistors/chip-smd-resistors/"),
- ("Kits de résistances CMS","—","—","Catalogue","https://www.mouser.com/c/passive-components/resistors/resistor-kits/?termination+style=SMD%2FSMT"),
- ("Accus AA Ni-MH — la réparation la plus probable","gamme Ni-MH","Panasonic","Prioritaire","https://www.mouser.com/en/c/power/batteries/nimh-nickel-metal-hydride-battery/?m=Panasonic"),
- ("MCU TI MSP430FR2xxx — famille","réf. exacte à relire sur la puce","Texas Instruments","À confirmer","https://www.mouser.com/c/semiconductors/embedded-processors-controllers/microcontrollers-mcu/?q=MSP430FR2"),
+ ("Prise alimentation DIN puissance 4 contacts, coudée BLINDÉE","KPJX-4S-S","Kycon","Photo ext.","https://www.mouser.com/en/ProductDetail/Kycon/KPJX-4S-S?qs=0QDpPFt3C4bj8uE5yBzCJQ%3D%3D","https://www.mouser.fr/c/?q=KPJX-4S-S"),
+ ("Prise alimentation DIN puissance 4 contacts, non blindée","KPJX-4S","Kycon","Variante","https://www.mouser.fr/ProductDetail/Kycon/KPJX-4S?qs=PGF6ObTbUZ1PHc9As62%2FZQ%3D%3D","https://www.mouser.fr/c/?q=KPJX-4S"),
+ ("Prise alimentation, montage sur panneau","KPJX-PM-4S-S","Kycon","Variante","https://www.mouser.com/ProductDetail/Kycon/KPJX-PM-4S-S?qs=zorda86t5M9ArIfKgei5Pg%3D%3D","https://www.mouser.fr/c/?q=KPJX-PM-4S-S"),
+ ("Fiche mâle d'accouplement (réfection du cordon)","KPPX-4P","Kycon","Variante","https://www.mouser.com/ProductDetail/Kycon/KPPX-4P?qs=Y0vc5luVLxJNKFay3ZyJLw%3D%3D","https://www.mouser.fr/c/?q=KPPX-4P"),
+ ("Prise jack 3,5 mm, traversante","SJ-43514","Same Sky (CUI Devices)","Documenté","https://www.mouser.com/ProductDetail/Same-Sky/SJ-43514?qs=WyjlAZoYn51bsBOfuwwiuw%3D%3D","https://www.mouser.fr/c/?q=SJ-43514"),
+ ("Prise jack 3,5 mm, CMS","SJ-43514-SMT-TR","Same Sky (CUI Devices)","Documenté","https://www.mouser.com/ProductDetail/CUI-Devices/SJ-43514-SMT-TR/?qs=WyjlAZoYn528%252BiAb5RzVtg%3D%3D","https://www.mouser.fr/c/?q=SJ-43514-SMT-TR"),
+ ("Micro-USB B, CMS coudée","10118193-0001LF","Amphenol FCI","Documenté","https://www.mouser.com/ProductDetail/Amphenol-FCI/10118193-0001LF?qs=Ywefl8B65e63Nsqd%2B8HZaQ%3D%3D","https://www.mouser.fr/c/?q=10118193-0001LF"),
+ ("Micro-USB B, variante de montage","10118192-0001LF","Amphenol FCI","Variante","https://www.mouser.com/ProductDetail/Amphenol-FCI/10118192-0001LF?qs=Ywefl8B65e5bHFoQtIudZg%3D%3D","https://www.mouser.fr/c/?q=10118192-0001LF"),
+ ("Micro-USB B, variante de montage","10118194-0001LF","Amphenol FCI","Variante","https://www.mouser.com/en/ProductDetail/Amphenol-FCI/10118194-0001LF?qs=Ywefl8B65e4FIdY8OWfRQA%3D%3D","https://www.mouser.fr/c/?q=10118194-0001LF"),
+ ("Mini-USB B, 5 contacts","54819-0519","Molex","À confirmer","https://www.mouser.com/ProductDetail/Molex/54819-0519?qs=x6EjVpvqMVObi%2BAAyuuEww%3D%3D","https://www.mouser.fr/c/?q=54819-0519"),
+ ("USB-C, 16 contacts, traversante","USB4085-GF-A","GCT","À confirmer","https://www.mouser.com/ProductDetail/GCT/USB4085-GF-A?qs=KUoIvG%2F9Ilba1bQOahfWjw%3D%3D","https://www.mouser.fr/c/?q=USB4085-GF-A"),
+ ("Fusible réarmable PPTC, boîtier 1812","série MF-MSMF","Bourns","À confirmer","https://www.mouser.com/new/bourns/bourns-mf-msmf-series-fuses/","https://www.mouser.fr/c/?q=MF-MSMF"),
+ ("Fusibles PPTC — catalogue complet","—","—","Catalogue","https://www.mouser.com/c/circuit-protection/thermistors/resettable-fuses-pptc/","https://www.mouser.fr/c/?q=fusible+PPTC+1812"),
+ ("Haut-parleur Ø15 mm, 8 Ω","AS01508MR-6-R","PUI Audio","À confirmer","https://www.mouser.com/ProductDetail/PUI-Audio/AS01508MR-6-R?qs=vgjKjNJexThgIp5KgUGpgA%3D%3D","https://www.mouser.fr/c/?q=AS01508MR-6-R"),
+ ("Haut-parleurs — catalogue","—","—","Catalogue","https://www.mouser.com/en/c/electromechanical/audio-devices/speakers-transducers/","https://www.mouser.fr/c/?q=haut-parleur+15mm+8+ohm"),
+ ("Bouton poussoir CMS (ceux de la carte)","SKRPACE010","Alps Alpine","Vu","https://www.mouser.com/ProductDetail/Alps-Alpine/SKRPACE010?qs=dHDuPHwQO79W8iY66hDbLQ%3D%3D","https://www.mouser.fr/c/?q=SKRPACE010"),
+ ("Bouton poussoir traversant 6 × 6 mm","B3F-1000","Omron","À confirmer","https://www.mouser.com/ProductDetail/Omron-Electronics/B3F-1000?qs=lK7M36XCk6JQHckSc1xIsg%3D%3D","https://www.mouser.fr/c/?q=B3F-1000"),
+ ("Antenne UHF hélicoïdale CMS","ANT-868-VHETH","TE / Linx","Documenté","https://www.mouser.com/ProductDetail/TE-Connectivity-Linx-Technologies/ANT-868-VHETH?qs=pUKx8fyJudBCulCrBA9DxA%3D%3D","https://www.mouser.fr/c/?q=ANT-868-VHETH"),
+ ("Antenne UHF monopole embarqué Ø7 mm","ANT-868-JJB-ST","TE / Linx","Documenté","https://www.mouser.com/ProductDetail/TE-Connectivity-Linx-Technologies/ANT-868-JJB-ST?qs=K5ta8V%2BWhtbjRn899xwLFw%3D%3D","https://www.mouser.fr/c/?q=ANT-868-JJB-ST"),
+ ("Antenne UHF planaire CMS","ANT-868-SP","TE / Linx","Documenté","https://www.mouser.com/ProductDetail/Linx-Technologies/ANT-868-SP?qs=K5ta8V%2BWhtYLcp%2FwdgtLaA%3D%3D","https://www.mouser.fr/c/?q=ANT-868-SP"),
+ ("Antennes 868 MHz — catalogue","—","—","Catalogue","https://www.mouser.com/c/passive-components/antennas/?center+frequency=868+MHz","https://www.mouser.fr/c/?q=antenne+868+MHz"),
+ ("Inductance blindée 4,7 µH, 4×4 mm (étage boost)","SRN4018-4R7M","Bourns","Vu","https://www.mouser.com/en/ProductDetail/Bourns/SRN4018-4R7M?qs=UvjENeDOEed%2FCjy5nMh3Xg%3D%3D","https://www.mouser.fr/c/?q=SRN4018-4R7M"),
+ ("Condensateurs MLCC CMS — catalogue","0603 / 0805 / 1206","Murata, Yageo, KEMET","Vu","https://www.mouser.com/c/passive-components/capacitors/ceramic-capacitors/mlccs-smd-smt/","https://www.mouser.fr/c/?q=MLCC+0805"),
+ ("Kits de condensateurs","—","—","Catalogue","https://www.mouser.com/Passive-Components/Capacitors/Capacitor-Kits/_/N-2iq32","https://www.mouser.fr/c/?q=capacitor+kit"),
+ ("Résistances CMS — catalogue","RC0805 / CRCW0805","Yageo, Vishay","Vu","https://www.mouser.com/c/passive-components/resistors/chip-smd-resistors/","https://www.mouser.fr/c/?q=RC0805+resistance"),
+ ("Kits de résistances CMS","—","—","Catalogue","https://www.mouser.com/c/passive-components/resistors/resistor-kits/?termination+style=SMD%2FSMT","https://www.mouser.fr/c/?q=resistor+kit+0805"),
+ ("Accus AA Ni-MH — la réparation la plus probable","gamme Ni-MH","Panasonic","Prioritaire","https://www.mouser.com/en/c/power/batteries/nimh-nickel-metal-hydride-battery/?m=Panasonic","https://www.mouser.fr/c/?q=Panasonic+NiMH+AA"),
+ ("MCU TI MSP430FR2xxx — famille","réf. exacte à relire sur la puce","Texas Instruments","À confirmer","https://www.mouser.com/c/semiconductors/embedded-processors-controllers/microcontrollers-mcu/?q=MSP430FR2","https://www.mouser.fr/c/?q=MSP430FR2"),
 ]
 
 ws["A1"] = "Liste Mouser — audioguide Tonwelt / Linkx TG-288 et sa valise de charge"
 ws["A1"].font = TITLE
 ws["A2"] = ("Prix et stocks volontairement absents : ils changent — à lire sur la page produit au moment de commander.  "
-            "Colonne E (Qté) en jaune : à compléter, nombre entier, ex. 2.")
+            "Colonne E (Qté) en jaune : à compléter, nombre entier, ex. 2.  Colonne F : adresse en clair, à copier-coller.  Colonne G : cliquer sur « Ouvrir ».")
 ws["A2"].font = SUB
-ws.merge_cells("A1:F1"); ws.merge_cells("A2:F2")
+ws.merge_cells("A1:G1"); ws.merge_cells("A2:G2")
 
-hdr = ["Composant", "Référence fabricant", "Fabricant", "Statut", "Qté", "Lien Mouser"]
+hdr = ["Composant", "Référence fabricant", "Fabricant", "Statut", "Qté", "Lien produit Mouser", "Recherche par référence"]
 HR = 4
 for c, h in enumerate(hdr, 1):
     cell = ws.cell(row=HR, column=c, value=h)
@@ -67,9 +67,9 @@ for c, h in enumerate(hdr, 1):
     cell.alignment = Alignment(vertical="center", horizontal="center")
 ws.row_dimensions[HR].height = 22
 
-for i, (comp, ref, fab, stat, url) in enumerate(rows):
+for i, (comp, ref, fab, stat, url, rech) in enumerate(rows):
     r = HR + 1 + i
-    vals = [comp, ref, fab, stat, None, url]
+    vals = [comp, ref, fab, stat, None, url, rech]
     for c, v in enumerate(vals, 1):
         cell = ws.cell(row=r, column=c, value=v)
         cell.border = BORDER
@@ -81,11 +81,19 @@ for i, (comp, ref, fab, stat, url) in enumerate(rows):
     link = ws.cell(row=r, column=6)
     link.hyperlink = url; link.font = LINK
     link.alignment = Alignment(vertical="top")
+    # Colonne G : formule HYPERLINK — cliquable dans Excel, LibreOffice et Google Sheets,
+    # y compris là où les liens natifs ne sont pas activés (mode protégé, visionneuse mobile).
+    rlink = ws.cell(row=r, column=7)
+    rlink.hyperlink = rech; rlink.font = LINK
+    rlink.alignment = Alignment(vertical="top")
+    if i % 2: rlink.fill = ALT
+    rlink.border = BORDER
+
 
 last = HR + len(rows)
-ws.auto_filter.ref = f"A{HR}:F{last}"
+ws.auto_filter.ref = f"A{HR}:G{last}"
 ws.freeze_panes = f"A{HR+1}"
-for col, w in zip("ABCDEF", [46, 24, 22, 13, 7, 74]):
+for col, w in zip("ABCDEFG", [46, 24, 22, 13, 7, 62, 44]):
     ws.column_dimensions[col].width = w
 
 # ─────────────────────────── Feuille 2 : hors Mouser ───────────────────────────
