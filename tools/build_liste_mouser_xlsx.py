@@ -25,6 +25,9 @@ rows = [
  ("Prise alimentation DIN puissance 4 contacts, coudée BLINDÉE","KPJX-4S-S","Kycon","Photo ext.","https://www.mouser.com/en/ProductDetail/Kycon/KPJX-4S-S?qs=0QDpPFt3C4bj8uE5yBzCJQ%3D%3D","https://www.mouser.fr/c/?q=KPJX-4S-S"),
  ("Prise alimentation DIN puissance 4 contacts, non blindée","KPJX-4S","Kycon","Variante","https://www.mouser.fr/ProductDetail/Kycon/KPJX-4S?qs=PGF6ObTbUZ1PHc9As62%2FZQ%3D%3D","https://www.mouser.fr/c/?q=KPJX-4S"),
  ("Prise alimentation, montage sur panneau","KPJX-PM-4S-S","Kycon","Variante","https://www.mouser.com/ProductDetail/Kycon/KPJX-PM-4S-S?qs=zorda86t5M9ArIfKgei5Pg%3D%3D","https://www.mouser.fr/c/?q=KPJX-PM-4S-S"),
+ ("Prise alimentation DIN puissance 4 contacts — série voisine KPJ, non blindée","KPJ-4S","Kycon","À départager","https://www.mouser.com/ProductDetail/Kycon/KPJ-4S?qs=/XicOQBKAMa%252BcJ0hGGZaig%3D%3D","https://www.mouser.fr/c/?q=KPJ-4S"),
+ ("Prise alimentation DIN puissance 4 contacts — série voisine KPJ, blindée","KPJ-4S-S","Kycon","À départager","https://www.mouser.com/ProductDetail/Kycon/KPJ-4S-S?qs=SrUfdAPSdgAPLkBk%2BStEGA%3D%3D","https://www.mouser.fr/c/?q=KPJ-4S-S"),
+ ("Prise alimentation DIN puissance 4 contacts — version haute température","KPJXHT-4S-S","Kycon","Variante","https://www.mouser.com/ProductDetail/Kycon/KPJXHT-4S-S?qs=6olcXJbp99TwdwXWG%2BzyAQ%3D%3D","https://www.mouser.fr/c/?q=KPJXHT-4S-S"),
  ("Fiche mâle d'accouplement (réfection du cordon)","KPPX-4P","Kycon","Variante","https://www.mouser.com/ProductDetail/Kycon/KPPX-4P?qs=Y0vc5luVLxJNKFay3ZyJLw%3D%3D","https://www.mouser.fr/c/?q=KPPX-4P"),
  ("Prise jack 3,5 mm, traversante","SJ-43514","Same Sky (CUI Devices)","Documenté","https://www.mouser.com/ProductDetail/Same-Sky/SJ-43514?qs=WyjlAZoYn51bsBOfuwwiuw%3D%3D","https://www.mouser.fr/c/?q=SJ-43514"),
  ("Prise jack 3,5 mm, CMS","SJ-43514-SMT-TR","Same Sky (CUI Devices)","Documenté","https://www.mouser.com/ProductDetail/CUI-Devices/SJ-43514-SMT-TR/?qs=WyjlAZoYn528%252BiAb5RzVtg%3D%3D","https://www.mouser.fr/c/?q=SJ-43514-SMT-TR"),
@@ -132,7 +135,7 @@ ws3["A1"] = "Mesures à faire avant de commander"
 ws3["A1"].font = TITLE
 ws3.merge_cells("A1:C1")
 mes = [
- ("Prise d'alimentation","Diamètre extérieur de la bague en façade : ~12,9 mm avec corps ~15 × 17 mm → série KPJX ; ~9,5 mm → mini-DIN, autre famille limitée à ~1 A. Puis compter les trous côté cuivre : 4 contacts + 2 ergots + languette de masse → version blindée.","Tranche entre KPJX-4S-S et KPJX-4S"),
+ ("Prise d'alimentation","Plan de perçage constructeur à comparer trou par trou : https://www.mouser.com/datasheet/3/166/1/KPJX.pdf  —  Diamètre extérieur de la bague en façade : ~12,9 mm avec corps ~15 × 17 mm → série KPJX ; ~9,5 mm → mini-DIN, autre famille limitée à ~1 A. Puis compter les trous côté cuivre : 4 contacts + 2 ergots + languette de masse → version blindée.","Tranche entre KPJX-4S-S et KPJX-4S"),
  ("Prise jack 3,5 mm","3 ou 4 contacts (stéréo, ou stéréo + micro) ; traversant ou CMS ; hauteur du corps.","Un jack 4 contacts ne se monte pas sur une empreinte 3 contacts"),
  ("Fusible","Marquage, dimensions, réarmable (PPTC) ou verre, et courant de maintien.","Détermine la famille entière"),
  ("Haut-parleur","Diamètre, impédance (8 Ω ou 32 Ω), épaisseur.","L'impédance conditionne l'étage de sortie audio"),
