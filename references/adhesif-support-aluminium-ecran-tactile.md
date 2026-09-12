@@ -248,6 +248,56 @@ fente ovale), ne pas forcer : passer d'une seringue 30–55 cc à un **système
 à cartouche / réservoir** ou à une **pompe volumétrique** (cavité
 progressive). Le pneumatique sur seringue a une limite physique ici.
 
+### 8.4 Buse ovale **sur seringue** — ce que ça impose
+
+Configuration retenue : **Optimum Oval Tip inox, hub SafetyLok, vissée sur un
+corps de seringue Luer**, alimentée par un dispenser pneumatique.
+
+Conséquence directe : **une seringue ne contient qu'un produit déjà prêt.**
+Il n'y a pas de mélangeur statique dans la chaîne. Donc l'option B de §8.1
+(2K en cartouche bi-composant) **n'est pas accessible avec ce matériel**, sauf
+à pré-mélanger le 2K dans la seringue — possible, mais on travaille alors
+contre la pot life et il faut dégazer en centrifugeuse avant de poser.
+
+Le tableau se réduit donc à ceci :
+
+| Produit en seringue | Ruban continu fermé ? | Verdict |
+|---|---|---|
+| **1K MS / silicone neutre** | **Non** — réticule par l'humidité, cœur jamais durci en boucle fermée (§5.1) | Ruban **segmenté** obligatoire |
+| **1K acrylique UV / dual-cure** (type Dymax Multi-Cure) | **Oui** | ⭐ **La seule chimie qui fait un tour complet avec ce matériel.** Prise sous UV à travers le verre, cure « dans l'ombre » pour les zones masquées par le cadre alu |
+| 2K pré-mélangé en seringue | Oui | Dépannage / petites séries. Dégazage centrifugeuse + surveiller la pot life |
+
+⚠️ Avec un produit UV : **corps de seringue ambré obligatoire** (il bloque
+les UV et laisse passer moins de 12 % de lumière visible sous 550 nm), sinon
+le produit réticule dans la seringue. Corps noir pour les produits totalement
+photosensibles.
+
+### 8.5 Liste de matériel et mise en route
+
+**Matériel**
+- Corps de seringue **30 cc** — transparent pour un MS/silicone, **ambré**
+  pour un UV. Piston assorti.
+- **Optimum Oval Tip 14 GA**, longueur 0,5" (réf. type `7018036` en 14 GA
+  olive ; `7024653` en 18 GA vert pour un ruban plus fin).
+- Dispenser **UltimusPlus I-II** (régulation en boucle fermée — c'est elle
+  qui garde la section constante sur tout le tour).
+- Bouchons de seringue, clé de serrage douce, coupons alu de réglage.
+
+**Mise en route, dans l'ordre**
+1. Remplir le corps **incliné, aux 2/3 maximum**.
+2. Purger : **luer vers le haut**, tapoter le flanc, retirer le bouchon,
+   pousser le piston lentement. Produit épais : centrifugeuse.
+3. Visser la buse ovale à fond (SafetyLok), **grand axe perpendiculaire au
+   sens d'avance**.
+4. Démarrer à **1,5 bar**. Régler le *vacuum / suck-back* du dispenser pour
+   éviter la goutte en fin de course — indispensable sur un parcours fermé.
+5. Poser 100 mm d'essai sur un **coupon alu**, couper le ruban en travers,
+   mesurer largeur et hauteur au pied à coulisse.
+6. Corriger par pas de **0,3 bar** et ajuster la vitesse d'avance jusqu'à la
+   section visée. À pression figée, **c'est la vitesse qui fixe la section.**
+7. Consigner : pression, vitesse, gauge, température ambiante. Reprendre ces
+   valeurs à chaque lot — et les revalider si le lot de colle change.
+
 ### 8.4 Note sur les écrans tonwelt
 
 tonwelt (Berlin) fournit des solutions de médiation : guides audio et
