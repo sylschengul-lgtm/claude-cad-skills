@@ -176,6 +176,98 @@ peut ne jamais atteindre sa dureté finale). Chauffer la pièce, pas la colle.
 
 ---
 
+## 8. Cordon plat périphérique à la buse ovale — le cas « écran dans support alu »
+
+C'est la géométrie réelle du montage d'un écran dans un cadre aluminium :
+un **ruban plat continu** sur tout le pourtour du bezel.
+
+### 8.1 Le conflit à résoudre en premier
+
+Une buse ovale sert précisément à poser un **ruban continu**. Or (voir §5.1)
+un cordon **mono-composant** réticulant à l'humidité, enfermé en boucle
+fermée entre **deux surfaces non poreuses** (verre + aluminium), ne durcit
+jamais à cœur. **Buse ovale + cordon fermé ⇒ il faut changer de chimie**, ou
+renoncer au cordon continu.
+
+Trois sorties possibles :
+
+| Sortie | Chimie | Conséquence |
+|---|---|---|
+| **A — garder le 1K MS/silicone** | Sikaflex-552 AT, Dowsil neutre | Ruban **segmenté** (20–30 mm, espacés de 20 mm) posé à la buse ovale. Le moins cher, pas d'étanchéité périphérique |
+| **B — passer en 2K** ⭐ | **Silicone 2K** ou MS/PU 2K, cartouche bi-composant + mélangeur statique + **buse plate en sortie de mélangeur** | Ruban **continu** possible, réticulation indifférente au confinement, souplesse conservée. C'est la bonne réponse si on veut à la fois le ruban plat et l'étanchéité |
+| **C — UV / dual-cure** | Acrylique UV + cure humidité (type Dymax Multi-Cure) | Ruban continu, prise en secondes sous UV à travers le verre, cure « dans l'ombre » pour les zones masquées. Cycle le plus rapide, matériel le plus cher |
+
+Mention pour mémoire : en production série, l'industrie de l'affichage
+utilise massivement soit le **PUR hot-melt réactif** (Technomelt — tenue
+immédiate au refroidissement puis cure humidité en 24–48 h, appliqué chaud
+à la buse plate, donc sur le boîtier et non sur la dalle), soit la **mousse
+adhésive prédécoupée** (3M VHB, tesa). Ni l'un ni l'autre ne se fait avec un
+dispenser pneumatique de paillasse.
+
+### 8.2 Choix de la buse ovale
+
+Les Optimum Oval Tips sont faites pour « appliquer des rubans plats de
+fluides épais — pâtes, mastics, époxy — de façon précise et constante », et
+sont dimensionnées pour le débit élevé / haute viscosité.
+
+| Gauge ovale | Largeur de ruban visée | Repère |
+|---|---|---|
+| 18 GA (vert) | ~1,5–2 mm | ruban fin, petits bezels |
+| 14 GA (olive) | ~3 mm | cas courant écran/cadre |
+| 10 GA | ≥ 4 mm | gros cadres, forte reprise de jeu |
+
+Longueurs standard **6,35 mm (0,25")** pour le point-à-point rapide et
+**12,7 mm (0,5")** pour la précision générale ; longueurs sur mesure et
+versions coudées disponibles. Références types : `7024653` (ovale 18 GA
+vert 0,5"), `7018036` (14 GA olive 1,5").
+
+Règles de pose :
+- **Grand axe de l'ovale perpendiculaire au sens d'avance** — sinon on pose
+  un boudin, pas un ruban.
+- **Face plate parallèle au substrat**, distance de travail constante
+  ≈ la moitié de la hauteur de ruban visée.
+- Vitesse d'avance constante : c'est elle, pas la pression, qui fixe la
+  section du ruban une fois la pression réglée.
+- Le hub SafetyLok se visse à fond sur le corps de seringue ; le raccord est
+  affleurant côté fluide pour ne pas piéger d'air.
+- ⚠ Les **couleurs de hub ne sont pas normalisées** entre fabricants : se
+  fier au gauge marqué.
+
+### 8.3 Choix du dispenser
+
+| Appareil | Plage | Pour quoi |
+|---|---|---|
+| **Performus** | 0–7 bar (modèles 0–1 bar) | Prototypage, petites séries, réglage manuel |
+| **Ultimus V** | 0–7 bar, haute précision, profils programmables | Plusieurs tailles d'écran / plusieurs recettes mémorisées |
+| **UltimusPlus I-II** ⭐ | 0–7 bar, régulation en boucle fermée | Production répétable : la pression est tenue malgré la vidange du corps de seringue — c'est ce qui garde une section de ruban constante sur tout le tour |
+
+Réglage de départ pour un MS/silicone en buse ovale 14 GA : **1,5–3 bar**,
+monter progressivement jusqu'à obtenir la section visée à vitesse d'avance
+constante. Si 7 bar ne suffisent pas (pâte > ~300 000 mPa·s à travers une
+fente ovale), ne pas forcer : passer d'une seringue 30–55 cc à un **système
+à cartouche / réservoir** ou à une **pompe volumétrique** (cavité
+progressive). Le pneumatique sur seringue a une limite physique ici.
+
+### 8.4 Note sur les écrans tonwelt
+
+tonwelt (Berlin) fournit des solutions de médiation : guides audio et
+multimédia, dont le **supraGuide TOUCH** — un appareil **portatif** à écran
+tactile — ainsi que des stations fixes. Les deux cas ne sollicitent pas le
+collage de la même façon :
+
+- **Appareil portatif** → la charge dimensionnante est le **choc de chute**,
+  pas la dilatation (un écran de 4–5" ne génère qu'un différentiel
+  négligeable). Privilégier un joint **souple et amortissant** sur tout le
+  pourtour (2K silicone, ou mousse adhésive) et une retenue mécanique.
+- **Station fixe / grand écran** → la dilatation différentielle redevient
+  dimensionnante (§1), joint souple **1–3 mm** obligatoire.
+
+Demander à tonwelt la **matière exacte du pourtour** de la dalle (verre nu,
+bezel PC/ABS, cadre métal) : c'est elle qui décide du primaire, pas
+l'aluminium.
+
+---
+
 ## Sources
 
 - [Permabond — Bonding glass to metal](https://permabond.com/bonding-glass-to-metal/)
@@ -185,3 +277,23 @@ peut ne jamais atteindre sa dureté finale). Chauffer la pièce, pas la colle.
 - [3M Scotch-Weld DP460 — Technical Data Sheet (PDF)](https://multimedia.3m.com/mws/media/2365880O/3m-scotch-weld-epoxy-adhesive-dp460-off-white.pdf)
 - [3M — Structural adhesives / acrylic adhesives](https://www.3m.com/3M/en_US/bonding-and-assembly-us/structural-adhesives/acrylic-adhesives/)
 - [US 11604491 — Display cover glass/cell attachment to frame](https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/11604491) (bracket collé au cover glass via adhésif mousse, pour absorber les concentrations de contrainte et le différentiel de dilatation)
+
+### Buses ovales et dispensers (§8)
+
+- [Nordson EFD — Optimum Oval Tips](https://www.nordson.com/en/products/efd-products/optimum-oval-tips)
+- [Nordson EFD — Dispense Tips and Needles](https://www.nordson.com/en/products/efd-products/dispense-tips-and-needles)
+- [Nordson EFD — Optimum Angled Tips](https://www.nordson.com/en/products/efd-products/optimum-angled-tips)
+- [Nordson EFD — Optimum Components brochure (PDF)](https://www.jacrawfordco.com/wp-content/uploads/2019/09/Nordson-EFD-Optimum-Component-Brochure-1.pdf)
+- [Nordson EFD — catalogue Dispensing Tips (DirectIndustry)](https://pdf.directindustry.com/pdf/nordson-efd/dispensing-tips/35688-146801.html)
+- [Référence ovale 18 GA vert 0,5\" — 7024653](https://www.testequity.com/product/10161845-7024653)
+- [Nordson EFD — UltimusPlus I-II](https://www.nordson.com/en/products/efd-products/ultimusplus-i-ii-dispensers)
+- [Nordson EFD — Ultimus V](https://www.nordson.com/en/products/efd-products/ultimus-v-dispensers)
+- [Nordson EFD — Performus Series](https://www.nordson.com/en/products/efd-products/performus-series-dispensers)
+- [Component Supply — les couleurs de hub ne sont pas normalisées](https://www.componentsupplycompany.com/needle-hub-colors-and-gauge-sizes-component-supplys-guide/)
+
+### PUR hot-melt réactif et écrans tonwelt (§8)
+
+- [3M — PUR adhesives (polyuréthane réactif)](https://www.3m.com/3M/en_US/bonding-and-assembly-us/structural-adhesives/pur-adhesives/)
+- [Henkel Technomelt PUR — guide produit](https://www.hotmelt.com/blogs/blog/complete-product-guide-to-henkel-loctite-technomelt-pur-polyurethane-adhesives)
+- [tonwelt — site produits](https://tonwelt.com/)
+- [tonwelt — supraGuide TOUCH](https://tonwelt.com/produkte/audio-und-multimediaguides/supraguide-touch/)
