@@ -14,8 +14,9 @@ la fiche produit exige un jeton `?qs=…` qui ne se devine pas.
    Ne jamais la « nettoyer », ne jamais en retirer la partie après le `?`.
 2. **Ajouter en plus une URL de recherche par référence**, qui ne dépend d'aucun jeton :
    `https://www.mouser.fr/c/?q=<RÉFÉRENCE>`. C'est le lien de secours si le premier ne répond pas.
-3. **Mettre la recherche en premier, la fiche produit en second.** La recherche est la
-   seule forme qui ne dépend d'aucun jeton ; c'est elle qui doit être le lien principal.
+3. **La seule forme de lien à utiliser est `https://www.mouser.fr/c/?q=<RÉFÉRENCE>`.**
+   Confirmée fonctionnelle par l'utilisateur le 12/09/2026. Elle ne dépend d'aucun jeton
+   et ne subit aucune redirection. Ne plus livrer d'URL `ProductDetail` du tout.
 4. **Un renvoi `mouser.com` vers `mouser.fr` perd la chaîne de requête.** Constaté :
    `mouser.com/ProductDetail/Kycon/KPJX-PM-4S-S?qs=…` arrive sur
    `mouser.fr/fr/ProductDetail/Kycon/KPJX-PM-4S-S` **sans le jeton**, donc en 404.

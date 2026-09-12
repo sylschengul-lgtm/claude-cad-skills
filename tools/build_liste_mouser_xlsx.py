@@ -60,9 +60,9 @@ ws["A1"].font = TITLE
 ws["A2"] = ("Prix et stocks volontairement absents : ils changent — à lire sur la page produit au moment de commander.  "
             "Colonne E (Qté) en jaune : à compléter, nombre entier, ex. 2.  Colonne F : adresse en clair, à copier-coller.  Colonne G : cliquer sur « Ouvrir ».")
 ws["A2"].font = SUB
-ws.merge_cells("A1:G1"); ws.merge_cells("A2:G2")
+ws.merge_cells("A1:F1"); ws.merge_cells("A2:F2")
 
-hdr = ["Composant", "Référence fabricant", "Fabricant", "Statut", "Qté", "Recherche Mouser (lien fiable)", "Fiche produit (si elle répond)"]
+hdr = ["Composant", "Référence fabricant", "Fabricant", "Statut", "Qté", "Lien Mouser (recherche par référence)"]
 HR = 4
 for c, h in enumerate(hdr, 1):
     cell = ws.cell(row=HR, column=c, value=h)
@@ -72,7 +72,7 @@ ws.row_dimensions[HR].height = 22
 
 for i, (comp, ref, fab, stat, url, rech) in enumerate(rows):
     r = HR + 1 + i
-    vals = [comp, ref, fab, stat, None, rech, url]
+    vals = [comp, ref, fab, stat, None, rech]
     for c, v in enumerate(vals, 1):
         cell = ws.cell(row=r, column=c, value=v)
         cell.border = BORDER
@@ -86,17 +86,12 @@ for i, (comp, ref, fab, stat, url, rech) in enumerate(rows):
     link.alignment = Alignment(vertical="top")
     # Colonne G : formule HYPERLINK — cliquable dans Excel, LibreOffice et Google Sheets,
     # y compris là où les liens natifs ne sont pas activés (mode protégé, visionneuse mobile).
-    rlink = ws.cell(row=r, column=7)
-    rlink.hyperlink = url; rlink.font = LINK
-    rlink.alignment = Alignment(vertical="top")
-    if i % 2: rlink.fill = ALT
-    rlink.border = BORDER
 
 
 last = HR + len(rows)
-ws.auto_filter.ref = f"A{HR}:G{last}"
+ws.auto_filter.ref = f"A{HR}:F{last}"
 ws.freeze_panes = f"A{HR+1}"
-for col, w in zip("ABCDEFG", [46, 26, 22, 13, 7, 44, 62]):
+for col, w in zip("ABCDEF", [46, 26, 22, 13, 7, 48]):
     ws.column_dimensions[col].width = w
 
 # ─────────────────────────── Feuille 2 : hors Mouser ───────────────────────────

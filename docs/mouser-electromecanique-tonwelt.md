@@ -22,24 +22,24 @@ Trois niveaux, indiqués dans la colonne « Statut » :
 
 | # | Famille | Statut | Référence Mouser | Fabricant |
 |---|---|---|---|---|
-| 1 | **Prise jack 3,5 mm**, traversante | Documenté | [`SJ-43514`](https://www.mouser.com/ProductDetail/490-SJ-43514) | Same Sky (CUI Devices) |
-| 1b | **Prise jack 3,5 mm**, CMS | Documenté | [`SJ-43514-SMT-TR`](https://www.mouser.com/ProductDetail/CUI-Devices/SJ-43514-SMT-TR/) | Same Sky (CUI Devices) |
-| 2 | **Fusible réarmable PPTC** 1812 | À confirmer | [série `MF-MSMF`](https://www.mouser.com/new/bourns/bourns-mf-msmf-series-fuses/) · [catalogue PPTC](https://www.mouser.com/c/circuit-protection/thermistors/resettable-fuses-pptc/) | Bourns |
-| 3 | **Haut-parleur** Ø15 mm, 8 Ω | À confirmer | [`AS01508MR-6-R`](https://www.mouser.com/ProductDetail/PUI-Audio/AS01508MR-6-R) · [catalogue](https://www.mouser.com/en/c/electromechanical/audio-devices/speakers-transducers/) | PUI Audio |
-| 4 | **Micro-USB B**, CMS coudée | Documenté (port de charge) | [`10118193-0001LF`](https://www.mouser.com/ProductDetail/Amphenol-FCI/10118193-0001LF) · variantes [`…192`](https://www.mouser.com/ProductDetail/Amphenol-FCI/10118192-0001LF) et [`…194`](https://www.mouser.com/en/ProductDetail/Amphenol-FCI/10118194-0001LF) | Amphenol FCI |
-| 5 | **Mini-USB B** 5 contacts | À confirmer | [`54819-0519`](https://mouser.com/ProductDetail/Molex/54819-0519) · [catalogue Mini-B CMS](https://www.mouser.com/en/c/connectors/usb-connectors/?product=Mini+USB+Type+B+Connectors&termination+style=SMD%2FSMT) | Molex |
-| 6 | **USB-C** 16 contacts, traversante | À confirmer | [`USB4085-GF-A`](https://www.mouser.com/ProductDetail/GCT/USB4085-GF-A) (version tout-CMS : `USB4216`) | GCT |
-| 7 | **Prise d'alimentation, DIN puissance 4 contacts**, coudée, blindée | Identifié sur photo (hors dépôt) | [`KPJX-4S-S`](https://mouser.com/en/ProductDetail/Kycon/KPJX-4S-S) | Kycon |
-| 7b | idem, **non blindée** | Variante | [`KPJX-4S`](https://www.mouser.fr/ProductDetail/Kycon/KPJX-4S) | Kycon |
-| 7c | idem, **montage sur panneau** | Variante | [`KPJX-PM-4S-S`](https://www.mouser.com/ProductDetail/Kycon/KPJX-PM-4S-S) | Kycon |
-| 7d | **Fiche mâle** correspondante (réfection du cordon) | Accouplement | [`KPPX-4P`](https://www.mouser.com/ProductDetail/Kycon/KPPX-4P) | Kycon |
-| 8 | **Bouton poussoir** CMS (ceux de la carte) | Vu | [`SKRPACE010`](https://www.mouser.com/ProductDetail/Alps-Alpine/SKRPACE010) | Alps Alpine |
-| 8b | **Bouton poussoir** traversant 6 × 6 mm | À confirmer | [`B3F-1000`](https://www.mouser.com/ProductDetail/Omron-Electronics/B3F-1000) · [série B3F](https://www.mouser.com/c/electromechanical/switches/tactile-switches/?m=Omron&series=B3F) | Omron |
-| 9 | **Antenne UHF** hélicoïdale CMS | Documenté (ressort UHF) | [`ANT-868-VHETH`](https://www.mouser.com/ProductDetail/TE-Connectivity-Linx-Technologies/ANT-868-VHETH) | TE / Linx |
-| 9b | **Antenne UHF** monopole embarqué Ø7 mm | Documenté | [`ANT-868-JJB-ST`](https://www.mouser.com/ProductDetail/TE-Connectivity-Linx-Technologies/ANT-868-JJB-ST) | TE / Linx |
-| 9c | **Antenne UHF** planaire CMS | Documenté | [`ANT-868-SP`](https://mouser.com/ProductDetail/Linx-Technologies/ANT-868-SP) · [toutes les 868 MHz](https://www.mouser.com/c/passive-components/antennas/?center+frequency=868+MHz) | TE / Linx |
-| 10 | **Condensateurs** MLCC 0603 / 0805 / 1206 | Vu (`473` = 47 nF, MLCC de sortie boost) | [catalogue MLCC](https://www.mouser.com/c/passive-components/capacitors/ceramic-capacitors/mlccs-smd-smt/) · [kits](https://www.mouser.com/Passive-Components/Capacitors/Capacitor-Kits/_/N-2iq32) | Murata, Yageo, KEMET |
-| 11 | **Résistances** 0603 / 0805 | Vu (`3R3` = 3,3 Ω en 0805) | [catalogue CMS](https://www.mouser.com/c/passive-components/resistors/chip-smd-resistors/) · [kits](https://www.mouser.com/c/passive-components/resistors/resistor-kits/?termination+style=SMD%2FSMT) | Yageo RC0805, Vishay CRCW0805 |
+| 1 | **Prise jack 3,5 mm**, traversante | Documenté | [`SJ-43514`](https://www.mouser.fr/c/?q=SJ-43514) | Same Sky (CUI Devices) |
+| 1b | **Prise jack 3,5 mm**, CMS | Documenté | [`SJ-43514-SMT-TR`](https://www.mouser.fr/c/?q=SJ-43514-SMT-TR) | Same Sky (CUI Devices) |
+| 2 | **Fusible réarmable PPTC** 1812 | À confirmer | [série `MF-MSMF`](https://www.mouser.fr/c/?q=MF-MSMF) · [catalogue PPTC](https://www.mouser.fr/c/?q=fusible%20PPTC%201812) | Bourns |
+| 3 | **Haut-parleur** Ø15 mm, 8 Ω | À confirmer | [`AS01508MR-6-R`](https://www.mouser.fr/c/?q=AS01508MR-6-R) · [catalogue](https://www.mouser.fr/c/?q=haut-parleur%2015mm%208%20ohm) | PUI Audio |
+| 4 | **Micro-USB B**, CMS coudée | Documenté (port de charge) | [`10118193-0001LF`](https://www.mouser.fr/c/?q=10118193-0001LF) · variantes [`…192`](https://www.mouser.fr/c/?q=10118192-0001LF) et [`…194`](https://www.mouser.fr/c/?q=10118194-0001LF) | Amphenol FCI |
+| 5 | **Mini-USB B** 5 contacts | À confirmer | [`54819-0519`](https://www.mouser.fr/c/?q=54819-0519) · [catalogue Mini-B CMS](https://www.mouser.fr/c/?q=Mini%20USB%20type%20B) | Molex |
+| 6 | **USB-C** 16 contacts, traversante | À confirmer | [`USB4085-GF-A`](https://www.mouser.fr/c/?q=USB4085-GF-A) (version tout-CMS : `USB4216`) | GCT |
+| 7 | **Prise d'alimentation, DIN puissance 4 contacts**, coudée, blindée | Identifié sur photo (hors dépôt) | [`KPJX-4S-S`](https://www.mouser.fr/c/?q=KPJX-4S-S) | Kycon |
+| 7b | idem, **non blindée** | Variante | [`KPJX-4S`](https://www.mouser.fr/c/?q=KPJX-4S) | Kycon |
+| 7c | idem, **montage sur panneau** | Variante | [`KPJX-PM-4S-S`](https://www.mouser.fr/c/?q=KPJX-PM-4S-S) | Kycon |
+| 7d | **Fiche mâle** correspondante (réfection du cordon) | Accouplement | [`KPPX-4P`](https://www.mouser.fr/c/?q=KPPX-4P) | Kycon |
+| 8 | **Bouton poussoir** CMS (ceux de la carte) | Vu | [`SKRPACE010`](https://www.mouser.fr/c/?q=SKRPACE010) | Alps Alpine |
+| 8b | **Bouton poussoir** traversant 6 × 6 mm | À confirmer | [`B3F-1000`](https://www.mouser.fr/c/?q=B3F-1000) · [série B3F](https://www.mouser.fr/c/?q=Omron%20B3F) | Omron |
+| 9 | **Antenne UHF** hélicoïdale CMS | Documenté (ressort UHF) | [`ANT-868-VHETH`](https://www.mouser.fr/c/?q=ANT-868-VHETH) | TE / Linx |
+| 9b | **Antenne UHF** monopole embarqué Ø7 mm | Documenté | [`ANT-868-JJB-ST`](https://www.mouser.fr/c/?q=ANT-868-JJB-ST) | TE / Linx |
+| 9c | **Antenne UHF** planaire CMS | Documenté | [`ANT-868-SP`](https://www.mouser.fr/c/?q=ANT-868-SP) · [toutes les 868 MHz](https://www.mouser.fr/c/?q=antenne%20868%20MHz) | TE / Linx |
+| 10 | **Condensateurs** MLCC 0603 / 0805 / 1206 | Vu (`473` = 47 nF, MLCC de sortie boost) | [catalogue MLCC](https://www.mouser.fr/c/?q=MLCC%200805) · [kits](https://www.mouser.fr/c/?q=capacitor%20kit) | Murata, Yageo, KEMET |
+| 11 | **Résistances** 0603 / 0805 | Vu (`3R3` = 3,3 Ω en 0805) | [catalogue CMS](https://www.mouser.fr/c/?q=RC0805) · [kits](https://www.mouser.fr/c/?q=resistor%20kit%200805) | Yageo RC0805, Vishay CRCW0805 |
 
 ---
 
