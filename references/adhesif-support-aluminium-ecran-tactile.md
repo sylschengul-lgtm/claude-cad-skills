@@ -100,18 +100,37 @@ plastique difficile, pression de pose **≥ 15 N/cm²** (rouleau), tenue finale
 
 ### 5.1 Mono-composant (MS polymer, silicone) — seringue ou cartouche
 
-| Paramètre | Valeur conseillée |
-|---|---|
-| Conditionnement | seringue Luer-Lock 10–55 ml, ou cartouche 290 ml + pistolet |
-| Aiguille / buse | tapered tip **14G (Ø 1,6 mm)** ou 16G (Ø 1,2 mm) ; buse conique pour un cordon de 3 mm |
-| Dispenser pneumatique | Nordson EFD Ultimus / Performus, **0,5–2,5 bar**, montée en pression progressive |
-| Cordon | Ø 3–5 mm, **discontinu** (plots ou segments de 20–30 mm espacés de 20 mm) plutôt qu'un cordon fermé — laisse respirer et évite la bulle d'air piégée |
-| Épaisseur de joint | **1–3 mm** — c'est cette épaisseur qui absorbe la dilatation |
-| Contrôle d'épaisseur | cales, billes de verre calibrées 1 mm, ou plots imprimés 3D dans le support |
-| Prise en main | 10–30 min (hors poussière), **cure complète 24–48 h** (silicone/MS : ~3 mm/24 h, cure par l'humidité — un joint confiné entre deux surfaces étanches ne durcira pas au cœur, d'où le cordon discontinu) |
+| Paramètre | Valeur conseillée | Source |
+|---|---|---|
+| Conditionnement | seringue Luer-Lock — les tailles standard du marché sont **3 / 5 / 10 / 30 / 55 / 70 cc** ; ou cartouche 290 ml + pistolet | [Nordson EFD — Syringe barrel selection](https://www.nordson.com/en/about-us/nordson-blog/efd-blogs/022520-fluid-dispensing-101---syringe-barrel-selection) |
+| Corps de seringue | **transparent** (on voit le niveau et les bulles) ; ambré pour les colles UV, noir pour les produits photosensibles | idem |
+| Remplissage | incliner le corps, **ne pas dépasser les 2/3** — au-delà on emprisonne de l'air | [Nordson EFD — How to prevent air bubbles](https://www.nordson.com/en/about-us/nordson-blog/efd-blogs/how-to-prevent-air-bubbles-in-syringe-barrel-dispensing) |
+| Purge avant la 1re pose | retourner la seringue **luer vers le haut**, tapoter le flanc pour faire monter les bulles, retirer le bouchon, pousser le piston lentement. Produit très visqueux : passage en centrifugeuse | [Nordson EFD — How do you purge air from a syringe barrel](https://www.nordson.com/en/divisions/efd/resources/frequently-asked-questions/how-do-you-purge-air-from-a-syringe-barrel) · [FAQ bulles](https://www.nordson.com/en/divisions/efd/resources/frequently-asked-questions/why-do-i-keep-getting-air-bubbles-in-my-syringe) |
+| Aiguille / buse | tapered tip **14G (Ø int. ≈ 1,55 mm)** ou **16G (Ø int. 1,2 mm)** ; 18G = 0,86 mm, trop fin pour une pâte thixotrope. Buse conique pour un cordon de 3 mm | [Nordson EFD — Optimum dispense tips](https://www.nordson.com/en/products/efd-products/dispense-tips-and-needles) · [table des gauges](https://blog.darwin-microfluidics.com/syringe-needle-gauge-table/) |
+| Dispenser pneumatique | Nordson EFD **Ultimus V** ou **Performus** — plage machine 0–7 bar (modèles basse pression 0–1 bar). **Régler à 0,5–2,5 bar** pour un MS/silicone en 14-16G et monter progressivement | [Ultimus V](https://www.nordson.com/en/products/efd-products/ultimus-v-dispensers) · [Performus](https://www.nordson.com/en/products/efd-products/performus-series-dispensers) · [UltimusPlus — manuel (PDF)](https://www.jacrawfordco.com/wp-content/uploads/2023/10/Nordson-EFD-UltimusPlus-Series-Operating-Manual-2023.pdf) |
+| Cordon | Ø 3–5 mm, **discontinu** (plots ou segments de 20–30 mm espacés de 20 mm) | voir encadré ci-dessous |
+| Épaisseur de joint | **1–3 mm** — c'est elle qui absorbe la dilatation | §1 |
+| Contrôle d'épaisseur | cales, billes de verre calibrées 1 mm, ou plots imprimés 3D dans le support | — |
+| Formation de peau | **~30 min** pour un Sikaflex-552 AT (5–40 °C) | [Sikaflex-552 AT — PDS (PDF)](https://industry.sika.com/content/dam/dms/dk01/x/sikaflex_-552_at.pdf) |
+| Vitesse de cure | **2–4 mm / 24 h** à 20 °C / 50 % HR pour un MS polymer. Plus lent si l'air est froid ou sec | [MS polymer — cure times](https://qinanxgroup.com/blog/ms-polymer-sealant-curing-time-and-working-properties/) · [Méthodes de réticulation](https://bopinchem.com/sealant-curing-methods-explained-moisture-cure-reactive-uv-cure-and-more/) |
 
-Purger la seringue tête en haut avant la première pose (chasser l'air), sinon
-crachotement et cordon irrégulier.
+> **Pourquoi le cordon discontinu.** Ces colles réticulent par l'humidité de
+> l'air, de l'extérieur vers l'intérieur. Un joint complètement confiné entre
+> **deux surfaces non poreuses** — verre et métal, exactement notre cas — est
+> un mode de défaillance connu : sans vapeur d'eau disponible, le cœur du
+> cordon ne durcit jamais. La peau formée en surface ralentit en plus la
+> diffusion vers le matériau situé dessous. D'où : segments courts, chemins
+> d'air ouverts, et surtout **pas de cordon périphérique fermé**.
+> Sources : [Does silicone need air to cure — INCURE](https://incurelab.com/wp/does-silicone-need-air-to-cure) ·
+> [Condensation cure silicone — ScienceDirect](https://www.sciencedirect.com/topics/engineering/condensation-cure-silicone) ·
+> [Température et humidité sur la cure d'un élastomère silicone — ScienceDirect](https://www.sciencedirect.com/science/article/pii/S0142941820321966) ·
+> [Kinetics of moisture cure of silicone sealants — J. Adhesion](https://www.tandfonline.com/doi/abs/10.1080/00218469808009970)
+
+> **Note de vérification.** Les valeurs ci-dessus proviennent des extraits
+> indexés de ces pages ; le proxy réseau de la session bloque l'accès direct
+> à nordson.com, sika.com et à la plupart des PDF de fiches techniques.
+> Recouper avec la fiche technique du lot réellement acheté avant mise en
+> production.
 
 ### 5.2 Bi-composant (époxy DP460, acrylique DP8005 / AA 330)
 
