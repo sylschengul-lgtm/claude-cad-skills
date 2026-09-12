@@ -55,12 +55,19 @@ la fiche produit exige un jeton `?qs=…` qui ne se devine pas.
 ## Appareils du parc — ne pas confondre
 - **Linkx TG-288 / eTour** : audioguide UHF, 2 × AA Ni-MH, carte analysée dans
   `diagnostics/talkie-surchauffe/` (branche `claude/appareil-chauffe-bloque-2aopb5`).
+- **« Eco 2.0 »** : troisième carte, distincte des deux autres — USB-C, nappe FPC,
+  cellule 3,87 V, mention `(c) Felix Bäsecke`.
 - **Linkx TG-108** : modèle distinct. Une carte marquée `TG-108_RX R.0.2` a été
   photographiée : MCU en QFP différent, micro-USB et jack 3,5 mm visibles.
   Une nomenclature établie pour le TG-288 **ne vaut pas** pour le TG-108.
 
 ### Corrections apportées par l'utilisateur — priment sur toute déduction
 - **Les batteries du parc sont des cellules lithium plates**, pas des accus AA Ni-MH.
+  Relevées sur photo le 12/09/2026 : `JHY632570` 3,7 V 1300 mAh, une cellule 3,87 V
+  1000 mAh sans référence, `LIDIO 355485` 3,8 V 2500 mAh. **Le parc mélange deux chimies**
+  — 3,7 V (charge 4,20 V) et 3,8/3,87 V (charge 4,35 V) — ce qui est en soi un mécanisme
+  de surchauffe si une cellule est montée dans le mauvais appareil. Détail dans
+  `docs/batteries-lithium-tonwelt.md`.
   Conséquence lourde : le diagnostic de surchauffe repose sur la chimie Ni-MH
   (surcharge, fin de charge non détectée). **Ces hypothèses ne s'appliquent pas** à une
   cellule lithium — là, la surchauffe vient du circuit de charge, du circuit de
