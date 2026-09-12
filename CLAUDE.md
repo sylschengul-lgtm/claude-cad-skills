@@ -14,9 +14,20 @@ la fiche produit exige un jeton `?qs=…` qui ne se devine pas.
    Ne jamais la « nettoyer », ne jamais en retirer la partie après le `?`.
 2. **Ajouter en plus une URL de recherche par référence**, qui ne dépend d'aucun jeton :
    `https://www.mouser.fr/c/?q=<RÉFÉRENCE>`. C'est le lien de secours si le premier ne répond pas.
-3. **Tester les liens avant de livrer** quand le réseau le permet. Dans cette session
-   `www.mouser.fr` est bloqué par le proxy : le dire explicitement plutôt que d'affirmer
-   que les liens fonctionnent.
+3. **Mettre la recherche en premier, la fiche produit en second.** La recherche est la
+   seule forme qui ne dépend d'aucun jeton ; c'est elle qui doit être le lien principal.
+4. **Un renvoi `mouser.com` vers `mouser.fr` perd la chaîne de requête.** Constaté :
+   `mouser.com/ProductDetail/Kycon/KPJX-PM-4S-S?qs=…` arrive sur
+   `mouser.fr/fr/ProductDetail/Kycon/KPJX-PM-4S-S` **sans le jeton**, donc en 404.
+   Donner directement des URL `www.mouser.fr` plutôt que `www.mouser.com`.
+5. **La référence fabricant est l'identifiant durable, pas l'URL.** Elle doit figurer en
+   clair dans toute liste : collée dans le champ de recherche du distributeur, elle
+   fonctionne quand tous les liens ont changé.
+6. **Tester les liens avant de livrer** quand le réseau le permet. Vérifié le 2026-09-12 :
+   `www.mouser.fr` **et** `www.mouser.com` renvoient un **403 sur le tunnel CONNECT** du
+   proxy d'egress — refus de politique de l'organisation, à signaler sans le contourner.
+   Donc dans cet environnement, **aucun lien Mouser n'est vérifiable** : le dire au lieu
+   d'affirmer que les liens fonctionnent.
 
 ## Fichiers Excel
 - **Pas de formule si elle n'est pas indispensable.** Le recalcul LibreOffice ne

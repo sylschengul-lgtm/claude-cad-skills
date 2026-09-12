@@ -62,7 +62,7 @@ ws["A2"] = ("Prix et stocks volontairement absents : ils changent — à lire su
 ws["A2"].font = SUB
 ws.merge_cells("A1:G1"); ws.merge_cells("A2:G2")
 
-hdr = ["Composant", "Référence fabricant", "Fabricant", "Statut", "Qté", "Lien produit Mouser", "Recherche par référence"]
+hdr = ["Composant", "Référence fabricant", "Fabricant", "Statut", "Qté", "Recherche Mouser (lien fiable)", "Fiche produit (si elle répond)"]
 HR = 4
 for c, h in enumerate(hdr, 1):
     cell = ws.cell(row=HR, column=c, value=h)
@@ -72,7 +72,7 @@ ws.row_dimensions[HR].height = 22
 
 for i, (comp, ref, fab, stat, url, rech) in enumerate(rows):
     r = HR + 1 + i
-    vals = [comp, ref, fab, stat, None, url, rech]
+    vals = [comp, ref, fab, stat, None, rech, url]
     for c, v in enumerate(vals, 1):
         cell = ws.cell(row=r, column=c, value=v)
         cell.border = BORDER
@@ -82,12 +82,12 @@ for i, (comp, ref, fab, stat, url, rech) in enumerate(rows):
     ws.cell(row=r, column=5).fill = INPUT_FILL
     ws.cell(row=r, column=5).alignment = Alignment(horizontal="center", vertical="top")
     link = ws.cell(row=r, column=6)
-    link.hyperlink = url; link.font = LINK
+    link.hyperlink = rech; link.font = LINK
     link.alignment = Alignment(vertical="top")
     # Colonne G : formule HYPERLINK — cliquable dans Excel, LibreOffice et Google Sheets,
     # y compris là où les liens natifs ne sont pas activés (mode protégé, visionneuse mobile).
     rlink = ws.cell(row=r, column=7)
-    rlink.hyperlink = rech; rlink.font = LINK
+    rlink.hyperlink = url; rlink.font = LINK
     rlink.alignment = Alignment(vertical="top")
     if i % 2: rlink.fill = ALT
     rlink.border = BORDER
@@ -96,7 +96,7 @@ for i, (comp, ref, fab, stat, url, rech) in enumerate(rows):
 last = HR + len(rows)
 ws.auto_filter.ref = f"A{HR}:G{last}"
 ws.freeze_panes = f"A{HR+1}"
-for col, w in zip("ABCDEFG", [46, 24, 22, 13, 7, 62, 44]):
+for col, w in zip("ABCDEFG", [46, 26, 22, 13, 7, 44, 62]):
     ws.column_dimensions[col].width = w
 
 # ─────────────────────────── Feuille 2 : hors Mouser ───────────────────────────
