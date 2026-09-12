@@ -40,7 +40,8 @@ rows = [
  ("Fusibles PPTC — catalogue complet","—","—","Catalogue","https://www.mouser.com/c/circuit-protection/thermistors/resettable-fuses-pptc/","https://www.mouser.fr/c/?q=fusible+PPTC+1812"),
  ("Haut-parleur Ø15 mm, 8 Ω","AS01508MR-6-R","PUI Audio","À confirmer","https://www.mouser.com/ProductDetail/PUI-Audio/AS01508MR-6-R?qs=vgjKjNJexThgIp5KgUGpgA%3D%3D","https://www.mouser.fr/c/?q=AS01508MR-6-R"),
  ("Haut-parleurs — catalogue","—","—","Catalogue","https://www.mouser.com/en/c/electromechanical/audio-devices/speakers-transducers/","https://www.mouser.fr/c/?q=haut-parleur+15mm+8+ohm"),
- ("Bouton poussoir CMS (ceux de la carte)","SKRPACE010","Alps Alpine","Vu","https://www.mouser.com/ProductDetail/Alps-Alpine/SKRPACE010?qs=dHDuPHwQO79W8iY66hDbLQ%3D%3D","https://www.mouser.fr/c/?q=SKRPACE010"),
+ ("Poussoir tactile CMS bas profil — série SKRW (corrigé par l'utilisateur)","série SKRW","Alps Alpine","Vu","https://www.mouser.fr/fr/new/alps-alpine/alps-alpine-skrw-tact-switches/","https://www.mouser.fr/c/?q=SKRW"),
+ ("Poussoir tactile SKRW — variantes de durée de vie 50k / 500k / 1000k","SKRWAEE030 · SKRWAME030 · SKRWADE030","Alps Alpine","À confirmer","https://www.mouser.fr/fr/new/alps-alpine/alps-alpine-skrw-tact-switches/","https://www.mouser.fr/c/?q=SKRWAEE030"),
  ("Bouton poussoir traversant 6 × 6 mm","B3F-1000","Omron","À confirmer","https://www.mouser.com/ProductDetail/Omron-Electronics/B3F-1000?qs=lK7M36XCk6JQHckSc1xIsg%3D%3D","https://www.mouser.fr/c/?q=B3F-1000"),
  ("Antenne UHF hélicoïdale CMS","ANT-868-VHETH","TE / Linx","Documenté","https://www.mouser.com/ProductDetail/TE-Connectivity-Linx-Technologies/ANT-868-VHETH?qs=pUKx8fyJudBCulCrBA9DxA%3D%3D","https://www.mouser.fr/c/?q=ANT-868-VHETH"),
  ("Antenne UHF monopole embarqué Ø7 mm","ANT-868-JJB-ST","TE / Linx","Documenté","https://www.mouser.com/ProductDetail/TE-Connectivity-Linx-Technologies/ANT-868-JJB-ST?qs=K5ta8V%2BWhtbjRn899xwLFw%3D%3D","https://www.mouser.fr/c/?q=ANT-868-JJB-ST"),
@@ -51,7 +52,7 @@ rows = [
  ("Kits de condensateurs","—","—","Catalogue","https://www.mouser.com/Passive-Components/Capacitors/Capacitor-Kits/_/N-2iq32","https://www.mouser.fr/c/?q=capacitor+kit"),
  ("Résistances CMS — catalogue","RC0805 / CRCW0805","Yageo, Vishay","Vu","https://www.mouser.com/c/passive-components/resistors/chip-smd-resistors/","https://www.mouser.fr/c/?q=RC0805+resistance"),
  ("Kits de résistances CMS","—","—","Catalogue","https://www.mouser.com/c/passive-components/resistors/resistor-kits/?termination+style=SMD%2FSMT","https://www.mouser.fr/c/?q=resistor+kit+0805"),
- ("Accus AA Ni-MH — la réparation la plus probable","gamme Ni-MH","Panasonic","Prioritaire","https://www.mouser.com/en/c/power/batteries/nimh-nickel-metal-hydride-battery/?m=Panasonic","https://www.mouser.fr/c/?q=Panasonic+NiMH+AA"),
+ ("Batterie lithium plate (LiPo) — remplace les accus AA Ni-MH","à relever sur la cellule","—","Photo ext.","https://www.mouser.fr/c/?q=3.7V+Lipo+Battery","https://www.mouser.fr/c/?q=batterie+lithium+polymere+3.7V"),
  ("MCU TI MSP430FR2xxx — famille","réf. exacte à relire sur la puce","Texas Instruments","À confirmer","https://www.mouser.com/c/semiconductors/embedded-processors-controllers/microcontrollers-mcu/?q=MSP430FR2","https://www.mouser.fr/c/?q=MSP430FR2"),
 ]
 
@@ -136,7 +137,8 @@ mes = [
  ("Haut-parleur","Diamètre, impédance (8 Ω ou 32 Ω), épaisseur.","L'impédance conditionne l'étage de sortie audio"),
  ("Micro-USB B","Laquelle des trois variantes Amphenol : elles diffèrent par le montage.","Empreinte différente"),
  ("Antenne UHF","La bande réelle : 863–865 MHz (Europe) ou 902–928 MHz (US). Elle est sur l'étiquette de l'appareil.","Une antenne hors bande dégrade fortement la portée"),
- ("Bouton poussoir","Hauteur de l'actionneur et force de contact.","Retrouver le même confort d'appui"),
+ ("Bouton poussoir SKRW","Force d'actionnement et durée de vie visée (50k / 500k / 1000k cycles) — c'est le suffixe de la référence. Boîtier 3,7 × 3,7 mm, course 0,35 mm.","Le suffixe exact de la référence SKRW"),
+ ("Batterie lithium plate","Longueur × largeur × épaisseur, capacité en mAh, tension nominale, type de connecteur, et présence ou non du circuit de protection intégré.","Sans ces cinq valeurs aucune cellule n'est commandable : une LiPo ne se substitue pas au jugé"),
  ("Condensateurs / résistances","Valeur, tolérance, tension de service, boîtier.","—"),
  ("Écran LCD","Relever : nombre exact de broches, pas entre broches, dimensions du verre, et photo du verre allumé segment par segment. Le HT16C21 pilote au plus 20 segments × 4 communs — c'est la limite du plan à refaire.","Dossier de refabrication sur mesure, si le SAV ne fournit plus la pièce"),
  ("MCU MSP430FR2xxx","Relire le marquage complet à la loupe. ⚠ Le MCU est programmé en usine : le remplacer ne remet pas l'appareil en service sans le firmware Linkx.","Référence exacte"),
@@ -169,7 +171,7 @@ src = [
  ("À confirmer","Ni photographié ni documenté ici. La référence est un point de départ catalogue — voir l'onglet « Mesures restantes »."),
  ("Variante","Autre version du même composant (montage, blindage, accouplement)."),
  ("Catalogue","Lien vers une famille Mouser, pas vers une référence unique."),
- ("Prioritaire","Le diagnostic de surchauffe place la chaîne piles Ni-MH / charge en tête des causes (hypothèses H1, H2 et H3)."),
+ ("Prioritaire","⚠ OBSOLÈTE pour les appareils à batterie lithium plate. Le diagnostic de surchauffe repose sur la chimie Ni-MH (surcharge, absence de détection de fin de charge) : ces hypothèses H1, H2 et H3 ne s'appliquent PAS à une cellule lithium, dont la surchauffe relève du circuit de charge, du circuit de protection ou du gonflement de la cellule."),
  ("",""),
  ("Rapprochement à faire","L'alimentation associée à la prise Kycon est donnée pour 5 V / 10 A / 50 W : c'est le format d'une valise de charge multi-emplacements, pas d'un audioguide qui se charge en micro-USB sur 2 × AA Ni-MH. Or le diagnostic désigne la valise de charge comme suspect à tester. Si cette prise est celle de la valise, les deux sujets n'en font qu'un — et changer le connecteur ne réglera pas la surchauffe."),
 ]

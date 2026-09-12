@@ -59,6 +59,18 @@ la fiche produit exige un jeton `?qs=…` qui ne se devine pas.
   photographiée : MCU en QFP différent, micro-USB et jack 3,5 mm visibles.
   Une nomenclature établie pour le TG-288 **ne vaut pas** pour le TG-108.
 
+### Corrections apportées par l'utilisateur — priment sur toute déduction
+- **Les batteries du parc sont des cellules lithium plates**, pas des accus AA Ni-MH.
+  Conséquence lourde : le diagnostic de surchauffe repose sur la chimie Ni-MH
+  (surcharge, fin de charge non détectée). **Ces hypothèses ne s'appliquent pas** à une
+  cellule lithium — là, la surchauffe vient du circuit de charge, du circuit de
+  protection ou du gonflement de la cellule. Ne pas réutiliser les conclusions Ni-MH.
+- **Les poussoirs sont de la série Alps SKRW** (bas profil, 3,7 × 3,7 mm, course
+  0,35 mm), pas SKRP.
+- **Avertissement général** : beaucoup de composants proposés ne correspondaient pas aux
+  photos fournies. Ne proposer que ce qui est constaté ; une ligne « à confirmer » doit
+  rester l'exception, pas la majorité de la liste.
+
 ## Git
 Développer et pousser sur la branche désignée pour la session. Tout livrable
 (document, classeur, script) est commité — rien ne reste seulement dans la conversation.
