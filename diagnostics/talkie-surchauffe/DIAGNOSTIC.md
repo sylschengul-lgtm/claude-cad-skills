@@ -1,6 +1,6 @@
 # Diagnostic — Linkx TG-288 / eTour : l'appareil chauffe et se bloque
 
-**Dernière révision :** 2026-09-06 (révision 2 — corrige la révision 1)
+**Dernière révision :** 2026-09-13 (révision 3 — ajoute le §3bis)
 **Symptôme :** l'appareil chauffe puis se bloque.
 **Base :** 15 photos macro de la carte + 2 relevés IR + zooms traités + recherche constructeur.
 **Atout :** un exemplaire neuf de référence est disponible.
@@ -144,6 +144,82 @@ facilite les fuites. À nettoyer, mais rarement fatal seul.
 
 - Marques vert/jaune fluo sur le MSP430 : **feutre de contrôle qualité usine**. Normal.
 - Pastilles « QC PASS » : étiquettes de production. Normal.
+
+---
+
+## 3bis. ⚠️ Information apportée par l'utilisateur : **aucun composant à cet endroit, sur les deux faces**
+
+C'est une observation déterminante, et elle **ferme définitivement** l'hypothèse de l'arc
+électrique de la révision 1.
+
+### 3bis.1 Ce que le zoom saturé large confirme (`zooms/viafield_05_sat.jpg`)
+
+- La zone est un **champ de vias nu** : grille régulière de trous métallisés à couronne dorée,
+  en lignes et colonnes, **sans aucun composant**.
+- Les composants les plus proches (colonne de 0402/0603) sont à **4 ou 5 pas de grille à gauche**.
+- La tache est **isolée et unique** : aucun autre dépôt semblable ailleurs sur la carte.
+- Les deux vias situés dans la tache portent une **couronne rouge-orangé saturée** :
+  la corrosion est **centrée sur les trous eux-mêmes**.
+
+### 3bis.2 La chaîne logique
+
+1. **Aucun composant → aucune source de dissipation locale.** Rien ne peut avoir chauffé *là*.
+2. **Un arc a besoin de deux conducteurs à des potentiels différents.** Dans un champ de vias
+   de couture, tous les vias sont sur **le même net (la masse)** : différence de potentiel nulle,
+   **arc impossible**.
+3. Donc soit la matière **vient d'ailleurs**, soit le phénomène **n'est pas électrique du tout**.
+
+### 3bis.3 Le détail qui oriente : la corrosion est *dans* les vias
+
+Les halos rouges sont exactement centrés sur deux trous métallisés. Cela signifie que
+**du liquide a transité par les barillets de ces vias** — il est passé d'une face à l'autre.
+
+→ **Examinez le même emplacement sur la face opposée.** Une tache correspondante au dos
+signerait la traversée. Une face arrière propre signifierait que le liquide est resté ici.
+
+### 3bis.4 Deux branches restent ouvertes — et un seul test les départage
+
+| | **Branche A — dépôt non électrique** *(la plus probable)* | **Branche B — arc RF** *(minoritaire mais réelle)* |
+|---|---|---|
+| Nature | Flux de brasage cuit, infiltration de liquide, adhésif coulé | Amorçage RF entre **le via d'alimentation d'antenne** et un via de masse voisin |
+| Pourquoi c'est plausible | Matière lisse, coulée, translucide ; corrosion par voie chimique | La tache est **dans le bloc RF, près du bord et du ressort d'antenne**. Sur une antenne désadaptée ou cassée, la tension RF au point d'alimentation peut atteindre des dizaines à des centaines de volts — **c'est le seul mécanisme capable de brûler un champ de vias sans composant** |
+| Condition nécessaire | aucune | l'appareil doit être un **émetteur** (un récepteur ne produit aucune puissance RF) |
+| Conséquence | **Inoffensif** — simple témoin, à nettoyer | **Vraie panne** : la puissance réfléchie chauffe l'étage de sortie |
+
+**Le test qui tranche (§6.3) :** vérifier la continuité de **chaque** via recouvert par la tache
+vers la masse.
+
+- **Tous à la masse → Branche A.** La tache est cosmétique. Oubliez-la, allez au §4.
+- **Un des vias n'est *pas* à la masse** (il porte un signal, typiquement l'alimentation
+  d'antenne) **→ Branche B devient sérieuse.** Contrôlez alors l'antenne et le ROS (§6.6),
+  et remplacez l'antenne par celle de l'appareil neuf pour comparer.
+
+### 3bis.5 ⭐ Le meilleur test de tous : regardez l'appareil neuf au même endroit
+
+Vous avez un exemplaire neuf. **Regardez la même zone du champ de vias sur sa carte.**
+
+- **Le neuf porte une tache identique ou plus claire → c'est un artefact de fabrication**
+  (flux cuit au brasage). Dossier clos, la tache n'a strictement rien à voir avec la panne.
+- **Le neuf est propre → la tache est apparue en service.** Elle reste très probablement un
+  *témoin* et non la cause, mais elle prouve qu'un liquide ou une chaleur anormale a atteint
+  cette zone.
+
+C'est gratuit, ça prend deux minutes, et ça élimine ou confirme toute une branche.
+
+### 3bis.6 La tache n'est pas la blessure, c'est l'empreinte de pas
+
+Même sans être la cause, elle reste **un traceur précieux** : si un liquide est arrivé jusque-là,
+il a pu atteindre des endroits qui, eux, comptent vraiment — **sous le QFN Linkx, sous le
+MSP430, dans le compartiment pile, au port micro-USB**.
+
+Et la source la plus probable d'un liquide corrosif dans cet appareil est justement celle
+qu'on soupçonne déjà : **l'électrolyte (KOH) d'un accu Ni-MH surchauffé ou d'une pile alcaline
+mise en charge** (§4.1, §4.3). Le point d'entrée se cherche donc **du compartiment pile vers
+la carte**.
+
+**Conclusion : cette observation ne fait pas qu'éliminer une piste — elle fait converger le
+diagnostic sur la chaîne pile / charge du §4.**
+
 
 ---
 
@@ -377,7 +453,7 @@ matériel de location).
 | **H2** | **Surcharge Ni-MH** (fin de charge non détectée, valise ou circuit de charge) | **Élevée** | §6.1, §6.2, §6.4 dernière ligne |
 | **H3** | **Accu vieilli → emballement du boost → UVLO → brown-out** | **Élevée** | §6.2, §6.5 |
 | H4 | Convertisseur boost en défaut (`19AKM` / `CDV 221`, condensateur de sortie fissuré) | Moyenne | §6.5, §6.6 |
-| H5 | Fuite par résidu conducteur (la tache, **si** vias sur nets différents) | Faible-moyenne | §6.3 |
+| H5 | Fuite par résidu conducteur (la tache) | **Très faible** — aucun composant sur les 2 faces, champ de vias probablement tout à la masse (§3bis) | §6.3, §3bis.5 |
 | H6 | Étage RF en défaut (SoC Linkx, antenne, ROS) | Faible | §6.6 |
 | H7 | Bouton collé empêchant la veille | Faible | continuité des switches au repos |
 
@@ -411,9 +487,10 @@ outillage.** Commencez par là.
 
 1. **L'appareil est un Linkx TG-288 / eTour, audioguide UHF, sur 2 × AA Ni-MH.** Cette seule
    information réoriente tout le diagnostic vers la **chaîne pile / charge**.
-2. **La tache noire n'est pas un arc électrique.** C'est un liquide qui a coulé et bruni.
-   Elle est probablement un **témoin** thermique, et possiblement sans effet électrique si les
-   vias qu'elle recouvre sont tous à la masse. **Ne la grattez pas avant de l'avoir vérifiée.**
+2. **La tache noire n'est pas un arc électrique** — et l'absence de tout composant à cet
+   endroit sur les deux faces le confirme (§3bis) : sans composant, rien ne dissipe là ; et
+   dans un champ de vias de masse, aucune différence de potentiel ne permet un arc.
+   **Ne la grattez pas.** Regardez d'abord le même endroit sur l'appareil neuf (§3bis.5).
 3. **Le Ni-MH transforme toute surcharge en chaleur**, et sa fin de charge est notoirement
    difficile à détecter (−ΔV ≈ 5 mV). 65,9 °C est la signature classique.
 4. **Un boost sur un accu vieilli est une boucle à contre-réaction positive** qui finit par
@@ -470,3 +547,5 @@ outillage.** Commencez par là.
 | `zooms/burn_05_x3.jpg` | Tache ×3 — matière lisse, coulée, halos de cuivre oxydé |
 | `zooms/burn_11_x3.jpg` | Tache ×3, second angle — confirme : pas de cratère |
 | `zooms/alim3_x3.jpg` | Étage boost ×3 — `19AKM` + inductance + capas de sortie |
+| `zooms/viafield_05_sat.jpg` | Champ de vias saturé — **confirme l'absence de composant** et l'unicité de la tache |
+| `zooms/viafield_11_sat.jpg` | Champ de vias saturé, second angle |
