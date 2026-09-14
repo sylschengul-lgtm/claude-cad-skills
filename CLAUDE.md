@@ -82,6 +82,14 @@ revend sous ses propres noms. Ne pas présenter une référence Linkx comme le n
 ⚠️ **`tonwelt.com` est bloqué par le proxy d'egress** : les fiches techniques produit ne
 sont pas consultables depuis cet environnement. Les demander à l'utilisateur en PDF.
 
+### Panne de surchauffe — périmètre
+**Elle ne concerne que le `tourguide air`** (établi le 14/09/2026), pas les sept produits.
+L'appareil du diagnostic `diagnostics/talkie-surchauffe/` **est** ce tourGuide AIR.
+⚠️ Contradiction non levée : sa carte porte un convertisseur **élévateur** (donc source
+sous 3,3 V, typiquement 2 × AA Ni-MH) alors que les batteries du parc sont au lithium.
+Voir `docs/surchauffe-tourguide-air.md` — la vérification qui tranche est d'ouvrir un AIR
+qui chauffe et de regarder ce qui l'alimente.
+
 ### Corrections apportées par l'utilisateur — priment sur toute déduction
 - **Les batteries du parc sont des cellules lithium plates**, pas des accus AA Ni-MH.
   Relevées sur photo le 12/09/2026 : `JHY632570` 3,7 V 1300 mAh, une cellule 3,87 V
