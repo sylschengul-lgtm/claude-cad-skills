@@ -52,14 +52,35 @@ la fiche produit exige un jeton `?qs=…` qui ne se devine pas.
 - Indiquer, pour chaque ligne ouverte, **la mesure qui la referme** (diamètre, nombre
   de contacts, impédance, bande de fréquence…).
 
-## Appareils du parc — ne pas confondre
-- **Linkx TG-288 / eTour** : audioguide UHF, 2 × AA Ni-MH, carte analysée dans
-  `diagnostics/talkie-surchauffe/` (branche `claude/appareil-chauffe-bloque-2aopb5`).
-- **« Eco 2.0 »** : troisième carte, distincte des deux autres — USB-C, nappe FPC,
-  cellule 3,87 V, mention `(c) Felix Bäsecke`.
-- **Linkx TG-108** : modèle distinct. Une carte marquée `TG-108_RX R.0.2` a été
-  photographiée : MCU en QFP différent, micro-USB et jack 3,5 mm visibles.
-  Une nomenclature établie pour le TG-288 **ne vaut pas** pour le TG-108.
+## Le parc — sept produits Tonwelt, deux familles
+
+Réponse de l'utilisateur le 14/09/2026. **Le parc n'est pas un modèle mais une gamme**,
+répartie sur deux familles techniquement très différentes :
+
+| Famille | Produits du parc | Nature |
+|---|---|---|
+| **tourGuide** | `tourguide air`, `tourguide go`, `tourguide play` | Guidage de groupe par radio : émetteur + récepteurs, canaux, antenne, écran à segments |
+| **supraGuide** | `supraguide`, `supraguide eco`, `supraguide 2`, `supraguide touch` | Audioguides individuels : contenu embarqué, écran (tactile sur le TOUCH) |
+
+**Une liste d'achat unique ne peut pas couvrir les deux familles.** Il faut une
+nomenclature par produit.
+
+### Rapprochement avec les cartes observées — hypothèses, pas certitudes
+
+| Carte vue | Produit probable | Solidité |
+|---|---|---|
+| `Eco 2.0` — USB-C, nappe FPC, cellule 3,87 V 1000 mAh, `(c) Felix Bäsecke` | **supraGuide ECO** | **Forte** : la carte porte le nom |
+| Carte à ressort d'antenne + micro-USB, cellule `JHY632570` 3,7 V 1300 mAh | un **tourGuide** (radio) | Moyenne : l'antenne impose la famille, pas le modèle |
+| `TG-108_RX R.0.2` — micro-USB, jack 3,5 mm, MCU QFP | un **tourGuide**, version récepteur (`_RX`) | Moyenne |
+| `TG-288 / eTour` — LCD à segments (CH, cadenas, pile, volume), SoC `Linkx eTour-07` | un **tourGuide** d'ancienne génération | Moyenne. ⚠️ La mention « 2 × AA Ni-MH » vient de la fiche **Linkx**, pas de l'appareil Tonwelt : à ne pas tenir pour acquise |
+
+`TG-288` et `TG-108` sont des références **Linkx**, le fabricant d'origine ; Tonwelt les
+revend sous ses propres noms. Ne pas présenter une référence Linkx comme le nom du produit.
+
+**Le seul élément qui tranche est l'étiquette de l'appareil**, pas la carte.
+
+⚠️ **`tonwelt.com` est bloqué par le proxy d'egress** : les fiches techniques produit ne
+sont pas consultables depuis cet environnement. Les demander à l'utilisateur en PDF.
 
 ### Corrections apportées par l'utilisateur — priment sur toute déduction
 - **Les batteries du parc sont des cellules lithium plates**, pas des accus AA Ni-MH.

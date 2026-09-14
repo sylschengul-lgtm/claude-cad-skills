@@ -75,8 +75,11 @@ le contourner.
 
 Par ordre d'importance :
 
-1. **Quel modèle équipe le parc concerné ?** Question posée trois fois, toujours sans
-   réponse. Elle décide de la validité de la moitié de la liste.
+1. ~~Quel modèle équipe le parc ?~~ **Répondu le 14/09/2026** : sept produits Tonwelt sur
+   deux familles — `tourguide air / go / play` (guidage de groupe par radio) et
+   `supraguide / eco / 2 / touch` (audioguides individuels). Voir `CLAUDE.md`.
+   **Nouvelle tâche qui en découle : éclater la liste d'achat par produit**, une famille
+   ne partageant ni l'écran, ni la batterie, ni la connectique de l'autre.
 2. **Les appareils qui chauffent ont-ils la bonne tension de cellule ?** C'est la
    vérification la plus rentable, et elle ne coûte qu'un coup d'œil sur l'étiquette.
 3. **Le marquage de la 4ᵉ cellule** n'était pas déchiffrable sur la photo.
