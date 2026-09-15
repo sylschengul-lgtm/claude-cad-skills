@@ -180,6 +180,75 @@ ws4.column_dimensions["A"].width = 22
 ws4.column_dimensions["B"].width = 104
 ws4.freeze_panes = "A4"
 
+# ─────────────────── Feuille 5 : périmètre tourGuide AIR ───────────────────
+ws5 = wb.create_sheet("tourGuide AIR")
+ws5["A1"] = "tourGuide AIR — le seul produit touché par la panne de surchauffe"
+ws5["A1"].font = TITLE
+ws5["A2"] = ("Sous-ensemble de la feuille « Liste Mouser », restreint à ce qui est constaté ou attesté "
+             "sur la carte du tourGuide AIR (les 15 photos macro de diagnostics/talkie-surchauffe/). "
+             "La feuille principale reste inchangée.")
+ws5["A2"].font = SUB
+ws5.merge_cells("A1:E1"); ws5.merge_cells("A2:E2")
+
+air = [
+ ("Cellule lithium plate","JHY632570 · 3,7 V · 1300 mAh","Vu","Carte à ressort d'antenne + micro-USB — ⚠ reste à confirmer que cette carte est bien l'AIR","https://www.mouser.fr/c/?q=3.7V+Lipo+Battery"),
+ ("Port de charge micro-USB B","10118193-0001LF (+ variantes …192 / …194)","Documenté","Le diagnostic cite le port micro-USB (§6.7, corrosion fréquente en location)","https://www.mouser.fr/c/?q=10118193-0001LF"),
+ ("Poussoirs tactiles CMS","série SKRW","Vu","Corrigé par l'utilisateur. Suffixe selon durée de vie visée","https://www.mouser.fr/c/?q=SKRW"),
+ ("Inductance blindée 4,7 µH, 4×4 mm","SRN4018-4R7M","Vu","Deux étages à découpage sur la carte","https://www.mouser.fr/c/?q=SRN4018-4R7M"),
+ ("Condensateurs MLCC 0603 / 0805","à relever","Vu","473 = 47 nF identifié sur l'étage boost","https://www.mouser.fr/c/?q=MLCC+0805"),
+ ("Résistances 0805","à relever","Vu","3R3 = 3,3 Ω identifié","https://www.mouser.fr/c/?q=RC0805"),
+ ("Prise jack 3,5 mm (sortie casque)","SJ-43514-SMT-TR","Documenté","Fiche Linkx : sortie casque sur la version récepteur","https://www.mouser.fr/c/?q=SJ-43514-SMT-TR"),
+ ("Écran LCD à segments","SUR MESURE — hors catalogue","Vu","Pictogrammes propres au produit. SAV Linkx/Tonwelt ou refabrication sur plan","—"),
+ ("Prise d'alimentation de la VALISE de charge","KPJX-4S-S","Photo ext.","Appartient à la valise, pas à l'appareil — mais la valise est suspecte n°4","https://www.mouser.fr/c/?q=KPJX-4S-S"),
+]
+exclus = [
+ ("USB-C et nappe FPC","Ce sont les connecteurs de la carte « Eco 2.0 » (supraGuide ECO), pas de l'AIR"),
+ ("Antennes Linx ANT-868-*","L'AIR porte un ressort d'antenne soudé sur la carte, pas une antenne de catalogue"),
+ ("Prise mini-USB","Gardée par l'utilisateur, mais non constatée sur la carte de l'AIR — appartient à un autre produit"),
+ ("Haut-parleur","Non constaté sur l'AIR : c'est un récepteur à écouteurs"),
+ ("Fusible PPTC","Non constaté sur les photos de l'AIR"),
+ ("MCU, SoC RF, driver LCD, TCXO, 4 codes CMS non résolus","Voir la feuille « Hors Mouser » : non commandables ou non identifiés"),
+]
+
+for c, h in enumerate(["Composant", "Référence", "Statut", "Pourquoi cette ligne", "Lien Mouser"], 1):
+    cell = ws5.cell(row=4, column=c, value=h)
+    cell.font = HDR_FONT; cell.fill = HDR_FILL; cell.border = BORDER
+    cell.alignment = Alignment(vertical="center", horizontal="center")
+ws5.row_dimensions[4].height = 22
+r = 5
+for i, row in enumerate(air):
+    for c, v in enumerate(row, 1):
+        cell = ws5.cell(row=r, column=c, value=v)
+        cell.font = BOLD if c == 2 else BODY
+        cell.border = BORDER
+        cell.alignment = Alignment(vertical="top", wrap_text=(c in (1, 4)))
+        if i % 2: cell.fill = ALT
+    if row[4].startswith("http"):
+        ws5.cell(row=r, column=5).hyperlink = row[4]
+        ws5.cell(row=r, column=5).font = LINK
+    r += 1
+
+r += 1
+ws5.cell(row=r, column=1, value="Volontairement EXCLU du périmètre AIR").font = Font(name=F, size=12, bold=True, color="E65100")
+r += 1
+for c, h in enumerate(["Écarté", "Pourquoi"], 1):
+    cell = ws5.cell(row=r, column=c, value=h)
+    cell.font = HDR_FONT; cell.fill = HDR_FILL; cell.border = BORDER
+    cell.alignment = Alignment(vertical="center", horizontal="center")
+r += 1
+for i, (k, v) in enumerate(exclus):
+    for c, val in enumerate((k, v), 1):
+        cell = ws5.cell(row=r, column=c, value=val)
+        cell.font = BOLD if c == 1 else BODY
+        cell.border = BORDER
+        cell.alignment = Alignment(vertical="top", wrap_text=True)
+        if i % 2: cell.fill = ALT
+    r += 1
+
+for col, w in zip("ABCDE", [40, 30, 13, 56, 42]):
+    ws5.column_dimensions[col].width = w
+ws5.freeze_panes = "A5"
+
 out = "exports/Liste-Mouser-Tonwelt-TG288.xlsx"
 wb.save(out)
 print("écrit:", out)
