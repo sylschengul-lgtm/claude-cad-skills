@@ -249,6 +249,109 @@ for col, w in zip("ABCDE", [40, 30, 13, 56, 42]):
     ws5.column_dimensions[col].width = w
 ws5.freeze_panes = "A5"
 
+# ─────────────────── Feuille 6 : batteries lithium plates ───────────────────
+ws6 = wb.create_sheet("Batteries")
+ws6["A1"] = "Batteries lithium plates — recherche Mouser ciblée par cellule"
+ws6["A1"].font = TITLE
+ws6["A2"] = ("Codes à six chiffres = épaisseur (dixièmes de mm) · largeur · longueur. "
+             "Aucune des trois cellules d'origine n'est distribuée par Mouser : ce sont des cellules OEM. "
+             "Les recherches ci-dessous visent un ÉQUIVALENT, pas la référence d'origine.")
+ws6["A2"].font = SUB
+ws6.merge_cells("A1:E1"); ws6.merge_cells("A2:E2")
+
+bat = [
+ ("Cellule n°1 — carte à ressort d'antenne (tourGuide AIR probable)",
+  "JHY632570", "3,7 V · 1300 mAh · 4,81 Wh · 6,3 × 25 × 70 mm",
+  "Chercher : LiPo 3,7 V, 1200–1500 mAh, épaisseur ≤ 6,5 mm, avec circuit de protection et connecteur",
+  "https://www.mouser.fr/c/?q=LiPo+1300mAh+3.7V"),
+ ("Cellule n°2 — carte Eco 2.0 (supraGuide ECO)",
+  "sans référence", "3,87 V · 1000 mAh · dimensions à mesurer",
+  "⚠ 3,87 V = LiPo HAUTE TENSION (charge 4,35 V). Le filtre Mouser ne propose que du 3,7 V : équivalent peu probable en catalogue",
+  "https://www.mouser.fr/c/?q=LiPo+1000mAh"),
+ ("Cellule n°4",
+  "LIDIO 355485", "3,8 V · 2500 mAh · 9,5 Wh · 3,5 × 54 × 85 mm",
+  "⚠ 3,8 V = haute tension également. Chercher 2000–2600 mAh, épaisseur ≤ 4 mm",
+  "https://www.mouser.fr/c/?q=LiPo+2500mAh"),
+ ("Cellule n°3", "illisible sur la photo", "3,8 V à confirmer",
+  "Refaire une photo nette du marquage avant toute recherche", "—"),
+]
+
+familles = [
+ ("Packs LiPo — catalogue complet", "Le point d'entrée général, à filtrer par tension, capacité et connecteur", "https://www.mouser.fr/c/?q=3.7V+Lipo+Battery"),
+ ("Packs LiPo à connecteur JST", "Vos cellules sortent sur un JST 2 points, fil rouge et noir", "https://www.mouser.fr/c/?q=lithium+polymer+battery+pack+JST"),
+ ("Jauch Quartz, série LP — chez DIGIKEY, pas Mouser", "Le meilleur équivalent industriel : même convention de code à six chiffres (LP + TTWWLL), 60 à 6000 mAh, 3,7 V / charge 4,2 V. Non distribué par Mouser", "https://www.digikey.fr/fr/products/filter/batteries-rechargeable-secondary/91?s=jauch"),
+]
+
+criteres = [
+ ("1. Dimensions", "Épaisseur × largeur × longueur MESURÉES au pied à coulisse — le code à six chiffres est une convention, pas une garantie"),
+ ("2. Capacité", "En mAh. Une capacité supérieure allonge l'autonomie mais souvent l'épaisseur aussi"),
+ ("3. Tension nominale", "⚠ LE CRITÈRE CRITIQUE. 3,7 V (charge 4,20 V) et 3,8/3,87 V (charge 4,35 V) ne sont PAS interchangeables. Une 3,7 V dans un chargeur 4,35 V est en surcharge permanente : elle chauffe et gonfle"),
+ ("4. Circuit de protection", "Vos cellules en ont un, visible sous le kapton jaune. Une cellule nue sans protection est dangereuse dans cet appareil"),
+ ("5. Connecteur et POLARITÉ", "JST 2 points. La polarité n'est pas normalisée sur les cellules chinoises : vérifier au voltmètre AVANT de brancher, sous peine de détruire la carte"),
+]
+
+r = 4
+for c, h in enumerate(["Cellule d'origine", "Marquage", "Spécification relevée", "Ce qu'il faut chercher", "Recherche Mouser"], 1):
+    cell = ws6.cell(row=r, column=c, value=h)
+    cell.font = HDR_FONT; cell.fill = HDR_FILL; cell.border = BORDER
+    cell.alignment = Alignment(vertical="center", horizontal="center")
+ws6.row_dimensions[r].height = 22
+r += 1
+for i, row in enumerate(bat):
+    for c, v in enumerate(row, 1):
+        cell = ws6.cell(row=r, column=c, value=v)
+        cell.font = BOLD if c == 2 else BODY
+        cell.border = BORDER
+        cell.alignment = Alignment(vertical="top", wrap_text=(c != 2))
+        if i % 2: cell.fill = ALT
+    if row[4].startswith("http"):
+        ws6.cell(row=r, column=5).hyperlink = row[4]; ws6.cell(row=r, column=5).font = LINK
+    r += 1
+
+r += 1
+ws6.cell(row=r, column=1, value="Familles et sources").font = Font(name=F, size=12, bold=True, color="1F3864")
+r += 1
+for c, h in enumerate(["Famille", "Pourquoi", "Lien"], 1):
+    cell = ws6.cell(row=r, column=c, value=h)
+    cell.font = HDR_FONT; cell.fill = HDR_FILL; cell.border = BORDER
+    cell.alignment = Alignment(vertical="center", horizontal="center")
+r += 1
+for i, row in enumerate(familles):
+    for c, v in enumerate(row, 1):
+        cell = ws6.cell(row=r, column=c, value=v)
+        cell.font = BOLD if c == 1 else BODY
+        cell.border = BORDER
+        cell.alignment = Alignment(vertical="top", wrap_text=True)
+        if i % 2: cell.fill = ALT
+    ws6.cell(row=r, column=3).hyperlink = row[2]; ws6.cell(row=r, column=3).font = LINK
+    r += 1
+
+r += 1
+ws6.cell(row=r, column=1, value="Les cinq critères d'un équivalent — aucun n'est facultatif").font = Font(name=F, size=12, bold=True, color="E65100")
+r += 1
+for i, (k, v) in enumerate(criteres):
+    a = ws6.cell(row=r, column=1, value=k); b = ws6.cell(row=r, column=2, value=v)
+    ws6.merge_cells(start_row=r, start_column=2, end_row=r, end_column=5)
+    a.font = BOLD; b.font = BODY
+    for cell in (a, b):
+        cell.border = BORDER
+        cell.alignment = Alignment(vertical="top", wrap_text=True)
+        if i % 2: cell.fill = ALT
+    r += 1
+
+r += 1
+ws6.cell(row=r, column=1, value=("🔥 Sécurité : une poche lithium gonflée ou en surchauffe est un risque d'incendie. "
+                                 "Ne pas la percer, ne pas la plier, ne pas continuer à la charger. La sortir de l'appareil, "
+                                 "la placer dans un contenant ininflammable, la faire reprendre en déchet."))
+ws6.cell(row=r, column=1).font = Font(name=F, size=10, bold=True, color="C00000")
+ws6.merge_cells(start_row=r, start_column=1, end_row=r, end_column=5)
+ws6.cell(row=r, column=1).alignment = Alignment(wrap_text=True, vertical="top")
+ws6.row_dimensions[r].height = 30
+
+for col, w in zip("ABCDE", [44, 20, 38, 60, 36]):
+    ws6.column_dimensions[col].width = w
+ws6.freeze_panes = "A5"
+
 out = "exports/Liste-Mouser-Tonwelt-TG288.xlsx"
 wb.save(out)
 print("écrit:", out)
