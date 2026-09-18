@@ -1,4 +1,4 @@
-# Liste Mouser complète — audioguide Tonwelt / Linkx TG-288 et sa valise de charge
+# Liste Mouser complète - audioguide Tonwelt / Linkx TG-288 et sa valise de charge
 
 Tableau unique, avec le lien Mouser en clair à côté de chaque ligne.
 Consolide `mouser-tonwelt-linkx-tg288.md` et `mouser-electromecanique-tonwelt.md`.
@@ -24,22 +24,22 @@ Colonne **Statut** : `Vu` = visible sur les 15 photos macro de la carte ·
 | Mini-USB B 5 contacts | Molex 54819-0519 | À confirmer | https://www.mouser.fr/c/?q=54819-0519 |
 | USB-C 16 contacts traversante | GCT USB4085-GF-A | À confirmer | https://www.mouser.fr/c/?q=USB4085-GF-A |
 | Fusible réarmable PPTC 1812 | Bourns série MF-MSMF | À confirmer | https://www.mouser.fr/c/?q=MF-MSMF |
-| Fusibles PPTC — catalogue complet | — | — | https://www.mouser.fr/c/?q=fusible%20PPTC%201812 |
+| Fusibles PPTC - catalogue complet | - | - | https://www.mouser.fr/c/?q=fusible%20PPTC%201812 |
 | Haut-parleur Ø15 mm 8 Ω | PUI Audio AS01508MR-6-R | À confirmer | https://www.mouser.fr/c/?q=AS01508MR-6-R |
-| Haut-parleurs — catalogue | — | — | https://www.mouser.fr/c/?q=haut-parleur%2015mm%208%20ohm |
+| Haut-parleurs - catalogue | - | - | https://www.mouser.fr/c/?q=haut-parleur%2015mm%208%20ohm |
 | Bouton poussoir CMS (ceux de la carte) | Alps SKRPACE010 | **Vu** | https://www.mouser.fr/c/?q=SKRPACE010 |
 | Bouton poussoir traversant 6 × 6 mm | Omron B3F-1000 | À confirmer | https://www.mouser.fr/c/?q=B3F-1000 |
 | Antenne UHF hélicoïdale CMS | TE / Linx ANT-868-VHETH | Documenté | https://www.mouser.fr/c/?q=ANT-868-VHETH |
 | Antenne UHF monopole embarqué Ø7 mm | TE / Linx ANT-868-JJB-ST | Documenté | https://www.mouser.fr/c/?q=ANT-868-JJB-ST |
 | Antenne UHF planaire CMS | TE / Linx ANT-868-SP | Documenté | https://www.mouser.fr/c/?q=ANT-868-SP |
-| Antennes 868 MHz — catalogue | — | — | https://www.mouser.fr/c/?q=antenne%20868%20MHz |
+| Antennes 868 MHz - catalogue | - | - | https://www.mouser.fr/c/?q=antenne%20868%20MHz |
 | Inductance blindée 4,7 µH 4×4 (étage boost) | Bourns SRN4018-4R7M | **Vu** | https://www.mouser.fr/c/?q=SRN4018-4R7M |
-| Condensateurs MLCC CMS — catalogue | Murata, Yageo, KEMET | **Vu** | https://www.mouser.fr/c/?q=MLCC%200805 |
-| Kits de condensateurs | — | — | https://www.mouser.fr/c/?q=capacitor%20kit |
-| Résistances CMS — catalogue | Yageo RC0805, Vishay CRCW0805 | **Vu** | https://www.mouser.fr/c/?q=RC0805 |
-| Kits de résistances CMS | — | — | https://www.mouser.fr/c/?q=resistor%20kit%200805 |
-| Accus AA Ni-MH (**la réparation la plus probable**) | gamme Panasonic Ni-MH | — | https://www.mouser.fr/c/?q=Panasonic%20NiMH%20AA |
-| MCU TI MSP430FR2xxx — famille | référence exacte à relire sur la puce | À confirmer | https://www.mouser.fr/c/?q=MSP430FR2 |
+| Condensateurs MLCC CMS - catalogue | Murata, Yageo, KEMET | **Vu** | https://www.mouser.fr/c/?q=MLCC%200805 |
+| Kits de condensateurs | - | - | https://www.mouser.fr/c/?q=capacitor%20kit |
+| Résistances CMS - catalogue | Yageo RC0805, Vishay CRCW0805 | **Vu** | https://www.mouser.fr/c/?q=RC0805 |
+| Kits de résistances CMS | - | - | https://www.mouser.fr/c/?q=resistor%20kit%200805 |
+| Accus AA Ni-MH (**la réparation la plus probable**) | gamme Panasonic Ni-MH | - | https://www.mouser.fr/c/?q=Panasonic%20NiMH%20AA |
+| MCU TI MSP430FR2xxx - famille | référence exacte à relire sur la puce | À confirmer | https://www.mouser.fr/c/?q=MSP430FR2 |
 
 ## Non distribué par Mouser
 
@@ -62,6 +62,6 @@ Colonne **Statut** : `Vu` = visible sur les 15 photos macro de la carte ·
 | Fusible | Marquage, dimensions, réarmable ou verre, courant de maintien | Famille entière |
 | Haut-parleur | Diamètre, impédance (8 ou 32 Ω), épaisseur | Référence |
 | Antenne | Bande réelle : 863-865 MHz (Europe) ou 902-928 MHz (US) | Une antenne hors bande dégrade fortement la portée |
-| MCU | Marquage complet à la loupe | Référence — mais le MCU est programmé en usine, le remplacer ne répare rien sans le firmware |
+| MCU | Marquage complet à la loupe | Référence - mais le MCU est programmé en usine, le remplacer ne répare rien sans le firmware |
 
 > Prix et stocks non repris ici : ils changent, à lire sur les pages produit au moment de commander.

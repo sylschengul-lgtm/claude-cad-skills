@@ -1,4 +1,4 @@
-# Liste Mouser — électromécanique et passifs, audioguide Tonwelt / Linkx TG-288
+# Liste Mouser - électromécanique et passifs, audioguide Tonwelt / Linkx TG-288
 
 Suite de `docs/mouser-tonwelt-linkx-tg288.md`, limitée aux familles demandées :
 prise jack, fusible, haut-parleur, prises USB, prise d'alimentation, bouton
@@ -8,12 +8,12 @@ poussoir, antennes, condensateurs et résistances. **Mouser uniquement.**
 
 Trois niveaux, indiqués dans la colonne « Statut » :
 
-- **Vu** — le composant est visible sur les 15 photos macro de la carte
+- **Vu** - le composant est visible sur les 15 photos macro de la carte
   (`diagnostics/talkie-surchauffe/`, branche `claude/appareil-chauffe-bloque-2aopb5`).
-- **Documenté** — non photographié, mais attesté par la fiche constructeur du TG-288
+- **Documenté** - non photographié, mais attesté par la fiche constructeur du TG-288
   reprise dans le diagnostic (port de charge micro-USB, ressort d'antenne UHF,
   entrée micro / sortie casque selon la version émetteur ou récepteur).
-- **À confirmer** — ni photographié ni documenté ici. La référence proposée est un
+- **À confirmer** - ni photographié ni documenté ici. La référence proposée est un
   point de départ catalogue, pas une pièce à commander en l'état.
 
 ---
@@ -53,15 +53,15 @@ Une seule mesure suffit à trancher dans la plupart des cas.
 | 2 | **Marquage et dimensions**, boîtier céramique/verre ou boîtier plat | Un PPTC réarmable et un fusible verre ne sont pas dans la même famille, et le courant de maintien doit être relevé |
 | 3 | **Diamètre, impédance (8 Ω ou 32 Ω), épaisseur** | L'impédance conditionne l'étage de sortie audio |
 | 4 | Laquelle des trois variantes Amphenol : elles diffèrent par le montage | Empreinte différente |
-| 5-6 | Nombre de contacts et type de montage | — |
+| 5-6 | Nombre de contacts et type de montage | - |
 | 7 | **Diamètre extérieur de la bague métallique en façade** : ~12,9 mm et corps ~15 × 17 mm = série KPJX. ~9,5 mm = mini-DIN 4 broches, famille différente (et limitée à ~1 A, donc improbable ici). Puis compter les trous côté cuivre : 4 contacts + 2 ergots + la languette de masse = version **blindée**. | Ces deux relevés tranchent entre KPJX-4S-S et KPJX-4S |
 | 8 | Hauteur de l'actionneur et force de contact | Confort d'appui à l'identique |
-| 9 | **La bande exacte** — le TG-288 est UHF, mais 863-865 MHz (Europe) et 902-928 MHz (US) ne prennent pas la même antenne. Lire l'étiquette de l'appareil. | Une antenne hors bande dégrade fortement la portée |
-| 10-11 | Valeur, tolérance, tension de service, boîtier | — |
+| 9 | **La bande exacte** - le TG-288 est UHF, mais 863-865 MHz (Europe) et 902-928 MHz (US) ne prennent pas la même antenne. Lire l'étiquette de l'appareil. | Une antenne hors bande dégrade fortement la portée |
+| 10-11 | Valeur, tolérance, tension de service, boîtier | - |
 
 ---
 
-## Poste 7 — la prise d'alimentation
+## Poste 7 - la prise d'alimentation
 
 Identifiée à partir de photos analysées **hors de ce dépôt** (trois clichés
 `1000011752/53/54.jpg`, non versionnés ici) : embase circulaire de puissance à
@@ -73,13 +73,13 @@ Série **Kycon KPJX**, 7,5 A par contact sous 48 V continu.
 Le bloc secteur associé est donné pour **5 V / 10 A / 50 W**, avec deux contacts au
 même potentiel par polarité pour passer les 10 A.
 
-⚠️ **Deux points que je n'ai pas vérifiés moi-même** (les photos n'ont pas été partagées
+Attention : **Deux points que je n'ai pas vérifiés moi-même** (les photos n'ont pas été partagées
 dans cette session, et prix et stocks bougent) :
 - la référence exacte dépend des deux mesures du tableau ci-dessus ;
-- Mouser distribue bien les quatre variantes ci-dessus — les prix et disponibilités
+- Mouser distribue bien les quatre variantes ci-dessus - les prix et disponibilités
   sont à lire sur les pages produit, pas à reprendre d'un relevé daté.
 
-> 💡 **Un rapprochement à faire.** 5 V / 10 A, c'est une alimentation de **valise de
+> **Un rapprochement à faire.** 5 V / 10 A, c'est une alimentation de **valise de
 > charge multi-emplacements**, pas d'un audioguide (qui se charge en micro-USB sur
 > 2 × AA Ni-MH). Or le diagnostic de surchauffe désigne précisément la valise de charge
 > comme suspect à tester (§9, point 4 : une valise qui surcharge abîme les appareils un
@@ -93,7 +93,7 @@ dans cette session, et prix et stocks bougent) :
    sont ni photographiés ni documentés dans ce dépôt : ils viennent d'un relevé fait
    dans une autre session, restée locale et inaccessible depuis ici.
 2. **La fréquence de l'antenne n'est pas établie.** Les références 868 MHz sont
-   proposées comme bande ISM européenne la plus probable pour ce type de système —
+   proposées comme bande ISM européenne la plus probable pour ce type de système -
    à vérifier sur l'étiquette avant toute commande.
 3. **Ces pièces ne traitent pas la panne de surchauffe.** Le diagnostic met en tête
    la chaîne piles Ni-MH / charge, pas la connectique.
