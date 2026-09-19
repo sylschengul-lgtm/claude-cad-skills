@@ -402,6 +402,54 @@ indépendantes :
   par la méthode du coupon (§8.5). La viscosité varie beaucoup d'un grade à
   l'autre, il n'y a pas de valeur universelle à recopier.
 
+## 10. Solution retenue : bande VHB — liste d'achat
+
+Décision : **bande adhésive double face**, pas de colle liquide. Tout le
+problème de réticulation (§5.1, §9) disparaît — une bande n'a rien à faire
+durcir. Elle est **continue**, **souple** (elle encaisse la dilatation
+différentielle à n'importe quelle diagonale) et **immédiate**.
+
+### 10.1 Consommables
+
+| Article | Référence | Pour quoi |
+|---|---|---|
+| **Ruban VHB** | **3M VHB 5952**, noir, **1,1 mm**, largeur 12 mm, rouleau 33 m | Le cœur du montage. Mousse acrylique conformable, formulée métaux / plastiques / peintures poudrées |
+| Variante plus épaisse | 3M VHB **5962F**, 1,6 mm | Si l'écran est grand ou le support peu plan : plus d'épaisseur = plus de souplesse |
+| **Primaire** | **3M Primer 94**, flacon 236 ml (ou ampoules 0,66 ml) | **Seulement** si l'alu est peint ou poudré, ou sur plastique difficile. Sèche en moins d'une minute |
+| Dégraissant | Isopropanol (IPA) + chiffons non pelucheux | Avant et après abrasion |
+| Abrasif | Scotch-Brite rouge ou abrasif P320 | Retirer l'oxyde faible de l'alu |
+| Rouleau applicateur | Rouleau caoutchouc dur | Appliquer les 15 N/cm² de pression de pose |
+| Démontage | Fil à couper (nylon ou acier fin) | Un écran, ça se remplace |
+
+**Quantité** : le périmètre d'un écran ~10" (220 × 130 mm) fait environ
+700 mm. Un rouleau de 33 m couvre donc une cinquantaine d'écrans — un seul
+rouleau suffit largement pour un prototype et une petite série.
+
+### 10.2 Où acheter (France)
+
+- **[Farnell FR — VHB 5952 noir, 33 m × 12 mm](https://fr.farnell.com/3m/5952-black-33m-x-12mm/ruban-double-face-33m-x-12mm-noir/dp/3935789)** — exactement la référence visée
+- [RS France — VHB 5952F, 11 m × 19 mm × 1,1 mm](https://fr.rs-online.com/web/p/rubans-mousse/1634731) · [VHB 5962F, 33 m × 12 mm × 1,6 mm](https://fr.rs-online.com/web/p/rubans-mousse/1747320)
+- [Rubix — Ruban 3M VHB 5952](https://fr.rubix.com/fr/ruban-5952-3m-vhb/p-G5015002667)
+- [Strong Adhésifs — VHB 5952, découpe **sur mesure**](https://www.strongadhesifs.com/608-ruban-adhesif-double-face-3m-vhb-5952.html) — utile pour des bandes prédécoupées à la largeur du bezel
+- [Comptoir des Pros — VHB 5952F](https://www.comptoirdespros.com/ruban-adhesif-double-face-3mtm-vhbtm-5952f-noir.html)
+- [3M France — fiche produit 5952](https://www.3mfrance.fr/3M/fr_FR/p/d/b40065688/)
+
+Primer 94 : [3M — fiche produit](https://www.3m.com/3M/en_US/p/d/b40065491/) ·
+[FXbrands (UE), flacon 236 ml](https://www.fxbrands.eu/3mtm-94-primer-for-vhbtm-tape-236-ml.html) ·
+[ampoules 0,66 ml](https://www.fxbrands.eu/3mtm-94-primer-for-vhb-tape-ampoule-066-ml.html)
+
+### 10.3 Procédure de pose
+
+1. Alu : **IPA → abrasion P320 → IPA**. Primer 94 seulement si peint/poudré,
+   laisser sécher < 1 min.
+2. Surface et pièces à **plus de 15 °C**.
+3. Poser la bande sur le **support alu** d'abord, liner encore en place.
+4. Retirer le liner, présenter l'écran, **presser au rouleau à 15 N/cm²
+   minimum** — c'est la pression qui fait l'adhérence, pas le temps d'attente.
+5. Tenue immédiate à la manipulation ; **résistance finale à 72 h**.
+6. **Rebord de retenue mécanique** en bas du support : la bande travaille en
+   cisaillement, jamais en pelage.
+
 ## Sources
 
 - [Permabond — Bonding glass to metal](https://permabond.com/bonding-glass-to-metal/)
