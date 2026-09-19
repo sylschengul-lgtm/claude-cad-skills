@@ -103,8 +103,10 @@ qui chauffe et de regarder ce qui l'alimente.
 
 ### Corrections apportées par l'utilisateur - priment sur toute déduction
 - **Les batteries du parc sont des cellules lithium plates**, pas des accus AA Ni-MH.
-  Relevées sur photo le 12/09/2026 : `JHY632570` 3,7 V 1300 mAh, une cellule 3,87 V
-  1000 mAh sans référence, `LIDIO 355485` 3,8 V 2500 mAh. **Le parc mélange deux chimies**
+  Cinq cellules relevées sur photo (12 et 19/09/2026) : `GM 303556` 3,7 V 650 mAh,
+  `JHY632570` 3,7 V 1300 mAh, `SL5022243` 3,7 V 450 mAh, `LIDIO 355485` 3,8 V 2500 mAh,
+  et une cellule 3,87 V 1000 mAh sans référence sur la carte Eco 2.0.
+  **Le parc mélange deux chimies**
   - 3,7 V (charge 4,20 V) et 3,8/3,87 V (charge 4,35 V) - ce qui est en soi un mécanisme
   de surchauffe si une cellule est montée dans le mauvais appareil. Détail dans
   `docs/batteries-lithium-tonwelt.md`.

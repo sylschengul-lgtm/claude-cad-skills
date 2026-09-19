@@ -260,20 +260,21 @@ ws6["A2"].font = SUB
 ws6.merge_cells("A1:E1"); ws6.merge_cells("A2:E2")
 
 bat = [
- ("Cellule n°1 - carte à ressort d'antenne (tourGuide AIR probable)",
-  "JHY632570", "3,7 V · 1300 mAh · 4,81 Wh · 6,3 × 25 × 70 mm",
-  "Chercher : LiPo 3,7 V, 1200-1500 mAh, épaisseur ≤ 6,5 mm, avec circuit de protection et connecteur",
+ ("Cellule GM 303556", "GM 303556", "3,7 V | 650 mAh | 3,0 x 35 x 56 mm | 2024-03-22",
+  "Chercher le code de taille 303556, ou le plus proche en 3,7 V 600 a 700 mAh, epaisseur 3 mm",
+  "https://www.mouser.fr/c/?q=LiPo+650mAh+3.7V"),
+ ("Cellule JHY632570, carte a ressort d'antenne", "JHY632570", "3,7 V | 1300 mAh | 4,81 Wh | 6,3 x 25 x 70 mm | 2023-01-03",
+  "Chercher le code 632570, ou 1200 a 1500 mAh en 3,7 V, epaisseur 6,5 mm maximum",
   "https://www.mouser.fr/c/?q=LiPo+1300mAh+3.7V"),
- ("Cellule n°2 - carte Eco 2.0 (supraGuide ECO)",
-  "sans référence", "3,87 V · 1000 mAh · dimensions à mesurer",
-  "Attention : 3,87 V = LiPo HAUTE TENSION (charge 4,35 V). Le filtre Mouser ne propose que du 3,7 V : équivalent peu probable en catalogue",
-  "https://www.mouser.fr/c/?q=LiPo+1000mAh"),
- ("Cellule n°4",
-  "LIDIO 355485", "3,8 V · 2500 mAh · 9,5 Wh · 3,5 × 54 × 85 mm",
-  "Attention : 3,8 V = haute tension également. Chercher 2000-2600 mAh, épaisseur ≤ 4 mm",
-  "https://www.mouser.fr/c/?q=LiPo+2500mAh"),
- ("Cellule n°3", "illisible sur la photo", "3,8 V à confirmer",
-  "Refaire une photo nette du marquage avant toute recherche", "n/a"),
+ ("Cellule SL5022243", "SL5022243, lot 01536", "3,7 V | 450 mAh | code non decodable avec certitude",
+  "Mesurer la cellule au pied a coulisse avant toute recherche : le marquage ne donne pas le gabarit",
+  "https://www.mouser.fr/c/?q=LiPo+450mAh+3.7V"),
+ ("Cellule LIDIO 355485", "LIDIO 355485", "3,8 V | 2500 mAh | 9,5 Wh | 3,5 x 54 x 85 mm | 2020-10",
+  "Attention : 3,8 V est une cellule haute tension, charge 4,35 V. Introuvable en catalogue generaliste : OEM ou fabrication sur mesure",
+  "n/a"),
+ ("Cellule de la carte Eco 2.0", "sans reference", "3,87 V | 1000 mAh | dimensions a mesurer",
+  "Attention : haute tension egalement. Meme conclusion : OEM ou fabrication sur mesure",
+  "n/a"),
 ]
 
 familles = [
