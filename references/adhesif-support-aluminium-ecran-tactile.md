@@ -425,6 +425,34 @@ différentielle à n'importe quelle diagonale) et **immédiate**.
 700 mm. Un rouleau de 33 m couvre donc une cinquantaine d'écrans — un seul
 rouleau suffit largement pour un prototype et une petite série.
 
+### 10.1 bis — Largeur de bande : ne pas confondre avec l'épaisseur
+
+Deux dimensions distinctes, et c'est la source d'erreur classique :
+
+- **Épaisseur = 1,1 mm** — fixée par la référence (5952). C'est elle qui
+  donne la souplesse et absorbe la dilatation. On n'y touche pas.
+- **Largeur = 6 / 9 / 12 / 19 mm** — c'est la bande posée à plat le long du
+  cadre. Elle se choisit sur la **largeur de portée réelle du bezel**.
+
+**La largeur n'est pas un problème de tenue.** Sur un périmètre de 700 mm,
+même une bande de 3 mm donne 2 100 mm² de surface collée — plusieurs
+centaines de newtons de résistance au cisaillement, pour un écran qui pèse
+quelques newtons. Le choix de largeur est une question de **portée
+disponible sur le cadre** et de **facilité de pose**, pas de résistance.
+
+| Largeur de portée du cadre | Solution |
+|---|---|
+| ≥ 12 mm | Rouleau 12 mm — le plus simple |
+| 6–10 mm | Rouleau **6 mm** ou 9 mm |
+| 3–5 mm | Découpe sur mesure (refente) chez un converter |
+| < 3 mm | **Joint cadre découpé d'une seule pièce** — impossible à poser en rouleau à la main, et c'est de toute façon la solution des fabricants d'écrans : un cadre prédécoupé se pose aligné du premier coup |
+
+Le 5952 est d'ailleurs référencé par 3M pour l'*electronic screen bonding*
+et le *frame panel bonding* — c'est son emploi d'origine. Il est disponible
+en rouleaux standard et sur mesure, et « en formes et tailles illimitées »
+via le réseau de converters 3M. Compter une tolérance de 1 à 2 mm sur le
+premier rouleau d'une refente sur mesure.
+
 ### 10.2 Où acheter (France)
 
 - **[Farnell FR — VHB 5952 noir, 33 m × 12 mm](https://fr.farnell.com/3m/5952-black-33m-x-12mm/ruban-double-face-33m-x-12mm-noir/dp/3935789)** — exactement la référence visée
@@ -432,7 +460,8 @@ rouleau suffit largement pour un prototype et une petite série.
 - [Rubix — Ruban 3M VHB 5952](https://fr.rubix.com/fr/ruban-5952-3m-vhb/p-G5015002667)
 - [Strong Adhésifs — VHB 5952, découpe **sur mesure**](https://www.strongadhesifs.com/608-ruban-adhesif-double-face-3m-vhb-5952.html) — utile pour des bandes prédécoupées à la largeur du bezel
 - [Comptoir des Pros — VHB 5952F](https://www.comptoirdespros.com/ruban-adhesif-double-face-3mtm-vhbtm-5952f-noir.html)
-- [3M France — fiche produit 5952](https://www.3mfrance.fr/3M/fr_FR/p/d/b40065688/)
+- [3M France — fiche produit 5952](https://www.3mfrance.fr/3M/fr_FR/p/d/b40065688/) · [fiche technique FR (PDF)](https://multimedia.3m.com/mws/media/692359O/mousse-double-face-vhb-5952.pdf) · [TDS 3M (PDF)](https://multimedia.3m.com/mws/media/2528070O/3m-vhb-tape-5952.pdf?fn=3M-VHB-Tape-5952.pdf)
+- **Rouleau étroit** : [SKS — 5952F noir, **6 mm** × 33 m](https://www.shop-sks.com/fr/3M-VHB-ruban-adhesif-5952F-noir-6-mm-x-33-m-1-1-mm) · [12 mm × 33 m](https://www.shop-sks.com/fr/3M-VHB-Ruban-adhesif-5952F-noir-12-mm-x-33-m-1-1-mm)
 
 Primer 94 : [3M — fiche produit](https://www.3m.com/3M/en_US/p/d/b40065491/) ·
 [FXbrands (UE), flacon 236 ml](https://www.fxbrands.eu/3mtm-94-primer-for-vhbtm-tape-236-ml.html) ·
