@@ -318,6 +318,90 @@ l'aluminium.
 
 ---
 
+## 9. Ruban continu sous cadre opaque — la solution retenue
+
+Choix arrêté : **ruban périphérique continu**, buse ovale sur seringue.
+Le cordon est donc enfermé entre le verre et un **cadre aluminium opaque**.
+Deux mécanismes de réticulation sont alors hors-jeu :
+
+- **l'humidité** (1K MS, silicone) — pas de vapeur d'eau au cœur (§5.1) ;
+- **les UV seuls** — la lumière n'atteint pas la zone masquée par le cadre.
+
+Y compris les **dual-cure à seconde cure humidité** : leur mécanisme de
+secours est justement celui qui échoue en joint confiné. Le « dual-cure »
+n'est pas une réponse automatique ici.
+
+### 9.1 La réponse : époxy cationique à pré-activation
+
+**DELO KATIOBOND** — époxy à polymérisation **cationique**. Une fois
+amorcée par la lumière, la réaction se poursuit seule à température
+ambiante, **sans nouvel apport de lumière ni d'humidité**. C'est le seul
+mécanisme des quatre qui traverse un joint totalement confiné.
+
+**Procédé de pré-activation** (« polymérisation vivante ») — c'est lui qui
+règle le problème des pièces opaques :
+
+1. Poser le ruban continu à la buse ovale sur le cadre alu.
+2. **Pré-activer** le cordon à la lampe, **avant assemblage** — ordre de
+   grandeur : **2 s à 1 000 mW/cm²**.
+3. Pendant le *temps ouvert*, la colle reste fluide : on présente et on
+   positionne l'écran tranquillement.
+4. Assembler, puis **post-illumination ~5 s à 5 000 mW/cm²** (sur la tranche
+   accessible) pour la tenue à la manipulation.
+5. **Cure complète à température ambiante**, sans rien d'autre.
+
+Tenue en température jusqu'à 180 °C, faible retrait.
+
+### 9.2 La limite à vérifier avant de commander : la taille de l'écran
+
+Un époxy cationique est **rigide**. On retombe donc sur §1. Le
+déplacement différentiel à l'extrémité du collage vaut
+`δ = Δα × (L/2) × ΔT`, avec `Δα ≈ 14 µm/m·K` (alu − verre) ; la déformation
+de cisaillement dans le joint vaut `γ = δ / e`, `e` = épaisseur de colle.
+
+| Diagonale L | δ à ΔT = 40 °C | γ avec e = 0,2 mm | Verdict |
+|---|---|---|---|
+| 100 mm | 0,028 mm | ~14 % | Acceptable |
+| 150 mm | 0,042 mm | ~21 % | Limite |
+| 300 mm | 0,084 mm | ~42 % | **Non** — le verre casse |
+
+> **Règle :** ruban continu **rigide** acceptable jusqu'à ~**150 mm de
+> diagonale**. Au-delà, il faut rester souple.
+
+### 9.3 Et si l'écran est grand ?
+
+« Continu **+** souple **+** durcit à l'ombre » n'existe pas en 1K seringue.
+Il faut alors sortir de ce matériel :
+
+- **Mousse adhésive prédécoupée** (3M VHB, tesa) — continue, souple,
+  **aucune réticulation à attendre**. C'est la réponse propre au grand écran.
+- **Silicone 2K** en cartouche + mélangeur statique — souple et insensible
+  au confinement, mais demande un pistolet 2K, pas une seringue.
+
+### 9.4 Produit écarté, et pourquoi
+
+**Dymax Dual-Cure 3401** revient souvent dans les recherches (UV + humidité,
+dispo en seringue 30 ml). Il ne convient pas ici, pour deux raisons
+indépendantes :
+
+- **Viscosité nominale 150 cP** — c'est quasiment de l'eau. Impossible de
+  tenir un ruban de 3 mm à la buse ovale : ça coule avant la pré-activation.
+- **Dureté Shore D 55-75, allongement à la rupture 13 %** — rigide et peu
+  déformable, donc soumis à la même limite de diagonale que le Katiobond,
+  sans son avantage de cure à l'ombre.
+
+### 9.5 Matériel à ajouter
+
+- Corps de seringue **ambré** — obligatoire pour un produit photosensible,
+  sinon il réticule dans la seringue.
+- **Lampe de pré-activation** (~1 000 mW/cm²) + **lampe de
+  post-illumination** (~5 000 mW/cm²), à la longueur d'onde du grade retenu.
+- Grade **thixotrope** impératif — demander le grade « tenue de cordon » à
+  DELO, un grade fluide ne fera pas de ruban.
+- Pression de départ en 14 GA ovale : commencer à **1,5 bar** et régler
+  par la méthode du coupon (§8.5). La viscosité varie beaucoup d'un grade à
+  l'autre, il n'y a pas de valeur universelle à recopier.
+
 ## Sources
 
 - [Permabond — Bonding glass to metal](https://permabond.com/bonding-glass-to-metal/)
@@ -340,6 +424,17 @@ l'aluminium.
 - [Nordson EFD — Ultimus V](https://www.nordson.com/en/products/efd-products/ultimus-v-dispensers)
 - [Nordson EFD — Performus Series](https://www.nordson.com/en/products/efd-products/performus-series-dispensers)
 - [Component Supply — les couleurs de hub ne sont pas normalisées](https://www.componentsupplycompany.com/needle-hub-colors-and-gauge-sizes-component-supplys-guide/)
+
+### Ruban continu, cure à l'ombre (§9)
+
+- [DELO KATIOBOND — page produit](https://www.delo-adhesives.com/us/adhesives/delo-katiobond-uv-adhesive/)
+- [Inseto — DELO KATIOBOND, époxy cationique UV et à activation lumineuse](https://www.inseto.com/adhesives/uv-cured-and-light-activated-epoxies-delo-katiobond/)
+- [Inseto — colles à activation lumineuse (pré-activation, temps ouvert)](https://www.inseto.com/adhesives/light-activated-adhesives/)
+- [Inseto — DELO DUALBOND, dual-cure](https://www.inseto.com/adhesives/dual-curing-adhesives-delo-dualbond/)
+- [Supratec Syneo — DELO KATIOBOND](https://www.supratec-syneo.com/en/technical-adhesives/uv-photosensibles/epoxy/)
+- [Dymax — Dual-Cure Technology](https://dymax.com/about-dymax/working-with-dymax/innovations/dual-cure-technology)
+- [Dymax 3401 — PDS (PDF)](https://dymax.com/content/download/3763/file/3401%20PDS.pdf) · [fiche Gluespec (viscosité 150 cP, Shore D 55-75, allongement 13 %)](https://www.gluespec.com/Materials/adhesive/dymax/dual-cure-3401)
+- [Dymax 9702 — colle optique pour afficheurs plats](https://dymax.com/products/formulations/light-curable-materials/bonding/dissimilar-substrate-bonding/9702)
 
 ### PUR hot-melt réactif et écrans tonwelt (§8)
 
